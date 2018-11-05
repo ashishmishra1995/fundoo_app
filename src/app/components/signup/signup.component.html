@@ -1,0 +1,133 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#4285f4"
+type="ball-scale-multiple">
+</ngx-spinner>
+<div fxLayout='column' fxLayoutGap='0%'>
+  <div fxFlex='38%'></div>
+  <div fxFlex='24%'>
+    <div fxLayout='row'>
+      <div fxFlex='38%' fxFlex.xs='0' fxFlex.sm='6' fxFlex.md='12' fxFlex.lg='18'></div>
+
+      <div fxFlex='24%' fxFlex.xs='150' fxFlex.sm='138' fxFlex.md='126' fxFlex.lg='114'>
+        <mat-card class="main-card" style="border-radius: 15px;">
+          <div>
+            <p class="logo">
+              <span style="color: #4285f4; font-family:'Gill Sans', 'Gill Sans MT'; font-size: 50px">F</span>
+              <span style="color: #ea4335; font-family:'Gill Sans', 'Gill Sans MT'; font-size: 50px">U</span>
+              <span style="color: #fbbc05;font-family:'Gill Sans', 'Gill Sans MT'; font-size: 50px">N</span>
+              <span style="color: #4285f4; font-family:'Gill Sans', 'Gill Sans MT'; font-size: 50px">D</span>
+              <span style="color: #34a853; font-family:'Gill Sans', 'Gill Sans MT'; font-size: 50px">O</span>
+              <span style="color: #ea4335; font-family:'Gill Sans', 'Gill Sans MT'; font-size: 50px">O</span>
+            </p>
+          </div>
+          <div class='head-text' style="font-size: 40px; color: blue; font-family:'Gill Sans', 'Gill Sans MT' ">
+            Create your account
+          </div><br><br>
+          <div class="example-container" [formGroup]="signupForm">
+            <div fxLayout='row' fxLayoutAlign='space-between'>
+              <span  fxLayout='row' class='fname'>
+                <mat-form-field>
+                  <input matInput placeholder="First Name" formControlName="firstName" [(ngModel)]='body.firstName' required>
+                  <mat-error *ngIf="signupForm.controls.firstName.hasError('required')">
+                    Please enter your first name
+                  </mat-error>
+                  <mat-error *ngIf="signupForm.controls.firstName.hasError('minlength')">
+                    First name should have minimum 3 letters
+                  </mat-error>
+                </mat-form-field>
+              </span>
+              <span class='lname'>
+                <mat-form-field>
+                  <input matInput placeholder="Last Name" formControlName="lastName" [(ngModel)]='body.lastName' required>
+                  <mat-error *ngIf="signupForm.controls.lastName.hasError('required')">
+                    Please enter your last name
+                  </mat-error>
+                  <mat-error *ngIf="signupForm.controls.lastName.hasError('minlength')">
+                    Last name should have minimum 3 letters
+                  </mat-error>
+                </mat-form-field>
+              </span>
+            </div>
+            <!-- <mat-form-field>
+              <input matInput placeholder="Username" formControlName="username" [(ngModel)]='body.username' required>
+              <mat-error *ngIf="signupForm.controls.username.hasError('required')">
+                Please enter Username
+              </mat-error>
+            </mat-form-field> -->
+            <mat-form-field>
+              <input matInput placeholder="Email" type="text" formControlName="email" [(ngModel)]='body.email' required>
+              <mat-error *ngIf="signupForm.controls.email.hasError('required')">
+                Please enter email
+              </mat-error>
+              <mat-error *ngIf="signupForm.controls.email.hasError('pattern')">
+                Please enter a valid email
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Phone Number" type="text" formControlName="phoneNumber" [(ngModel)]='body.phoneNumber' required>
+              <mat-error *ngIf="signupForm.controls.phoneNumber.hasError('required')">
+                Please enter phone number
+              </mat-error>
+              <mat-error *ngIf="signupForm.controls.phoneNumber.hasError('minlength')">
+                Phone Number must be 10-digit
+              </mat-error>
+              <mat-error *ngIf="signupForm.controls.phoneNumber.hasError('maxlength')">
+                Phone Number must be 10-digit
+              </mat-error>
+            </mat-form-field>
+            <div fxLayout="row" fxLayoutAlign="space-between">
+              <mat-form-field>
+                <input matInput placeholder="New Password" [type]="hide ? 'password' : 'text'" minlength="6" maxlength="15" formControlName="password"
+                  [(ngModel)]='body.password' required>
+                <mat-error *ngIf="signupForm.controls.password.hasError('required')">
+                  Please enter password
+                </mat-error>
+                <mat-error *ngIf="signupForm.controls.password.hasError('minlength')">
+                  Password must be 6-15 characters long
+                </mat-error>
+                <!-- <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon> -->
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Confirm Password" [type]="hide ? 'password' : 'text'" minlength="6" maxlength="15" formControlName="confirmPassword"
+                  required>
+                <mat-error *ngIf="signupForm.controls.confirmPassword.hasError('required')">
+                  Please enter password
+                </mat-error>
+                <mat-error *ngIf="signupForm.controls.confirmPassword.hasError('matchWithValidator')">
+                  Passwords did not match
+                </mat-error>
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+              </mat-form-field><br>
+            </div>
+            <div class='text' style="font-size: 25px; color: grey; font-family:'Gill Sans', 'Gill Sans MT' ">
+              Services
+              <div fxLayout='row'>
+                <div style="padding: 20px" *ngFor='let card of cards'>
+
+                  <mat-card class='card' mat-button (click)=respond(card) [ngClass]="card.select ? 'selected' : 'notselected'" style="border-radius: 10px" >
+
+                    <mat-card-title style="font-size:20px " style="text-align:center; color: white"><b>{{card.name}}</b></mat-card-title>
+                    <mat-card-content style="text-align:center; color: white">{{card.description}}</mat-card-content>
+                  </mat-card>
+                </div>
+              </div>
+            </div>
+            <div class='button-row button,button-row a' fxLayoutAlign='space-around center'>
+              <button mat-raised-button color="primary" value='SignUp' type='submit'  (click)="submit()" [disabled]="signupForm.invalid">Next</button>
+              
+              <nav>
+                <a routerLink="/login">Sign in instead</a>
+              </nav>
+
+            </div>
+          </div>
+
+        </mat-card>
+      </div>
+
+      <div fxFlex='38%' fxFlex.xs='0' fxFlex.sm='6' fxFlex.md='12' fxFlex.lg='18'></div>
+    </div>
+  </div>
+  <div fxFlex='38%'></div>
+</div>

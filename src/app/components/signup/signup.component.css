@@ -1,0 +1,90 @@
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* .example-container > * {
+    width: 100%;
+  } */
+  .fname{
+    width: 50%;
+  }
+  .lname{
+    width: 50%;
+  }
+  .button-row button,
+.button-row a {
+  margin-right: 10px;
+  font-family: 'Gill Sans', 'Gill Sans MT'
+}
+.example-right-align {
+    text-align: right;
+  }
+  
+  input.example-right-align::-webkit-outer-spin-button,
+  input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+  }
+  
+  input.example-right-align {
+    -moz-appearance: textfield;
+  }
+  .selected{
+    background-color: blue;
+  }
+  .notselected{
+    background-color: grey;
+  }
+  .card{
+    width: 200px;
+    height: 220px;
+    
+  }
+
+  /* .head-text{
+      font-family: 'Gill Sans', 'Gill Sans MT';
+      font-size: 40px;
+      color:purple;
+  }
+
+  .text{
+      font-family: Arial, Helvetica;
+      font-size: 25px;
+      color:grey;
+  }
+
+  .name{
+    display: flex;
+    flex-direction: row;
+
+  }
+  .name > * {
+    width: 60%;
+  }
+
+  .service-card{
+      display: flex;
+      flex-direction: row;
+      padding: 50px;
+      
+  }
+  .service-card > * {
+    width: 100%;
+}
+.main-card{
+    margin: 150px; 
+    border-radius:15px; 
+    
+    background-color: rgba(0, 255, 255, 0.007);
+}
+.basic-card{
+    
+    border-radius: 10px; 
+    background-color:rgba(128, 0, 128, 0.192);
+}
+.advanced-card{
+    
+    border-radius: 10px; 
+    background-color: rgba(255, 255, 0, 0.178);
+} */

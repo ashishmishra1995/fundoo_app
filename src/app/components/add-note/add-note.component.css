@@ -1,0 +1,50 @@
+.spacing
+{
+    
+    margin-left:50px;
+    margin-right:350px;
+    margin-top:3%;
+    
+}
+.spacing2
+{
+    margin:auto;
+    
+    width:40%;
+}
+.spacing3
+{
+    padding-top: 5%;
+}
+
+.width
+{
+    width:60%;
+    height:fit-content;
+}
+.fullWidth
+{
+    width: 100%;
+}
+.fields
+{
+    border:none;
+    outline: none;
+    word-wrap: break-word;
+    background:transparent;
+}
+[contenteditable=true]:empty:not(:focus):before{
+    content:attr(data-text);
+    color:gray
+}
+mat-card
+{   
+    width: 480px;
+    border-radius:15px;
+   
+    
+}
+.icons{
+    padding-left: 10%;
+}
+

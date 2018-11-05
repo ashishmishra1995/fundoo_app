@@ -1,0 +1,82 @@
+<div fxFlex>
+  <div fxLayout="column wrap">
+    <mat-toolbar class="toolbar">
+      <span>
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      </span>
+
+      <span class="logo">fundoo</span>
+      <i class="material-icons">
+        search
+      </i>
+      <div class="search_flex" routerLink="/home/search">
+        <input class="searchbar" aria-label="Search" autocomplete="off" placeholder="Search for notes" value="" name="q" role="combobox"
+          type="text" aria-hidden="false" [(ngModel)]="body.data" (keyup)="onKeyUp($event)">
+      </div>
+      <!-- <div *ngIf="show">
+        <li *ngFor="let item of notesArray | filter:filterargs"></li>
+      </div> -->
+
+      <i class="material-icons refresh">
+        refresh
+      </i>
+      <i class="material-icons notifications">
+        notifications
+      </i>
+
+      <mat-menu #appMenu="matMenu" yPosition="below" [overlapTrigger]="false">
+        <div>
+          <span fxLayout="row">
+              <button class="name-icon" mat-fab color="primary">{{firstName | slice:0:1}}</button>
+              <p class="name">{{firstName}} &nbsp; {{lastName}}</p>
+          </span>
+          <p>{{email}}</p>
+        </div>
+        <hr>
+        <button mat-raised-button color="primary" style="float:right" (click)="logout()">Logout</button>
+      </mat-menu>
+
+      <button mat-icon-button [matMenuTriggerFor]="appMenu">
+        <i class="material-icons accounts">
+          account_circle
+        </i>
+      </button>
+    </mat-toolbar>
+
+    <mat-sidenav-container class="sidenav-container" hasBackdrop="false">
+      <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [opened]="!(isHandset$ | async)">
+        <mat-nav-list>
+          <a mat-list-item routerLink="/home/notes"><span style="padding-left:0px"><mat-icon>add_box</mat-icon></span><span
+              style="padding-left :20px">Note</span></a>
+          <a mat-list-item routerLink="/home/reminder"><span style="padding-left:0px;"><mat-icon>touch_app</mat-icon></span><span
+              style="padding-left :20px">Reminder</span></a>
+          <hr>
+
+          <a mat-list-item (click)="openDialog()"><span style="padding-left:0px;"><mat-icon>add</mat-icon></span><span style="padding-left :100px">Labels</span></a>
+          <div *ngFor="let labels of labels">
+            <div fxLayout="row">
+              <span><mat-icon>label</mat-icon> </span>
+              <span><a mat-list-item>{{labels.label}}</a></span>
+            </div>
+          </div>
+          <hr>
+          <a mat-list-item routerLink="/home/archieve"><span style="padding-left:0px;"><mat-icon>archive</mat-icon></span><span
+              style="padding-left :20px">Archive</span></a>
+          <a mat-list-item routerLink="/home/trash"><span style="padding-left:0px;"><mat-icon>delete</mat-icon></span><span
+              style="padding-left :20px">Trash</span></a>
+
+        </mat-nav-list>
+
+      </mat-sidenav>
+
+      <mat-sidenav-content style="height:100vh">
+
+        <router-outlet></router-outlet>
+
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</div>

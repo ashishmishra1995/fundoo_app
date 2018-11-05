@@ -1,0 +1,18 @@
+<div>
+  <button mat-icon-button [matMenuTriggerFor]="appMenu">
+    <mat-icon class="space" style="cursor:pointer" matTooltip="More" aria-label="More" class="icons">more_vert</mat-icon>
+  </button>
+  <mat-menu #appMenu="matMenu" yPosition="below" [overlapTrigger]="false">
+    <button (click)="delete(noteDetails.id)" mat-menu-item>Delete</button>
+    <button mat-menu-item [matMenuTriggerFor]="labelMenu">Add Label</button>
+    <button (click)="checkbox()" mat-menu-item>Show Checkbox</button>
+
+  </mat-menu>
+  <mat-menu #labelMenu="matMenu">
+    <input placeholder="search label" (click)="$event.stopPropagation()" type="text" [(ngModel)]="labBody.data" (keyup)="onKeyUp($event)">
+    <div *ngFor="let item of labels | filterLabel:search " fxLayoutAlign="space-between center">
+      <mat-checkbox (click)="$event.stopPropagation(); addLabel(item)">{{item.label}}</mat-checkbox>
+      <!-- <mat-icon (click)="$event.stopPropagation(); removeLabel(item.id)">cancel</mat-icon> -->
+    </div>
+  </mat-menu>
+</div>

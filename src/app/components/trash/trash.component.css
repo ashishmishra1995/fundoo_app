@@ -1,0 +1,12 @@
+mat-card{
+    min-width:300px;
+    min-height:100px;
+    max-width: 300px;
+    overflow-y: auto;
+    border-radius:10px;
+}
+.note{
+    
+    padding:40px;
+    
+}

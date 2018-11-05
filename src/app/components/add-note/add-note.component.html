@@ -1,0 +1,73 @@
+<div *ngIf="visible">
+  <div class="spacing">
+    <div class="spacing2">
+      <mat-card *ngIf="show">
+        <span (click)="show=!show">Take a note...</span>
+        <span style="float:right" fxLayout="row" fxLatoutAlign="space-between">
+          <mat-icon style="cursor:pointer" (click)="addCheckBox($event)" matTooltip="List" aria-label="list">list</mat-icon>
+          <mat-icon style="cursor:pointer" matTooltip="Image" aria-label="image">image</mat-icon>
+        </span>
+      </mat-card>
+      <mat-card *ngIf="!show" [ngStyle]="{'background-color':parentColor}">
+        <mat-card-content>
+          <div contenteditable="true" class="fields" id="title" data-text="Title"></div>
+          <div class="spacing3"></div>
+          <div contenteditable="true" class="fields" id="take-note" data-text="Take a note..."></div>
+          <div class="spacing3"></div>
+          <!-- <div *ngFor="let notes of notesArray"> -->
+          <div fxLayout="row wrap" fxLayoutGap="10px">
+            <div *ngFor="let item of labelName">
+
+              <mat-chip-list>
+                <mat-chip class="chip" *ngIf="item.isDeleted==false">{{item.label}}
+                  <mat-icon (click)="$event.stopPropagation(); removeLabel(notes.id,item.id)">cancel</mat-icon>
+                </mat-chip>
+
+              </mat-chip-list>
+
+            </div>
+          </div>
+          <!-- </div> -->
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="space-between">
+              <app-add-reminder></app-add-reminder>
+              <app-collaborator></app-collaborator>
+              <app-change-color (eventColor)="changeColor($event)"></app-change-color>
+              <app-add-photo></app-add-photo>
+              <app-add-archive></app-add-archive>
+              <app-more [noteDetails]="notes" (addEvent)="labelEvent($event)"></app-more>
+            </div>
+
+            <button mat-button (click)="close()">Close</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<!-------------------------------cheklist card---------------------------------->
+<div *ngIf="!visible">
+  <mat-card [ngStyle]="{'background-color':parentColor}">
+    <mat-card-content>
+      <div contenteditable="true" class="fields" id="title" data-text="Title"></div>
+      <div *ngFor="let items1 of checklist; let i = index">
+        <mat-checkbox>
+          <input autofocus placeholder="add item" type="text" (keydown)="onKeydown($event,i)" [(ngModel)]="items1.itemName">
+        </mat-checkbox>
+      </div>
+      <div class="spacing3"></div>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxLayoutAlign="space-between">
+          <app-add-reminder></app-add-reminder>
+          <app-collaborator></app-collaborator>
+          <app-change-color (eventColor)="changeColor($event)"></app-change-color>
+          <app-add-photo></app-add-photo>
+          <app-add-archive></app-add-archive>
+          <app-more></app-more>
+        </div>
+
+        <button mat-button (click)="close()">Close</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

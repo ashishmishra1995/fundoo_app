@@ -1,0 +1,31 @@
+<div class="note" fxLayout="row wrap" fxLayoutAlign="space-evenly start" >
+  <mat-card style="margin-top: 30px" [style.backgroundColor]="data.color">
+    <div contenteditable="true" class="fields" [innerHTML]="data.title" id="title" data-text=""></div>
+        <div class="spacing3"></div>
+        <div contenteditable="true" class="fields" [innerHTML]="data.description" id="take-note" data-text=""></div>
+        <div class="spacing3"></div>
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+            <div *ngFor="let item of labelname">
+  
+              <mat-chip-list>
+                <mat-chip class="chip" *ngIf="item.isDeleted==false" >{{item.label}}
+                  <mat-icon (click)="$event.stopPropagation(); removeLabel(data.id,item.id)">cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+  
+            </div>
+          </div>
+    
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="row" fxLayoutAlign="space-between" >
+          <app-add-reminder></app-add-reminder>
+          <app-collaborator></app-collaborator>
+          <app-change-color [noteDetails]="data"></app-change-color>
+          <app-add-photo></app-add-photo>
+          <app-add-archive ></app-add-archive>
+          <app-more [noteDetails]="data" (addEvent)="labelEvent($event)"></app-more>
+          </div>
+          <button mat-button (click)="onNoClick()">Close</button>
+  </div>
+  </mat-card>
+  </div>

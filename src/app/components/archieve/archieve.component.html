@@ -1,0 +1,17 @@
+<div class="note" fxLayout="row wrap" fxLayoutAlign="space-evenly start">
+  <mat-card style="margin-top: 30px" *ngFor="let note of notes" [style.backgroundColor]="note.color">
+    <mat-card-title [innerHTML]="note.title"><b>{{note.title}}</b></mat-card-title>
+    <mat-card-content [innerHTML]="note.description">{{note.description}}</mat-card-content>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="row" fxLayoutAlign="space-between" >
+          <app-add-reminder></app-add-reminder>
+          <app-collaborator></app-collaborator>
+          <app-change-color></app-change-color>
+          <app-add-photo></app-add-photo>
+          <app-add-archive [noteDetails]="notes"></app-add-archive>
+          <app-more [noteDetails]="notes"></app-more>
+          </div>
+    
+  </div>
+  </mat-card>
+  </div>
