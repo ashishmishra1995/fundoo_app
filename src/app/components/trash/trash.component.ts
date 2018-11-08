@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { HttpService } from '../../service/http/http.service';
+import { HttpService } from '../../core/service/http/http.service';
 import { MatSnackBar } from '@angular/material';
-import { DataServiceService } from '../../service/data-service/data-service.service';
+import { DataServiceService } from '../../core/service/data-service/data-service.service';
 
 @Component({
   selector: 'app-trash',
   templateUrl: './trash.component.html',
-  styleUrls: ['./trash.component.css']
+  styleUrls: ['./trash.component.scss']
 })
 export class TrashComponent implements OnInit {
   records = {};

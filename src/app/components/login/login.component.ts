@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { HttpService } from '../../service/http/http.service';
+import { HttpService } from '../../core/service/http/http.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MatSnackBar } from "@angular/material";
-import { LoggerService } from '../../service/logger/logger.service';
+import { LoggerService } from '../../core/service/logger/logger.service';
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
   animations: [
     trigger('EnterLeave', [
       state('flyIn', style({ transform: 'translateX(0)' })),

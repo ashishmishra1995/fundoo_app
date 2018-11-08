@@ -1,11 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { HttpService } from '../../service/http/http.service';
+import { HttpService } from '../../core/service/http/http.service';
 import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: 'app-add-note',
   templateUrl: './add-note.component.html',
-  styleUrls: ['./add-note.component.css']
+  styleUrls: ['./add-note.component.scss']
 })
 export class AddNoteComponent implements OnInit {
   show = true;

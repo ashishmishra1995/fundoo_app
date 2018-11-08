@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, Output, EventEmitter, Input } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NoteCollectionComponent } from '../note-collection/note-collection.component';
-import { HttpService } from '../../service/http/http.service';
+import { HttpService } from '../../core/service/http/http.service';
 
 export interface DialogData {
   id: string;
@@ -12,7 +12,7 @@ export interface DialogData {
 @Component({
   selector: 'app-update-notes',
   templateUrl: './update-notes.component.html',
-  styleUrls: ['./update-notes.component.css']
+  styleUrls: ['./update-notes.component.scss']
 })
 export class UpdateNotesComponent implements OnInit {
   note = {};

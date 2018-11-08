@@ -26,29 +26,20 @@
    
         <mat-icon style="cursor: pointer;" matTooltip="Switch to Grid View" (click)="viewGrid()" 
                   *ngIf="grid==1" class="material-icons refresh">view_module</mat-icon>
-      
 
-      <!-- <mat-menu #appMenu="matMenu" yPosition="below" [overlapTrigger]="false">
-        <div>
-          <span fxLayout="row">
-              <button class="name-icon" mat-fab color="primary">{{firstName | slice:0:1}}</button>
-              <p class="name">{{firstName}} &nbsp; {{lastName}}</p>
-          </span>
-          <p>{{email}}</p>
-        </div>
-        <hr>
-        <button mat-raised-button color="primary" style="float:right" (click)="logout()">
-          Logout</button>
-      </mat-menu> -->
       <mat-menu #appMenu="matMenu" [overlapTrigger]="false">
 
         <div fxLayoutAlign="row wrap" >
         <div fxFlex=20> 
-        <button (click) = "$event.stopPropagation()" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" (click)="selectFile.click()" matTooltip="fundoo Account" mat-mini-fab style="background-color:#fb0;float:right;color:white;text-transform:uppercase">
+        <button (click) = "$event.stopPropagation()" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" 
+                (click)="selectFile.click()" matTooltip="fundoo Account" 
+                mat-mini-fab class="profile-pic">
         </button>
-        <input style="display:none" (click) = "$event.stopPropagation()" class="image" type="file" (change)="onFileUpload($event)" #selectFile>
+        <input style="display:none" (click) = "$event.stopPropagation()" class="image" 
+                type="file" (change)="onFileUpload($event)" #selectFile>
         </div>
-        <mat-content fxFlex class="contentstyle" style="margin-top:5px;float:left" >{{firstName | titlecase}} {{lastName | titlecase}} </mat-content>
+        <mat-content fxFlex class="contentstyle" style="margin-top:5px;float:left" ><b>
+                      {{firstName | titlecase}} {{lastName | titlecase}}</b> </mat-content>
         </div><br>
         <mat-content class="contentstyle">{{email}}</mat-content><hr>
         <div fxLayoutAlign="row wrap" class="add" fxLayoutGap=85px>
@@ -56,10 +47,8 @@
         <button fxFlex class="logout" (click)="logout()">Log out </button></div>
       </mat-menu>
 
-      <button mat-icon-button [matMenuTriggerFor]="appMenu" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
-        <!-- <i class="material-icons accounts">
-          account_circle
-        </i> -->
+      <button mat-icon-button [matMenuTriggerFor]="appMenu" 
+              [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
       </button>
     </mat-toolbar>
 

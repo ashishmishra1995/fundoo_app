@@ -40,64 +40,24 @@
             <mat-icon>keyboard_backspace</mat-icon>Pick Date and Time
         </button>
         <hr>
-        <input (click)="$event.stopPropagation()" matInput [matDatepicker]="picker" placeholder="Choose a date">
-        <mat-datepicker-toggle matSuffix [for]="picker">
-            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-        </mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-form-field>
+            <input (click)="$event.stopPropagation()" matInput [matDatepicker]="picker" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix [for]="picker">
+                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
         <div>
-            <!-- <mat-label>Font size</mat-label> -->
-            <mat-select #fontSize value="Night" (click)="$event.stopPropagation()" (selectionChange)="triggerResize()">
-                <mat-option value="Morning">
-                    <div fxFlex="25">Morning</div>
-                    <div fxFlex="50"></div>
-                    <div fxFlex="25"><span>8.00 AM</span></div>
-                </mat-option>
-                <mat-option value="Afternoon">
-                    <div fxFlex="25">Afternoon</div>
-                    <div fxFlex="50"></div>
-                    <div fxFlex="25"><span>1.00 PM</span></div>
-                </mat-option>
-                <mat-option value="Evening">
-                    <div fxFlex="25">Evening</div>
-                    <div fxFlex="50"></div>
-                    <div fxFlex="25"><span>6.00 PM</span></div>
-                </mat-option>
-                <mat-option value="Night">
-                    <div fxFlex="25">Night</div>
-                    <div fxFlex="50"></div>
-                    <div fxFlex="25"><span>9.00 PM</span></div>
-                </mat-option>
-                
-            </mat-select>
+            <mat-form-field (click)="$event.stopPropagation()">
+                <mat-select placeholder="Choose time">
+                    <mat-option *ngFor="let timing of reminders" [value]="timing.viewTime">
+                            <div fxFlex="35">{{timing.viewPeriod}}</div>
+                            <div fxFlex="40"></div>
+                            <div fxFlex="35"><span>{{timing.viewTime}}</span></div>
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
-        <!-- <input placeholder="Choose time" (click)="$event.stopPropagation()" mat-input 
-                [matMenuTriggerFor]="menu">
-        <mat-menu #menu="matMenu" yPosition="below" [overlapTrigger]="false">
-            <button mat-menu-item>
-                <div fxFlex="20">Morning</div>
-                <div fxFlex="60"></div>
-                <div fxFlex="20"><span>8.00 AM</span></div>
-            </button>
-
-            <button mat-menu-item>
-                <div fxFlex="20">Afternoon</div>
-                <div fxFlex="60"></div>
-                <div fxFlex="20"><span>1.00 PM</span></div>
-            </button>
-
-            <button mat-menu-item>
-                <div fxFlex="20">Evening</div>
-                <div fxFlex="60"></div>
-                <div fxFlex="20"><span>6.00 PM</span></div>
-            </button>
-
-            <button mat-menu-item>
-                <div fxFlex="20">Night</div>
-                <div fxFlex="60"></div>
-                <div fxFlex="20"><span>9.00 PM</span></div>
-            </button>
-        </mat-menu> -->
 
         <div><button mat-button>Save</button></div>
 

@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { HttpService } from '../../service/http/http.service';
+import { HttpService } from '../../core/service/http/http.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { UpdateNotesComponent } from '../update-notes/update-notes.component';
-import { DataServiceService } from "../../service/data-service/data-service.service";
+import { DataServiceService } from "../../core/service/data-service/data-service.service";
 import { Condition } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-note-collection',
   templateUrl: './note-collection.component.html',
-  styleUrls: ['./note-collection.component.css']
+  styleUrls: ['./note-collection.component.scss']
 })
 export class NoteCollectionComponent implements OnInit {
   

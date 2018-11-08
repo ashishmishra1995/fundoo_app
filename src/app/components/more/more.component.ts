@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
-import { HttpService } from '../../service/http/http.service';
+import { HttpService } from '../../core/service/http/http.service';
 import { MatSnackBar } from "@angular/material";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { AddLabelComponent } from '../add-label/add-label.component';
-import { DataServiceService } from '../../service/data-service/data-service.service';
+import { DataServiceService } from '../../core/service/data-service/data-service.service';
 
 @Component({
   selector: 'app-more',
   templateUrl: './more.component.html',
-  styleUrls: ['./more.component.css']
+  styleUrls: ['./more.component.scss']
 })
 export class MoreComponent implements OnInit {
   title;

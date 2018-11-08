@@ -1,7 +1,7 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, Params } from '@angular/router';
-import { HttpService } from '../../service/http/http.service';
+import { HttpService } from '../../core/service/http/http.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatSnackBar } from "@angular/material";
 import { ActivatedRoute } from '@angular/router';
@@ -10,7 +10,7 @@ import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css']
+  styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
   resetForm: FormGroup;

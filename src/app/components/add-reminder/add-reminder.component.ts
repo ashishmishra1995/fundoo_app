@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { HttpService } from '../../service/http/http.service';
+import { HttpService } from '../../core/service/http/http.service';
 import { MatDatepickerModule } from "@angular/material";
 
 @Component({
   selector: 'app-add-reminder',
   templateUrl: './add-reminder.component.html',
-  styleUrls: ['./add-reminder.component.css']
+  styleUrls: ['./add-reminder.component.scss']
 })
 export class AddReminderComponent implements OnInit {
 
@@ -19,6 +19,11 @@ export class AddReminderComponent implements OnInit {
   }
 
   body={};
+  reminders: any[] = [
+    {value: 'morning', viewPeriod: 'Morning', viewTime: '8:00 AM'},
+    {value: 'afternoon', viewPeriod: 'Afternoon', viewTime: '1:00 PM'},
+    {value: 'evening', viewPeriod: 'Evening', viewTime: '6:00 PM'},
+    {value: 'night', viewPeriod: 'Night', viewTime: '9:00 PM'},  ];
   
   addRemToday(){
     // this.todayEvent.emit();

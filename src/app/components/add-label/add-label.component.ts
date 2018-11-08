@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NavigationComponent } from "../navigation/navigation.component";
-import { HttpService } from "../../service/http/http.service";
-import { DataServiceService } from '../../service/data-service/data-service.service';
+import { HttpService } from '../../core/service/http/http.service';
+import { DataServiceService } from '../../core/service/data-service/data-service.service';
 
 export interface DialogData {
   label: string;
@@ -12,7 +12,7 @@ export interface DialogData {
 @Component({
   selector: 'app-add-label',
   templateUrl: './add-label.component.html',
-  styleUrls: ['./add-label.component.css']
+  styleUrls: ['./add-label.component.scss']
 })
 export class AddLabelComponent implements OnInit {
   note = {};

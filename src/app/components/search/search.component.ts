@@ -2,13 +2,13 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import { Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FilterPipe } from '../../pipes/filter.pipe';
-import { DataServiceService } from '../../service/data-service/data-service.service';
-import { HttpService } from '../../service/http/http.service';
+import { DataServiceService } from '../../core/service/data-service/data-service.service';
+import { HttpService } from '../../core/service/http/http.service';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
   @Input() noteDetails;

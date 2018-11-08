@@ -2,22 +2,22 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpService } from '../../service/http/http.service';
+import { HttpService } from '../../core/service/http/http.service';
 import { MatSnackBar } from "@angular/material";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AddLabelComponent } from '../add-label/add-label.component';
 import { Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FilterPipe } from '../../pipes/filter.pipe';
-import { DataServiceService } from '../../service/data-service/data-service.service';
+import { DataServiceService } from '../../core/service/data-service/data-service.service';
 import { Router } from '@angular/router';
 import { environment } from "../../../environments/environment";
-import { LoggerService } from '../../service/logger/logger.service';
+import { LoggerService } from '../../core/service/logger/logger.service';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.css']
+  styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {
   records = {};

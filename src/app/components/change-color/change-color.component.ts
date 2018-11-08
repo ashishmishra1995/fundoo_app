@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { HttpService } from '../../service/http/http.service';
+import { HttpService } from '../../core/service/http/http.service';
 
 
 @Component({
   selector: 'app-change-color',
   templateUrl: './change-color.component.html',
-  styleUrls: ['./change-color.component.css']
+  styleUrls: ['./change-color.component.scss']
 })
 export class ChangeColorComponent implements OnInit {
 

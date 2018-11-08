@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
-import { HttpService } from '../../service/http/http.service';
+import { HttpService } from '../../core/service/http/http.service';
 import { MatSnackBar } from "@angular/material";
 
 
 @Component({
   selector: 'app-add-archive',
   templateUrl: './add-archive.component.html',
-  styleUrls: ['./add-archive.component.css']
+  styleUrls: ['./add-archive.component.scss']
 })
 export class AddArchiveComponent implements OnInit {
   body={

@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { HttpService } from '../../service/http/http.service';
-import { DataServiceService } from '../../service/data-service/data-service.service';
+import { HttpService } from '../../core/service/http/http.service';
+import { DataServiceService } from '../../core/service/data-service/data-service.service';
 @Component({
   selector: 'app-archieve',
   templateUrl: './archieve.component.html',
-  styleUrls: ['./archieve.component.css']
+  styleUrls: ['./archieve.component.scss']
 })
 export class ArchieveComponent implements OnInit {
   records={};
