@@ -81,6 +81,7 @@
 
   background: rgba(80, 80, 79, 0.096);
   border: none;
+  border-radius:20px;
   font: normal 20px Roboto,sans-serif;
   font-variant-ligatures: none;
   height: 50px;

@@ -1,15 +1,18 @@
 <div class="note" fxLayout="row wrap" fxLayoutAlign="space-evenly start" >
   <mat-card style="margin-top: 30px" [style.backgroundColor]="data.color">
-    <div contenteditable="true" class="fields" [innerHTML]="data.title" id="title" data-text=""></div>
+    <div contenteditable="true" class="fields" [innerHTML]="data.title" id="title" data-text="">
+    </div>
         <div class="spacing3"></div>
-        <div contenteditable="true" class="fields" [innerHTML]="data.description" id="take-note" data-text=""></div>
+        <div contenteditable="true" class="fields" [innerHTML]="data.description" id="take-note" 
+              data-text=""></div>
         <div class="spacing3"></div>
         <div fxLayout="row wrap" fxLayoutGap="10px">
             <div *ngFor="let item of labelname">
   
               <mat-chip-list>
                 <mat-chip class="chip" *ngIf="item.isDeleted==false" >{{item.label}}
-                  <mat-icon (click)="$event.stopPropagation(); removeLabel(data.id,item.id)">cancel</mat-icon>
+                  <mat-icon (click)="$event.stopPropagation(); removeLabel(data.id,item.id)">
+                            cancel</mat-icon>
                 </mat-chip>
               </mat-chip-list>
   

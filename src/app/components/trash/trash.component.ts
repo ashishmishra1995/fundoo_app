@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../../service/http/http.service';
 import { MatSnackBar } from '@angular/material';
+import { DataServiceService } from '../../service/data-service/data-service.service';
 
 @Component({
   selector: 'app-trash',
@@ -11,11 +12,19 @@ export class TrashComponent implements OnInit {
   records = {};
   notes = [];
   constructor(private httpService: HttpService,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar,
+  private data: DataServiceService) { }
   @Input() notesArray;
   @Output() eventDelete = new EventEmitter();
   ngOnInit() {
     this.getDelNotes();
+    this.gridList();
+  }
+  toggle=false;
+  gridList(){
+    this.data.currentMessage.subscribe(message=>{
+      this.toggle=message;
+    })
   }
   getDelNotes() {
     var token = localStorage.getItem('token');

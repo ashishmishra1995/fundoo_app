@@ -1,5 +1,10 @@
 <div class="note" fxLayout="row wrap" fxLayoutAlign="space-evenly start">
-  <mat-card style="margin-top: 30px" *ngFor="let note of notes" [style.backgroundColor]="note.color">
+  <mat-card style="margin-top: 30px; border-radius: 10px" *ngFor="let note of notes" 
+            [style.backgroundColor]="note.color">
+    <div [ngClass]="{
+      'grid-card': !toggle,
+      'list-card': toggle
+    }">
     <mat-card-title [innerHTML]="note.title"><b>{{note.title}}</b></mat-card-title>
     <mat-card-content [innerHTML]="note.description">{{note.description}}</mat-card-content>
     <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -12,6 +17,7 @@
           <app-more [noteDetails]="notes"></app-more>
           </div>
     
+  </div>
   </div>
   </mat-card>
   </div>

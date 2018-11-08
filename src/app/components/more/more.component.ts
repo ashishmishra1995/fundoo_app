@@ -105,16 +105,5 @@ export class MoreComponent implements OnInit {
     this.data.searchData(this.labBody.data);
     console.log(this.labBody.data);
   }
-  // removeLabel(labelId){
-  //   this.labelBody={
-  //     "noteId": this.noteDetails.id,
-  //     "lableId": labelId
-  //   }
-  //   this.httpService.httpAddLabelToNotes('notes/'+this.noteDetails.id+'/addLabelToNotes/'+labelId+'/remove', localStorage.getItem('token'),this.labelBody).subscribe(result=>{
-  //     console.log(result);
-  //   },error=>{
-  //     console.log(error);
-      
-  //   })
-  // }
+
 }

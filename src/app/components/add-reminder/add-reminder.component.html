@@ -1,3 +1,106 @@
-<button mat-icon-button>
-<mat-icon style="cursor:pointer" matTooltip="Remind Me " aria-label="Remind Me" class="icons">touch_app</mat-icon>
+<button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon style="cursor:pointer" matTooltip="Remind Me " aria-label="Remind Me" class="icons">
+        notifications</mat-icon>
 </button>
+
+<mat-menu #menu="matMenu" yPosition="below" [overlapTrigger]="false">
+    <div *ngIf="show">
+        <div>
+            Reminder:
+        </div>
+
+        <button mat-menu-item (click)="addRemToday()">
+            <div fxFlex="20">Later today</div>
+            <div fxFlex="60"></div>
+            <div fxFlex="20"><span>8.00 PM</span></div>
+        </button>
+
+        <button mat-menu-item (click)="addRemTomorrow()">
+            <div fxFlex="20">Tomorrow</div>
+            <div fxFlex="60"></div>
+            <div fxFlex="20"><span>8.00 AM</span></div>
+        </button>
+
+        <button mat-menu-item (click)="addRemNextWeek()">
+            <div fxFlex="20">Next week</div>
+            <div fxFlex="60"></div>
+            <div fxFlex="20"><span>8.00 AM</span></div>
+        </button>
+
+        <button mat-menu-item (click)="$event.stopPropagation(); datePickReminder()">
+            <div>
+                <mat-icon>query_builder</mat-icon>Pick Date and Time
+            </div>
+
+        </button>
+    </div>
+
+    <div *ngIf="!show">
+        <button mat-icon-button (click)="$event.stopPropagation(); backPressDatepicker()">
+            <mat-icon>keyboard_backspace</mat-icon>Pick Date and Time
+        </button>
+        <hr>
+        <input (click)="$event.stopPropagation()" matInput [matDatepicker]="picker" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <div>
+            <!-- <mat-label>Font size</mat-label> -->
+            <mat-select #fontSize value="Night" (click)="$event.stopPropagation()" (selectionChange)="triggerResize()">
+                <mat-option value="Morning">
+                    <div fxFlex="25">Morning</div>
+                    <div fxFlex="50"></div>
+                    <div fxFlex="25"><span>8.00 AM</span></div>
+                </mat-option>
+                <mat-option value="Afternoon">
+                    <div fxFlex="25">Afternoon</div>
+                    <div fxFlex="50"></div>
+                    <div fxFlex="25"><span>1.00 PM</span></div>
+                </mat-option>
+                <mat-option value="Evening">
+                    <div fxFlex="25">Evening</div>
+                    <div fxFlex="50"></div>
+                    <div fxFlex="25"><span>6.00 PM</span></div>
+                </mat-option>
+                <mat-option value="Night">
+                    <div fxFlex="25">Night</div>
+                    <div fxFlex="50"></div>
+                    <div fxFlex="25"><span>9.00 PM</span></div>
+                </mat-option>
+                
+            </mat-select>
+        </div>
+        <!-- <input placeholder="Choose time" (click)="$event.stopPropagation()" mat-input 
+                [matMenuTriggerFor]="menu">
+        <mat-menu #menu="matMenu" yPosition="below" [overlapTrigger]="false">
+            <button mat-menu-item>
+                <div fxFlex="20">Morning</div>
+                <div fxFlex="60"></div>
+                <div fxFlex="20"><span>8.00 AM</span></div>
+            </button>
+
+            <button mat-menu-item>
+                <div fxFlex="20">Afternoon</div>
+                <div fxFlex="60"></div>
+                <div fxFlex="20"><span>1.00 PM</span></div>
+            </button>
+
+            <button mat-menu-item>
+                <div fxFlex="20">Evening</div>
+                <div fxFlex="60"></div>
+                <div fxFlex="20"><span>6.00 PM</span></div>
+            </button>
+
+            <button mat-menu-item>
+                <div fxFlex="20">Night</div>
+                <div fxFlex="60"></div>
+                <div fxFlex="20"><span>9.00 PM</span></div>
+            </button>
+        </mat-menu> -->
+
+        <div><button mat-button>Save</button></div>
+
+    </div>
+
+</mat-menu>

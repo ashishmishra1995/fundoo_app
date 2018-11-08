@@ -41,50 +41,23 @@
     height: 220px;
     
   }
-
-  /* .head-text{
-      font-family: 'Gill Sans', 'Gill Sans MT';
-      font-size: 40px;
-      color:purple;
+  .blue{
+    color: #4285f4; 
+    font-family:'Gill Sans', 'Gill Sans MT'; 
+    font-size: 50px
   }
-
-  .text{
-      font-family: Arial, Helvetica;
-      font-size: 25px;
-      color:grey;
+  .green{
+    color: #34a853; 
+    font-family:'Gill Sans', 'Gill Sans MT'; 
+    font-size: 50px
   }
-
-  .name{
-    display: flex;
-    flex-direction: row;
-
+  .yellow{
+    color: #fbbc05;
+    font-family:'Gill Sans', 'Gill Sans MT'; 
+    font-size: 50px
   }
-  .name > * {
-    width: 60%;
+  .red{
+    color: #ea4335; 
+    font-family:'Gill Sans', 'Gill Sans MT'; 
+    font-size: 50px
   }
-
-  .service-card{
-      display: flex;
-      flex-direction: row;
-      padding: 50px;
-      
-  }
-  .service-card > * {
-    width: 100%;
-}
-.main-card{
-    margin: 150px; 
-    border-radius:15px; 
-    
-    background-color: rgba(0, 255, 255, 0.007);
-}
-.basic-card{
-    
-    border-radius: 10px; 
-    background-color:rgba(128, 0, 128, 0.192);
-}
-.advanced-card{
-    
-    border-radius: 10px; 
-    background-color: rgba(255, 255, 0, 0.178);
-} */

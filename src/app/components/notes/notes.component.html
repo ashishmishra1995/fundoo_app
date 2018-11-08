@@ -4,10 +4,10 @@
         <div fxLayout="row" fxLayoutAlign="center">
             <div fxFlex="20%" fxFlex.xs="0" fxFlex.sm="8" fxFlex.md="16" fxFlex.lg="22"> </div>
             <div fxFlex="80% " fxFlex.xs="100%" fxFlex.sm="84" fxFlex.md="68" fxFlex.lg="56">
-                <!-- ---------------work Area------------------------ -->
+                <!-- ---------------Add notes start------------------------ -->
                 <app-add-note [notesArray]="notes" (onNewEntryAdded)='addNewEntry($event)'></app-add-note>
 
-                <!-- ---------------work Area------------------------ -->
+                <!-- ------------------Add notes end--------------------- -->
             </div>
             <div fxFlex="20%" fxFlex.xs="0" fxFlex.sm="8" fxFlex.md="16" fxFlex.lg="22"> </div>
         </div>
@@ -16,4 +16,3 @@
 </div>
 
 <app-note-collection [notesArray]="notes" (addEntry)="addNewEntry($event)"></app-note-collection>
-                

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpService } from '../../service/http/http.service';
+import { DataServiceService } from '../../service/data-service/data-service.service';
 @Component({
   selector: 'app-archieve',
   templateUrl: './archieve.component.html',
@@ -8,10 +9,18 @@ import { HttpService } from '../../service/http/http.service';
 export class ArchieveComponent implements OnInit {
   records={};
   notes=[];
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService,
+  private data: DataServiceService) { }
   
   ngOnInit() {
     this.getNotes();
+    this.gridList();
+  }
+  toggle=false;
+  gridList(){
+    this.data.currentMessage.subscribe(message=>{
+      this.toggle=message;
+    })
   }
   getNotes(){
     var token=localStorage.getItem('token');

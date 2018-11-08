@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
@@ -49,11 +49,15 @@ import { NoteCollectionComponent } from './components/note-collection/note-colle
 import {MatDialogModule} from '@angular/material/dialog';
 import { UpdateNotesComponent } from './components/update-notes/update-notes.component';
 import { AddLabelComponent } from './components/add-label/add-label.component';
-import { FilterPipe } from './filter.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
 import { SearchComponent } from './components/search/search.component';
 import { ChecklistModule } from "angular-checklist";
 import {MatChipsModule} from '@angular/material/chips';
-import { FilterLabelPipe } from './filter-label.pipe';
+import { FilterLabelPipe } from './pipes/filter-label.pipe';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { DateAdapter, MatNativeDateModule } from "@angular/material";
+import { LoggerService } from './service/logger/logger.service';
+
 
 
 @NgModule({
@@ -120,9 +124,13 @@ import { FilterLabelPipe } from './filter-label.pipe';
     MatTooltipModule,
     MatDialogModule,
     ChecklistModule,
-    MatChipsModule
+    MatChipsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    
   ],
-  providers: [HttpService, AuthGuard],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [HttpService, AuthGuard, LoggerService],
   bootstrap: [AppComponent],
   entryComponents: [AddLabelComponent]
 

@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-
-// const httpOptions = {
-//   headers: new HttpHeaders({
-//     'Content-Type':  'application/json'
-//     // 'Authorization': 'my-auth-token'
-//   })
-// };
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -15,16 +9,16 @@ import { HttpHeaders } from '@angular/common/http';
 export class HttpService {
 
 
-  configUrl = 'http://34.213.106.173/api';
+  //configUrl = 'http://34.213.106.173/api';
 
   constructor(private http: HttpClient) { }
 
   httpGet(nextUrl) {
-    return this.http.get(this.configUrl+'/'+nextUrl);
+    return this.http.get(environment.baseUrl+'/'+nextUrl);
   }
 
   httpPost(nextUrl,body){
-    return this.http.post(this.configUrl+'/'+nextUrl, body);
+    return this.http.post(environment.baseUrl+'/'+nextUrl, body);
   }
 
   httpLogout(nextUrl,token){
@@ -34,7 +28,7 @@ export class HttpService {
         'Authorization': token
       })
     };
-    return this.http.post(this.configUrl+'/'+nextUrl,null, httpOptions);
+    return this.http.post(environment.baseUrl+'/'+nextUrl,null, httpOptions);
   }
 
   httpPasswordUpdate(nextUrl, token, body) {
@@ -46,7 +40,7 @@ export class HttpService {
 
     };
     
-    return this.http.post(this.configUrl+"/"+nextUrl,this.getFormUrlEncoded(body),httpOptions)
+    return this.http.post(environment.baseUrl+"/"+nextUrl,this.getFormUrlEncoded(body),httpOptions)
   }
   getFormUrlEncoded(toConvert) {
     const formBody = [];
@@ -66,7 +60,7 @@ export class HttpService {
        })
 
      };
-     return this.http.post(this.configUrl+'/'+nextUrl, this.getFormUrlEncoded(body), httpOptions)
+     return this.http.post(environment.baseUrl+'/'+nextUrl, this.getFormUrlEncoded(body), httpOptions)
    }
 
    httpGetNote(nextUrl,token){
@@ -77,7 +71,7 @@ export class HttpService {
       })
 
     };
-    return this.http.get(this.configUrl+'/'+nextUrl, httpOptions)
+    return this.http.get(environment.baseUrl+'/'+nextUrl, httpOptions)
    }
 
    httpDeleteNote(nextUrl,body,token){
@@ -88,7 +82,7 @@ export class HttpService {
       })
 
     };
-    return this.http.post(this.configUrl+'/'+nextUrl, body, httpOptions)
+    return this.http.post(environment.baseUrl+'/'+nextUrl, body, httpOptions)
    }
 
    httpUpdateNote(nextUrl,body,token){
@@ -99,7 +93,7 @@ export class HttpService {
       })
 
     };
-    return this.http.post(this.configUrl+'/'+nextUrl, this.getFormUrlEncoded(body), httpOptions)
+    return this.http.post(environment.baseUrl+'/'+nextUrl, this.getFormUrlEncoded(body), httpOptions)
    }
 
    httpArchiveNote(nextUrl,body,token){
@@ -110,7 +104,7 @@ export class HttpService {
       })
 
     };
-    return this.http.post(this.configUrl+'/'+nextUrl, body, httpOptions)
+    return this.http.post(environment.baseUrl+'/'+nextUrl, body, httpOptions)
    }
 
    httpColorNote(nextUrl,body,token){
@@ -121,7 +115,7 @@ export class HttpService {
       })
 
     };
-    return this.http.post(this.configUrl+'/'+nextUrl, body, httpOptions)
+    return this.http.post(environment.baseUrl+'/'+nextUrl, body, httpOptions)
    }
    httpAddLabel(nextUrl,body,token){
     var httpOptions={
@@ -131,7 +125,7 @@ export class HttpService {
       })
 
     };
-    return this.http.post(this.configUrl+'/'+nextUrl, body, httpOptions)
+    return this.http.post(environment.baseUrl+'/'+nextUrl, body, httpOptions)
    }
 
    httpGetLabel(nextUrl,token){
@@ -142,7 +136,7 @@ export class HttpService {
       })
 
     };
-    return this.http.get(this.configUrl+'/'+nextUrl, httpOptions)
+    return this.http.get(environment.baseUrl+'/'+nextUrl, httpOptions)
    }
 
    httpDeleteLabel(nextUrl,token){
@@ -153,7 +147,7 @@ export class HttpService {
       })
 
     };
-    return this.http.delete(this.configUrl+'/'+nextUrl, httpOptions)
+    return this.http.delete(environment.baseUrl+'/'+nextUrl, httpOptions)
    }
 
    httpUpdateLabel(nextUrl,body,token){
@@ -164,7 +158,7 @@ export class HttpService {
       })
 
     };
-    return this.http.post(this.configUrl+'/'+nextUrl, body, httpOptions)
+    return this.http.post(environment.baseUrl+'/'+nextUrl, body, httpOptions)
    }
    httpAddLabelToNotes(nextUrl,token,body){
     var httpOptions={
@@ -174,6 +168,26 @@ export class HttpService {
       })
 
     };
-    return this.http.post(this.configUrl+'/'+nextUrl, body, httpOptions)
+    return this.http.post(environment.baseUrl+'/'+nextUrl, body, httpOptions)
    }
+   httpAddReminder(nextUrl,token,body){
+    var httpOptions={
+      headers: new HttpHeaders({
+       'Content-Type': 'application/json',
+       'Authorization':token
+      })
+
+    };
+    return this.http.post(environment.baseUrl+'/'+nextUrl, body, httpOptions)
+   }
+   httpAddImage(nexturl,body,token){
+    console.log(token);
+    var httpOptions={
+      headers:new HttpHeaders({
+       
+       'Authorization':token
+      })
+    };
+    return this.http.post(environment.baseUrl+"/"+nexturl,body,httpOptions)
+  }
 }

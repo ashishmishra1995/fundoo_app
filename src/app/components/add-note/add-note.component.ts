@@ -124,6 +124,14 @@ export class AddNoteComponent implements OnInit {
       this.labelName.splice(this.labelName.indexOf(event),1)
     }
   }
+  // rem1=[];
+  // remToday(event){
+  //   if(this.rem1.indexOf(event)<0){
+  //     this.rem1.push(event);
+  //   }else{
+  //     this.rem1.splice(this.rem1.indexOf(event),1)
+  //   }
+  // }
 }
 
 

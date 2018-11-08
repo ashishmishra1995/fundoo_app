@@ -43,19 +43,19 @@ export class AddLabelComponent implements OnInit {
     console.log(document.getElementById('label').innerHTML);
     console.log(this.labels);
     debugger;
-      if(!this.labels.some((data)=> data.label == document.getElementById('label').innerHTML)){
-        this.note = {
-          "userId": localStorage.getItem('userId'),
-          "label": document.getElementById('label').innerHTML,
-          "isDeleted": false
-        }
-        this.httpService.httpAddLabel('noteLabels', this.note, token).subscribe(result => {
-  
-        });
-        this.dialogRef.close();
-      }else{
-        alert("Label already exists");
+    if (!this.labels.some((data) => data.label == document.getElementById('label').innerHTML)) {
+      this.note = {
+        "userId": localStorage.getItem('userId'),
+        "label": document.getElementById('label').innerHTML,
+        "isDeleted": false
       }
+      this.httpService.httpAddLabel('noteLabels', this.note, token).subscribe(result => {
+
+      });
+      this.dialogRef.close();
+    } else {
+      alert("Label already exists");
+    }
   }
 
   deleteLabel(id) {
@@ -64,9 +64,9 @@ export class AddLabelComponent implements OnInit {
       this.dataService.changeEvent(true);
     }, error => {
       console.log(error);
-    })
+    });
   }
-  
+
   updateLabel(id) {
     this.note = {
       "userId": localStorage.getItem('userId'),

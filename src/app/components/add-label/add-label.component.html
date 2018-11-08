@@ -8,7 +8,8 @@
       <div fxFlex="15">
         <mat-icon (click)=deleteLabel(labels.id)>delete</mat-icon>
       </div>
-      <div fxFlex="70" contenteditable="true" class="fields" id="labelUpdate" [innerHTML]="labels.label"></div>
+      <div fxFlex="70" contenteditable="true" class="fields" id="labelUpdate" 
+            [innerHTML]="labels.label"></div>
       <div fxFlex="15">
         <mat-icon (click)="updateLabel(labels.id)">edit</mat-icon>
       </div>

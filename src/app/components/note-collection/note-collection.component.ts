@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { UpdateNotesComponent } from '../update-notes/update-notes.component';
 import { DataServiceService } from "../../service/data-service/data-service.service";
 import { Condition } from 'selenium-webdriver';
+
 @Component({
   selector: 'app-note-collection',
   templateUrl: './note-collection.component.html',
@@ -13,6 +14,7 @@ export class NoteCollectionComponent implements OnInit {
   
   @Input() notesArray;
   @Input() searchNote;
+  @Output() listEmit= new EventEmitter();
   labels=[];
   labelBody={};
   @Output() addEntry = new EventEmitter();
@@ -26,9 +28,15 @@ export class NoteCollectionComponent implements OnInit {
         }
       })
     }
-
+    condition=true;
   ngOnInit() {
-    
+    this.gridList();
+  }
+  toggle=false;
+  gridList(){
+    this.data.currentMessage.subscribe(message=>{
+      this.toggle=message;
+    })
   }
   openDialog(notes): void {
     const dialogRef = this.dialog.open(UpdateNotesComponent, {
@@ -65,8 +73,5 @@ export class NoteCollectionComponent implements OnInit {
       
     })
   }
-  condition=true;
-  view(){
-    this.condition=!this.condition;
-  }
+
 }

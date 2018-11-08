@@ -12,21 +12,23 @@
         search
       </i>
       <div class="search_flex" routerLink="/home/search">
-        <input class="searchbar" aria-label="Search" autocomplete="off" placeholder="Search for notes" value="" name="q" role="combobox"
+        <input class="searchbar" aria-label="Search" autocomplete="off" 
+              placeholder="Search for notes" value="" name="q" role="combobox"
           type="text" aria-hidden="false" [(ngModel)]="body.data" (keyup)="onKeyUp($event)">
       </div>
-      <!-- <div *ngIf="show">
-        <li *ngFor="let item of notesArray | filter:filterargs"></li>
-      </div> -->
-
+     
       <i class="material-icons refresh">
         refresh
       </i>
-      <i class="material-icons notifications">
-        notifications
-      </i>
+      
+      <mat-icon style="cursor: pointer;" matTooltip="Switch to List View" (click)=viewList() 
+                *ngIf="grid==0" class="material-icons refresh">view_stream</mat-icon>
+   
+        <mat-icon style="cursor: pointer;" matTooltip="Switch to Grid View" (click)="viewGrid()" 
+                  *ngIf="grid==1" class="material-icons refresh">view_module</mat-icon>
+      
 
-      <mat-menu #appMenu="matMenu" yPosition="below" [overlapTrigger]="false">
+      <!-- <mat-menu #appMenu="matMenu" yPosition="below" [overlapTrigger]="false">
         <div>
           <span fxLayout="row">
               <button class="name-icon" mat-fab color="primary">{{firstName | slice:0:1}}</button>
@@ -35,27 +37,51 @@
           <p>{{email}}</p>
         </div>
         <hr>
-        <button mat-raised-button color="primary" style="float:right" (click)="logout()">Logout</button>
+        <button mat-raised-button color="primary" style="float:right" (click)="logout()">
+          Logout</button>
+      </mat-menu> -->
+      <mat-menu #appMenu="matMenu" [overlapTrigger]="false">
+
+        <div fxLayoutAlign="row wrap" >
+        <div fxFlex=20> 
+        <button (click) = "$event.stopPropagation()" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" (click)="selectFile.click()" matTooltip="fundoo Account" mat-mini-fab style="background-color:#fb0;float:right;color:white;text-transform:uppercase">
+        </button>
+        <input style="display:none" (click) = "$event.stopPropagation()" class="image" type="file" (change)="onFileUpload($event)" #selectFile>
+        </div>
+        <mat-content fxFlex class="contentstyle" style="margin-top:5px;float:left" >{{firstName | titlecase}} {{lastName | titlecase}} </mat-content>
+        </div><br>
+        <mat-content class="contentstyle">{{email}}</mat-content><hr>
+        <div fxLayoutAlign="row wrap" class="add" fxLayoutGap=85px>
+        <button fxFlex class="addaccount" routerLink="/signup">Add account</button>
+        <button fxFlex class="logout" (click)="logout()">Log out </button></div>
       </mat-menu>
 
-      <button mat-icon-button [matMenuTriggerFor]="appMenu">
-        <i class="material-icons accounts">
+      <button mat-icon-button [matMenuTriggerFor]="appMenu" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
+        <!-- <i class="material-icons accounts">
           account_circle
-        </i>
+        </i> -->
       </button>
     </mat-toolbar>
 
     <mat-sidenav-container class="sidenav-container" hasBackdrop="false">
-      <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" 
+                [mode]="(isHandset$ | async) ? 'over' : 'side'"
         [opened]="!(isHandset$ | async)">
         <mat-nav-list>
-          <a mat-list-item routerLink="/home/notes"><span style="padding-left:0px"><mat-icon>add_box</mat-icon></span><span
-              style="padding-left :20px">Note</span></a>
-          <a mat-list-item routerLink="/home/reminder"><span style="padding-left:0px;"><mat-icon>touch_app</mat-icon></span><span
-              style="padding-left :20px">Reminder</span></a>
+          <a mat-list-item routerLink="/home/notes"><span style="padding-left:0px">
+            <mat-icon>add_box</mat-icon></span>
+            <span style="padding-left :20px">Note</span>
+          </a>
+          <a mat-list-item routerLink="/home/reminder"><span style="padding-left:0px;">
+            <mat-icon>notifications</mat-icon></span>
+            <span style="padding-left :20px">Reminder</span>
+          </a>
           <hr>
 
-          <a mat-list-item (click)="openDialog()"><span style="padding-left:0px;"><mat-icon>add</mat-icon></span><span style="padding-left :100px">Labels</span></a>
+          <a mat-list-item (click)="openDialog()"><span style="padding-left:0px;">
+            <mat-icon>add</mat-icon></span>
+            <span style="padding-left :20px">Labels</span>
+          </a>
           <div *ngFor="let labels of labels">
             <div fxLayout="row">
               <span><mat-icon>label</mat-icon> </span>
@@ -63,10 +89,13 @@
             </div>
           </div>
           <hr>
-          <a mat-list-item routerLink="/home/archieve"><span style="padding-left:0px;"><mat-icon>archive</mat-icon></span><span
-              style="padding-left :20px">Archive</span></a>
-          <a mat-list-item routerLink="/home/trash"><span style="padding-left:0px;"><mat-icon>delete</mat-icon></span><span
-              style="padding-left :20px">Trash</span></a>
+          <a mat-list-item routerLink="/home/archieve"><span style="padding-left:0px;">
+            <mat-icon>archive</mat-icon></span>
+            <span style="padding-left :20px">Archive</span>
+          </a>
+          <a mat-list-item routerLink="/home/trash"><span style="padding-left:0px;">
+            <mat-icon>delete</mat-icon></span>
+            <span style="padding-left :20px">Trash</span></a>
 
         </mat-nav-list>
 

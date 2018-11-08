@@ -41,4 +41,24 @@
   margin-right: 10px;
   font-family: 'Gill Sans', 'Gill Sans MT'
 }
+.blue{
+  color: #4285f4; 
+  font-family:'Gill Sans', 'Gill Sans MT'; 
+  font-size: 50px
+}
+.green{
+  color: #34a853; 
+  font-family:'Gill Sans', 'Gill Sans MT'; 
+  font-size: 50px
+}
+.yellow{
+  color: #fbbc05;
+  font-family:'Gill Sans', 'Gill Sans MT'; 
+  font-size: 50px
+}
+.red{
+  color: #ea4335; 
+  font-family:'Gill Sans', 'Gill Sans MT'; 
+  font-size: 50px
+}
  

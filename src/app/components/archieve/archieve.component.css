@@ -1,7 +1,14 @@
-mat-card{
+.grid-card{
     min-width:300px;
     min-height:100px;
     max-width: 300px;
+    overflow-y: auto;
+    border-radius:10px;
+}
+.list-card{
+    width:700px;
+    min-height:100px;
+    /* max-width: 300px; */
     overflow-y: auto;
     border-radius:10px;
 }

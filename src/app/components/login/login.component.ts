@@ -6,6 +6,7 @@ import { HttpService } from '../../service/http/http.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MatSnackBar } from "@angular/material";
+import { LoggerService } from '../../service/logger/logger.service';
 
 
 @Component({
@@ -69,21 +70,26 @@ export class LoginComponent implements OnInit {
     if (!show) {
       this.records = this.httpService.httpPost('user/login', this.body)
       .subscribe(result => {
-        console.log(result);
+        LoggerService.log('Login data: ' , result);
         
         this.snackBar.open('Login', 'Success', {
           duration: 3000,
         });
+        
         var token=result["id"];
         var userId=result['userId'];
         var firstName=result['firstName'];
         var lastName=result['lastName'];
         var email=result['email'];
+        var imageUrl=result['imageUrl'];
+
         localStorage.setItem("userId", userId);
         localStorage.setItem("token", token);
         localStorage.setItem("firstName", firstName);
         localStorage.setItem("lastName",lastName);
         localStorage.setItem("email", email);
+        localStorage.setItem('imageUrl', imageUrl);
+
         this.router.navigate(['home']);
       },error=>{
         

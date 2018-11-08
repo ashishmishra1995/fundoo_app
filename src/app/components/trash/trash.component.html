@@ -1,20 +1,24 @@
-<app-add-note></app-add-note>
 <div class="note" fxLayout="row wrap" fxLayoutAlign="space-evenly start">
-    <mat-card style="margin-top: 30px" *ngFor="let notes of notes" [style.background]="notes.color">
+    <mat-card style="margin-top: 30px; border-radius: 10px" *ngFor="let notes of notes" 
+                [style.background]="notes.color">
+        <div [ngClass]="{
+            'grid-card': !toggle,
+            'list-card': toggle
+          }">
         <mat-card-title [innerHTML]="notes.title"><b>{{notes.title}}</b></mat-card-title>
         <mat-card-content [innerHTML]="notes.description">{{notes.description}}</mat-card-content>
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <div fxLayout="row" fxLayoutAlign="space-between">
                 <button mat-icon-button [matMenuTriggerFor]="appMenu">
-                    <mat-icon class="space" style="cursor:pointer" matTooltip="More" aria-label="More" class="icons">more_vert</mat-icon>
+                    <mat-icon class="space" style="cursor:pointer" matTooltip="More" 
+                                aria-label="More" class="icons">more_vert</mat-icon>
                 </button>
                 <mat-menu #appMenu="matMenu" yPosition="below" [overlapTrigger]="false">
                     <button (click)="deleteForever(notes.id)" mat-menu-item>delete forever</button>
                     <button (click)="restore(notes.id)" mat-menu-item>restore</button>
-
-
                 </mat-menu>
             </div>
+        </div>
         </div>
     </mat-card>
 </div>
