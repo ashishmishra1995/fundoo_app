@@ -23,3 +23,12 @@ align-items: stretch; } */
     display: block;
     background: red;
 } */
+input:focus,
+select:focus,
+textarea:focus,
+::ng-deep.button:focus {
+    outline: none;
+}
+input.middle:focus {
+    outline-width: 0;
+}

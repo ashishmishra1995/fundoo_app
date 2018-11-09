@@ -12,10 +12,11 @@ import { TrashComponent } from './components/trash/trash.component';
 import { ArchieveComponent } from './components/archieve/archieve.component';
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { ReminderComponent } from './components/reminder/reminder.component';
-import { AuthGuard } from "./auth.guard";
+import { AuthGuard } from "./core/service/Authguard/auth.guard";
 import { NavigationComponent } from "./components/navigation/navigation.component";
 import { UpdateNotesComponent } from "./components/update-notes/update-notes.component";
 import { SearchComponent } from './components/search/search.component';
+import { LabelComponent } from './components/label/label.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo:'login' },
@@ -31,7 +32,8 @@ const routes: Routes = [
       { path: 'archieve', component: ArchieveComponent  },
       { path: 'trash', component: TrashComponent },
       { path: 'reminder', component: ReminderComponent },
-      { path: 'search', component: SearchComponent }
+      { path: 'search', component: SearchComponent },
+      { path: 'label/:labelsList', component: LabelComponent }
     ]
   }
   

@@ -1,12 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
 import { AppRoutingModule } from './app-routing.module';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from "@angular/flex-layout";
 import {
   MatButtonModule,
   MatCheckboxModule,
@@ -33,19 +32,17 @@ import {
   DateAdapter,
   MatNativeDateModule,
 } from '@angular/material';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LayoutModule } from '@angular/cdk/layout';
+import { ChecklistModule } from "angular-checklist";
 
 import { HomeComponent } from './components/home/home.component';
-import { HttpService } from './core/service/http/http.service';
-
-import { NgxSpinnerModule } from 'ngx-spinner';
-
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { LayoutModule } from '@angular/cdk/layout';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { NotesComponent } from './components/notes/notes.component';
@@ -53,7 +50,6 @@ import { ArchieveComponent } from './components/archieve/archieve.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ReminderComponent } from './components/reminder/reminder.component';
-
 import { AddReminderComponent } from './components/add-reminder/add-reminder.component';
 import { CollaboratorComponent } from './components/collaborator/collaborator.component';
 import { ChangeColorComponent } from './components/change-color/change-color.component';
@@ -61,17 +57,16 @@ import { AddPhotoComponent } from './components/add-photo/add-photo.component';
 import { AddArchiveComponent } from './components/add-archive/add-archive.component';
 import { MoreComponent } from './components/more/more.component';
 import { AddNoteComponent } from './components/add-note/add-note.component';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './core/service/Authguard/auth.guard';
 import { NoteCollectionComponent } from './components/note-collection/note-collection.component';
-
 import { UpdateNotesComponent } from './components/update-notes/update-notes.component';
 import { AddLabelComponent } from './components/add-label/add-label.component';
-import { FilterPipe } from './pipes/filter.pipe';
+import { LabelComponent } from "./components/label/label.component";
+
+import { HttpService } from './core/service/http/http.service';
+import { FilterPipe } from './core/pipes/filter.pipe';
 import { SearchComponent } from './components/search/search.component';
-import { ChecklistModule } from "angular-checklist";
-
-import { FilterLabelPipe } from './pipes/filter-label.pipe';
-
+import { FilterLabelPipe } from './core/pipes/filter-label.pipe';
 import { LoggerService } from './core/service/logger/logger.service';
 
 
@@ -105,6 +100,7 @@ import { LoggerService } from './core/service/logger/logger.service';
     FilterPipe,
     SearchComponent,
     FilterLabelPipe,
+    LabelComponent
 
 
   ],

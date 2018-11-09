@@ -13,7 +13,10 @@
           <app-collaborator></app-collaborator>
           <app-change-color></app-change-color>
           <app-add-photo></app-add-photo>
-          <app-add-archive [noteDetails]="notes"></app-add-archive>
+          <button mat-icon-button (click)="unarchive(note.id)">
+            <mat-icon class="space" style="cursor:pointer" matTooltip="Unarchive" 
+                        aria-label="Archive" class="icons">unarchive</mat-icon>
+        </button>
           <app-more [noteDetails]="notes"></app-more>
           </div>
     

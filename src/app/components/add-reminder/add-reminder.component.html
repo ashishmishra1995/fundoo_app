@@ -3,8 +3,8 @@
         notifications</mat-icon>
 </button>
 
-<mat-menu #menu="matMenu" yPosition="below" [overlapTrigger]="false">
-    <div *ngIf="show">
+<mat-menu #menu="matMenu" yPosition="below" [overlapTrigger]="false" class="reminderMenu">
+    <div *ngIf="show" class="reminderMenu">
         <div>
             Reminder:
         </div>
@@ -35,7 +35,7 @@
         </button>
     </div>
 
-    <div *ngIf="!show">
+    <div *ngIf="!show" class="reminderMenu">
         <button mat-icon-button (click)="$event.stopPropagation(); backPressDatepicker()">
             <mat-icon>keyboard_backspace</mat-icon>Pick Date and Time
         </button>

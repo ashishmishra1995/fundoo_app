@@ -6,9 +6,6 @@ import { HttpService } from '../../core/service/http/http.service';
 import { MatSnackBar } from "@angular/material";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AddLabelComponent } from '../add-label/add-label.component';
-import { Pipe, PipeTransform } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { FilterPipe } from '../../pipes/filter.pipe';
 import { DataServiceService } from '../../core/service/data-service/data-service.service';
 import { Router } from '@angular/router';
 import { environment } from "../../../environments/environment";
@@ -25,15 +22,15 @@ export class NavigationComponent {
   @Input() notesArray;
   @Input() listEmit;
   @Output() eventDone = new EventEmitter();
-  filterargs = {};
-  show = false;
-  labels = [];
-  message: string;
+  public filterargs = {};
+  public show = false;
+  public labels = [];
+  public message: string;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
-  body = {
+  public body = {
     "data": ""
   }
   constructor(private breakpointObserver: BreakpointObserver,
@@ -65,15 +62,18 @@ export class NavigationComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.eventDone.emit({
-
-      })
+      this.getLabelList();
     });
   }
   firstName;
   lastName;
   email;
   ngOnInit() {
+    this.getLabelList();
+    this.data.currentMsg.subscribe(message => this.message = message)
+  }
+  getLabelList(){
+    var label=[];
     var token = localStorage.getItem('token');
     this.firstName = localStorage.getItem('firstName');
     this.lastName = localStorage.getItem('lastName');
@@ -82,14 +82,13 @@ export class NavigationComponent {
       LoggerService.log("labelList: ",result);
       for (var i = 0; i < result['data']['details'].length; i++) {
         if (result['data']['details'][i].isDeleted == false) {
-          this.labels.push(result['data']['details'][i])
+          label.push(result['data']['details'][i])
         }
       }
-      
+      this.labels=label;
     }, error => {
       console.log(error);
     })
-    this.data.currentMsg.subscribe(message => this.message = message)
   }
   newMessage() {
     this.data.searchData(this.body.data)
@@ -131,4 +130,9 @@ export class NavigationComponent {
 
   }
   image = {};
+
+  clickLabel(labelsList){
+    var labelsList = labelsList.label;
+    this.router.navigate(['/home/label/'+ labelsList])
+  }
 }

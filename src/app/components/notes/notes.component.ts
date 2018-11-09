@@ -18,20 +18,6 @@ export class NotesComponent implements OnInit {
   addNewEntry(event){
     if(event){
       this.getNotes();
-    //   var token=localStorage.getItem('token');
-    // this.records=this.httpService.httpGetNote('notes/getNotesList',token).subscribe(result=>{
-    //   console.log(result);
-    //   for(var i=0; i<result['data']['data'].length; i++){
-    //     if(result['data']['data'][i].isDeleted==false){
-    //     this.notes.push(result['data']['data'][i])
-    //     }
-    //   }
-    //   // this.notes=result['data']['data'].reverse();
-    //   console.log(this.notes);
-      
-    // },error=>{
-    //   console.log(error);
-    // });
 
     }
   }
@@ -41,12 +27,12 @@ export class NotesComponent implements OnInit {
     this.records=this.httpService.httpGetNote('notes/getNotesList',token).subscribe(result=>{
       console.log(result);
       this.notes =[];
-      for(var i=0; i<result['data']['data'].length; i++){
+      for(var i=result['data']['data'].length-1; i>=0; i--){
         if(result['data']['data'][i].isDeleted==false && result['data']['data'][i].isArchived==false){
         this.notes.push(result['data']['data'][i])
         }
       }
-    // this.notes=result['data']['data'].reverse();
+   
           console.log(this.notes);
       
     },error=>{

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FilterPipe } from '../../pipes/filter.pipe';
+import { FilterPipe } from '../../core/pipes/filter.pipe';
 import { DataServiceService } from '../../core/service/data-service/data-service.service';
 import { HttpService } from '../../core/service/http/http.service';
 

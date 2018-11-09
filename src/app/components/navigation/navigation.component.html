@@ -12,30 +12,30 @@
         search
       </i>
       <div class="search_flex" routerLink="/home/search">
-        <input class="searchbar" aria-label="Search" autocomplete="off" 
-              placeholder="Search for notes" value="" name="q" role="combobox"
+        <input class="searchbar" aria-label="Search" autocomplete="off"
+              placeholder="Search notes by title, description and labels" value="" name="q" role="combobox"
           type="text" aria-hidden="false" [(ngModel)]="body.data" (keyup)="onKeyUp($event)">
       </div>
-     
+
       <i class="material-icons refresh">
         refresh
       </i>
-      
-      <mat-icon style="cursor: pointer;" matTooltip="Switch to List View" (click)=viewList() 
+
+      <mat-icon style="cursor: pointer;" matTooltip="Switch to List View" (click)=viewList()
                 *ngIf="grid==0" class="material-icons refresh">view_stream</mat-icon>
-   
-        <mat-icon style="cursor: pointer;" matTooltip="Switch to Grid View" (click)="viewGrid()" 
+
+        <mat-icon style="cursor: pointer;" matTooltip="Switch to Grid View" (click)="viewGrid()"
                   *ngIf="grid==1" class="material-icons refresh">view_module</mat-icon>
 
       <mat-menu #appMenu="matMenu" [overlapTrigger]="false">
 
         <div fxLayoutAlign="row wrap" >
-        <div fxFlex=20> 
-        <button (click) = "$event.stopPropagation()" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" 
-                (click)="selectFile.click()" matTooltip="fundoo Account" 
+        <div fxFlex=20>
+        <button (click) = "$event.stopPropagation()" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}"
+                (click)="selectFile.click()" matTooltip="fundoo Account"
                 mat-mini-fab class="profile-pic">
         </button>
-        <input style="display:none" (click) = "$event.stopPropagation()" class="image" 
+        <input style="display:none" (click) = "$event.stopPropagation()" class="image"
                 type="file" (change)="onFileUpload($event)" #selectFile>
         </div>
         <mat-content fxFlex class="contentstyle" style="margin-top:5px;float:left" ><b>
@@ -47,13 +47,13 @@
         <button fxFlex class="logout" (click)="logout()">Log out </button></div>
       </mat-menu>
 
-      <button mat-icon-button [matMenuTriggerFor]="appMenu" 
+      <button mat-icon-button [matMenuTriggerFor]="appMenu"
               [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
       </button>
     </mat-toolbar>
 
-    <mat-sidenav-container class="sidenav-container" hasBackdrop="false">
-      <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" 
+    <mat-sidenav-container class="sidenav-container" hasBackdrop="false" style="height:100vh">
+      <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
                 [mode]="(isHandset$ | async) ? 'over' : 'side'"
         [opened]="!(isHandset$ | async)">
         <mat-nav-list>
@@ -71,10 +71,10 @@
             <mat-icon>add</mat-icon></span>
             <span style="padding-left :20px">Labels</span>
           </a>
-          <div *ngFor="let labels of labels">
+          <div *ngFor="let labels of labels" (click)="clickLabel(labels)">
             <div fxLayout="row">
               <span><mat-icon>label</mat-icon> </span>
-              <span><a mat-list-item>{{labels.label}}</a></span>
+              <span><a mat-list-item (click)="clickLabel(labels)">{{labels.label}}</a></span>
             </div>
           </div>
           <hr>
@@ -90,11 +90,11 @@
 
       </mat-sidenav>
 
-      <mat-sidenav-content style="height:100vh">
+      <div  fxFlex="100%">
 
         <router-outlet></router-outlet>
 
-      </mat-sidenav-content>
-    </mat-sidenav-container>
+      </div>
+</mat-sidenav-container>
   </div>
 </div>

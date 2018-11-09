@@ -15,7 +15,7 @@ export class AddNoteComponent implements OnInit {
   checklist = [];
   public title;
   check=[];
-  parentColor;
+  public parentColor='#fafafa';
   visible = true;
   
   checked: boolean;

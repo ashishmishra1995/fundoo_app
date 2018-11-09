@@ -23,6 +23,15 @@
                 </mat-chip>
               </mat-chip-list>
             </div>
+            <div *ngIf="notes.reminder.length!=0">
+                <mat-chip-list>
+                    <mat-chip class="chip" >
+                        <mat-icon>query_builder</mat-icon>{{notes.reminder | date:'fullDate'}}
+                      <mat-icon (click)="$event.stopPropagation()">
+                        cancel</mat-icon>
+                    </mat-chip>
+                  </mat-chip-list>
+            </div>
           </div>
         </mat-card-content>
       </div>
