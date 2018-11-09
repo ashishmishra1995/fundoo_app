@@ -26,11 +26,34 @@ export class LabelComponent implements OnInit {
 
       }
     )
+    this.getLabelList();
   }
-
+  firstName;
+  lastName;
+  email;
+  labels=[];
+  getLabelList(){
+    var label=[];
+    var token = localStorage.getItem('token');
+    this.firstName = localStorage.getItem('firstName');
+    this.lastName = localStorage.getItem('lastName');
+    this.email = localStorage.getItem('email');
+    this.httpService.httpGetLabel('noteLabels/getNoteLabelList', token).subscribe(result => {
+      LoggerService.log("labelList: ",result);
+      for (var i = 0; i < result['data']['details'].length; i++) {
+        if (result['data']['details'][i].isDeleted == false) {
+          label.push(result['data']['details'][i])
+        }
+      }
+      this.labels=label;
+    }, error => {
+      console.log(error);
+    })
+  }
   getLabel(labelsList) {
+
     LoggerService.log("labelId:", labelsList)
-    this.httpService.httpAddNote('notes/getNotesListByLabel/' + labelsList, {}, this.token)
+    this.httpService.httpAddNote('notes/getNotesListByLabel/' + labelsList, this.token ,{})
       .subscribe(
         (data) => {
           console.log("POST Request is successful ", data);

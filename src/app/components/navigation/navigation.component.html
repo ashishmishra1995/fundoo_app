@@ -20,7 +20,6 @@
       <i class="material-icons refresh">
         refresh
       </i>
-
       <mat-icon style="cursor: pointer;" matTooltip="Switch to List View" (click)=viewList()
                 *ngIf="grid==0" class="material-icons refresh">view_stream</mat-icon>
 
@@ -29,10 +28,10 @@
 
       <mat-menu #appMenu="matMenu" [overlapTrigger]="false">
 
-        <div fxLayoutAlign="row wrap" >
+        <div fxLayoutAlign="row wrap">
         <div fxFlex=20>
         <button (click) = "$event.stopPropagation()" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}"
-                (click)="selectFile.click()" matTooltip="fundoo Account"
+                (click)="selectFile.click()" matTooltip="{{firstName | titlecase}} {{lastName | titlecase}}"
                 mat-mini-fab class="profile-pic">
         </button>
         <input style="display:none" (click) = "$event.stopPropagation()" class="image"
@@ -55,7 +54,7 @@
     <mat-sidenav-container class="sidenav-container" hasBackdrop="false" style="height:100vh">
       <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
                 [mode]="(isHandset$ | async) ? 'over' : 'side'"
-        [opened]="!(isHandset$ | async)">
+                [opened]="!(isHandset$ | async)">
         <mat-nav-list>
           <a mat-list-item routerLink="/home/notes"><span style="padding-left:0px">
             <mat-icon>add_box</mat-icon></span>

@@ -10,6 +10,7 @@ import { DataServiceService } from '../../core/service/data-service/data-service
 import { Router } from '@angular/router';
 import { environment } from "../../../environments/environment";
 import { LoggerService } from '../../core/service/logger/logger.service';
+import { CropImageComponent } from "../crop-image/crop-image.component";
 
 @Component({
   selector: 'app-navigation',
@@ -68,24 +69,27 @@ export class NavigationComponent {
   firstName;
   lastName;
   email;
+  public pic;
   ngOnInit() {
     this.getLabelList();
     this.data.currentMsg.subscribe(message => this.message = message)
+
   }
-  getLabelList(){
-    var label=[];
+
+  getLabelList() {
+    var label = [];
     var token = localStorage.getItem('token');
     this.firstName = localStorage.getItem('firstName');
     this.lastName = localStorage.getItem('lastName');
     this.email = localStorage.getItem('email');
     this.httpService.httpGetLabel('noteLabels/getNoteLabelList', token).subscribe(result => {
-      LoggerService.log("labelList: ",result);
+      LoggerService.log("labelList: ", result);
       for (var i = 0; i < result['data']['details'].length; i++) {
         if (result['data']['details'][i].isDeleted == false) {
           label.push(result['data']['details'][i])
         }
       }
-      this.labels=label;
+      this.labels = label;
     }, error => {
       console.log(error);
     })
@@ -115,24 +119,46 @@ export class NavigationComponent {
   selectedFile = null;
   public image2 = localStorage.getItem('imageUrl');
   img = environment.apiUrl + this.image2;
+
   onFileUpload(event) {
     var token = localStorage.getItem('token');
+    this.profileCropOpen(event);
+
     this.selectedFile = event.path[0].files[0];
     const uploadData = new FormData();
     uploadData.append('file', this.selectedFile, this.selectedFile.name);
-    this.httpService.httpAddImage('user/uploadProfileImage', uploadData, token).subscribe(res => {
-      console.log(res);
-      console.log("url: ", res['status'].imageUrl)
-      this.img = environment.apiUrl + res['status'].imageUrl;
-    }, error => {
-      console.log(error);
-    })
+    // this.httpService.httpAddImage('user/uploadProfileImage', uploadData, token).subscribe(res => {
+    //   console.log(res);
+    //   console.log("url: ", res['status'].imageUrl)
+    //   this.img = environment.apiUrl + res['status'].imageUrl;
+    //   localStorage.setItem('imageUrl', res['status'].imageUrl);
+    // }, error => {
+    //   console.log(error);
+    // })
 
   }
   image = {};
 
-  clickLabel(labelsList){
+  clickLabel(labelsList) {
     var labelsList = labelsList.label;
-    this.router.navigate(['/home/label/'+ labelsList])
+    this.router.navigate(['/home/label/' + labelsList])
+  }
+  profileCropOpen(data): void { //Function for the dialog box
+    const dialogRefPic = this.dialog.open(CropImageComponent, {
+      width: '450px',
+      data: data
+    });
+
+    dialogRefPic.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.data.currentMessage.subscribe(message => this.pic = message)
+      console.log("message", this.message);
+      console.log("pic", this.pic);
+      if (this.pic == true) {
+        this.image2 = localStorage.getItem('imageUrl');
+        this.img = environment.apiUrl + this.image2;
+      }
+
+    });
   }
 }

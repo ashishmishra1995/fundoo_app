@@ -10,8 +10,9 @@
 
   </mat-menu>
   <mat-menu #labelMenu="matMenu">
-    <input placeholder="search label" (click)="$event.stopPropagation()" type="text" 
-            [(ngModel)]="labBody.data" (keyup)="onKeyUp($event)">
+    <mat-form-field>
+    <input matInput placeholder="search label" (click)="$event.stopPropagation()" type="text" 
+            [(ngModel)]="labBody.data" (keyup)="onKeyUp($event)"></mat-form-field>
     <div *ngFor="let item of labels | filterLabel:search " fxLayoutAlign="space-between center">
       <mat-checkbox (click)="$event.stopPropagation(); addLabel(item)">{{item.label}}
       </mat-checkbox>

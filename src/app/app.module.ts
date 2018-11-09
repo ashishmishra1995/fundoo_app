@@ -68,7 +68,8 @@ import { FilterPipe } from './core/pipes/filter.pipe';
 import { SearchComponent } from './components/search/search.component';
 import { FilterLabelPipe } from './core/pipes/filter-label.pipe';
 import { LoggerService } from './core/service/logger/logger.service';
-
+import { CropImageComponent } from './components/crop-image/crop-image.component';
+import { ImageCropperModule } from "ngx-image-cropper";
 
 
 @NgModule({
@@ -100,7 +101,8 @@ import { LoggerService } from './core/service/logger/logger.service';
     FilterPipe,
     SearchComponent,
     FilterLabelPipe,
-    LabelComponent
+    LabelComponent,
+    CropImageComponent
 
 
   ],
@@ -139,12 +141,13 @@ import { LoggerService } from './core/service/logger/logger.service';
     MatChipsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    ImageCropperModule
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [HttpService, AuthGuard, LoggerService],
   bootstrap: [AppComponent],
-  entryComponents: [AddLabelComponent]
+  entryComponents: [AddLabelComponent, CropImageComponent]
 
 })
 export class AppModule { }
