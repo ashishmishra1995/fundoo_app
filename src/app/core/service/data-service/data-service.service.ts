@@ -21,6 +21,9 @@ export class DataServiceService {
   private searchDataSource = new BehaviorSubject(this.search);
   currentDataSearch = this.searchDataSource.asObservable();
 
+  private profileSource= new BehaviorSubject(false);
+  currentProfile= this.profileSource.asObservable();
+
   constructor() { }
 
   changeMessage(message: boolean) {
@@ -41,6 +44,9 @@ export class DataServiceService {
 
   changeEvent(message:boolean){
     this.eventEmitter.next(message);
+  }
+  changeProfile(message:boolean){
+    this.profileSource.next(message);
   }
 
 }

@@ -35,7 +35,7 @@ this.httpService.httpAddImage('user/uploadProfileImage', uploadData, token).subs
 this.img = environment.apiUrl + res['status'].imageUrl;
 localStorage.setItem("imageUrl", res['status'].imageUrl);
 this.dialogRefPic.close()
-this.dataService.changeMessage(true);
+this.dataService.changeProfile(true);
 }, error => {
 
 

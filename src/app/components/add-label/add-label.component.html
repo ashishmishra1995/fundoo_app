@@ -1,20 +1,20 @@
 <div class="note" fxLayout="row wrap" fxLayoutAlign="space-evenly start">
-  <mat-card style="margin-top: 30px">
+  <mat-card style="margin-top: 30px; padding-left: 40px">
     <div contenteditable="true" class="fields" id="label" data-text="Create new label"></div>
     <div class="spacing3"></div>
 
 
     <div fxLayoutAlign="space-between center" fxLayout="row" *ngFor="let labels of labels">
-      <div fxFlex="15">
-        <mat-icon (click)=deleteLabel(labels.id)>delete</mat-icon>
+      <div fxFlex="20">
+        <mat-icon style="cursor: pointer" matTooltip="delete label" (click)=deleteLabel(labels.id)>delete</mat-icon>
       </div>
-      <div fxFlex="70" contenteditable="true" class="fields" id="labelUpdate" 
+      <div fxFlex="60" contenteditable="true" class="fields" id="labelUpdate" 
             [innerHTML]="labels.label"></div>
-      <div fxFlex="15">
-        <mat-icon (click)="updateLabel(labels.id)">edit</mat-icon>
+      <div fxFlex="20">
+        <mat-icon style="cursor: pointer" matTooltip="edit label" (click)="updateLabel(labels.id)">edit</mat-icon>
       </div>
     </div>
-    <div>
+    <div fxLayoutAlign="center">
       <button mat-button (click)="onNoClick()">Close</button>
     </div>
   </mat-card>

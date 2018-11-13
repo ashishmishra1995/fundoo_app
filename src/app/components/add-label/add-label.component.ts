@@ -65,7 +65,7 @@ getLabelList(){
     this.httpService.httpDeleteLabel('noteLabels/' + id + '/deleteNoteLabel', localStorage.getItem('token')).subscribe(result => {
       console.log(result);
       this.dataService.changeEvent(true);
-      this.getLabelList()
+      this.getLabelList();
 
     }, error => {
       console.log(error);

@@ -5,6 +5,37 @@
         <div class="spacing3"></div>
         <div contenteditable="true" class="fields" [innerHTML]="data.description" id="take-note" 
               data-text=""></div>
+              <div class="note" *ngFor="let check of tempArray" fxLayout="row">
+    
+                <mat-checkbox fxFlex="10%" *ngIf="check.status=='open'&& !check.isDeleted" (click)=checkBox(check)></mat-checkbox>
+                <input style="border:none; background:transparent" [(ngModel)]=check.itemName fxFlex="80%" class="note" (keydown)=editing(check,$event)
+                [style.backgroundColor]="bgcolor" *ngIf="!check.isDeleted && check.status=='open' ">
+                <mat-icon fxFlex="10%" class="clearIcon" (click)=removeList(check) *ngIf="!check.isDeleted && check.status=='open'">clear</mat-icon>
+              </div>
+          
+                <hr *ngIf="checklist">
+                <div fxLayout="row" *ngIf="checklist">
+                  <mat-icon fxFlex="5%" *ngIf="!adding">add</mat-icon>
+                  <mat-checkbox *ngIf="adding" [(ngModel)]=addCheck  color="primary"></mat-checkbox>
+                  <input style="border:none; background:transparent"  fxFlex="95%" class="note" placeholder="List Item" [style.backgroundColor]="bgcolor" [(ngModel)]=newList (keydown)=addList($event)/>
+                </div>
+                <hr *ngIf="checklist">
+               
+                <div class="note" *ngFor="let check of tempArray" fxLayout="row">
+                  <mat-checkbox fxFlex="10%" checked=true *ngIf="check.status=='close'&& !check.isDeleted" (click)=checkBox(check)></mat-checkbox>
+                  <input style="border:none; background:transparent" [(ngModel)]=check.itemName class="note" style="text-decoration: line-through;" fxFlex="80%" *ngIf="check.status=='close' && !check.isDeleted"
+                    (keydown)=editing(check,$event)>
+                  <mat-icon fxFlex="10%" class="clearIcon" (click)=removeList(check) *ngIf="!check.isDeleted && check.status=='close'">clear</mat-icon>
+                </div>
+                <div *ngIf="data.reminder.length!=0">
+                    <mat-chip-list>
+                      <mat-chip class="chip">
+                        <mat-icon (click)="removeReminder(data.id)">query_builder</mat-icon>{{data.reminder | date:'medium'}}
+                        <mat-icon (click)="$event.stopPropagation()">
+                          cancel</mat-icon>
+                      </mat-chip>
+                    </mat-chip-list>
+                  </div>
         <div class="spacing3"></div>
         <div fxLayout="row wrap" fxLayoutGap="10px">
             <div *ngFor="let item of labelname">

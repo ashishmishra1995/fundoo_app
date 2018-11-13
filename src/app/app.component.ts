@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MessagingService } from "./core/service/messaging-service/messaging.service";
+import * as firebase from "firebase";
 
 @Component({
   selector: 'app-root',
@@ -6,7 +8,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
-  title = 'fundoo-app';
+export class AppComponent implements OnInit {
+
+  message;
+  messaging;
+
+  constructor(private msgService: MessagingService) {}
+
+  ngOnInit() {
+    
+    this.msgService.getPermission()
+    this.msgService.receiveMessage()
+    //this.message = this.msgService.currentMessage
+  }
+
 }
 

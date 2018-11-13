@@ -1,4 +1,4 @@
-<div *ngIf="visible">
+<!-- <div *ngIf="visible">
   <div class="spacing">
     <div class="spacing2">
       <mat-card *ngIf="show">
@@ -16,7 +16,7 @@
           <div contenteditable="true" class="fields" id="take-note" data-text="Take a note...">
           </div>
           <div class="spacing3"></div>
-          <!-- <div *ngFor="let notes of notesArray"> -->
+         
           <div fxLayout="row wrap" fxLayoutGap="10px">
             <div *ngFor="let item of labelName">
 
@@ -31,7 +31,7 @@
             </div>
             
           </div>
-          <!-- </div> -->
+          
           <div fxLayout="row" fxLayoutAlign="space-between center">
             <div fxLayout="row" fxLayoutAlign="space-between">
               <app-add-reminder [noteDetails]="notes" (todayEvent)="remToday($event)">
@@ -50,7 +50,7 @@
     </div>
   </div>
 </div>
-<!-------------------------------cheklist card---------------------------------->
+
 <div *ngIf="!visible">
   <mat-card [ngStyle]="{'background-color':parentColor}">
     <mat-card-content>
@@ -76,4 +76,75 @@
       </div>
     </mat-card-content>
   </mat-card>
+</div> -->
+
+
+<div fxLayout="column" fxLayoutGap="2%">
+  <div fxFlex=0></div>
+  <div fxFlex="100%" fxLayout="row" > 
+    <div fxFlex="20%"></div>
+<div fxFlex="80%" fxFlex.xs="100%"  fxLayoutAlign="space-around center">
+<div *ngIf="!clicked">
+  <mat-card class="example-card" class="card">
+    <mat-card-header fxLayout="row" fxLayoutAlign="center center">
+      <input type="text" class="note" placeholder="Take a note.."  (click)="clicked=true">
+
+      <div fxLayout="row" fxLayoutGap="10%">
+        <div><mat-icon (click)="check=true && clicked=true">check_box</mat-icon></div>
+        <div><mat-icon>edit</mat-icon></div> 
+      </div>
+    </mat-card-header>
+  </mat-card>
+</div>
+  <div *ngIf="clicked">
+    <mat-card class="example-card" class=card [ngStyle]="{'background-color':parentColor}">
+      <div fxLayout="row">
+        <div contenteditable="true" placeholder="Title" class="note" id="title"></div>
+        <div><app-pin (eventEmit)=pinEvent()></app-pin></div>
+      </div>
+      <div contenteditable="true" class="note" placeholder="Take a Note" id="note" *ngIf="!check"></div>
+        <div *ngIf="check">
+          <div *ngFor="let data of dataArray" fxLayout="row">
+           <mat-checkbox fxFlex="5%" [(ngModel)]=data.isChecked (click)="isChecked=!isChecked"></mat-checkbox>
+           <input fxFlex="90%"  class="note"  [(ngModel)]=data.data  [ngStyle]="{'background-color':parentColor}">
+                <mat-icon fxFlex="5%" (click)=onDelete(data) matTooltip="delete">clear</mat-icon>
+          </div>
+          <hr>
+           <div fxLayout="row"> 
+            <mat-icon fxFlex="5%" *ngIf="!adding">add</mat-icon>
+            <mat-checkbox fxFlex="5%" *ngIf="adding" [(ngModel)]=addCheck (click)="isChecked=!isChecked"></mat-checkbox>   
+            
+            <input [(ngModel)]=data fxFlex="95%" class="note" placeholder="List Item" (keydown)="onEnter($event)" 
+            [style.backgroundColor]="changedColor" (keydown.backspace)="onDelete()"/>
+            </div>
+           <hr>
+        </div>
+<mat-chip-list>
+  <div *ngFor="let label of labelName">
+    <mat-chip [removable]=true *ngIf="!label.isDeleted">{{label.label}}
+      <mat-icon matChipRemove (click)=deleteLabel(label)>cancel</mat-icon>
+
+    </mat-chip>
+  </div>
+
+</mat-chip-list>
+
+
+      <div fxLayout="row" fxLayoutAlign="space-around center" class="icondiv">
+        <app-add-reminder [noteDetails]="notes" (todayEvent)="remToday($event)">
+        </app-add-reminder>
+        <app-collaborator></app-collaborator>
+        <app-change-color (eventColor)="changeColor($event)"></app-change-color>
+        <app-add-photo></app-add-photo>
+        <app-add-archive></app-add-archive>
+        <app-more [noteDetails]="notes" (addEvent)="labelEvent($event)"></app-more>
+      
+        <div><button mat-button (click)="addNotes();check=false">close</button></div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+<div fxFlex="20%"></div>
+</div>
+<div fxFlex=0></div>
 </div>

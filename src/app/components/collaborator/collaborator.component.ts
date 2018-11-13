@@ -1,4 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { NoteCollectionComponent } from '../note-collection/note-collection.component';
+
+export interface DialogData {
+  firstName: string,
+  lastName: string,
+  email: string,
+  userId: string
+}
 
 @Component({
   selector: 'app-collaborator',
@@ -11,5 +20,10 @@ export class CollaboratorComponent implements OnInit {
 
   ngOnInit() {
   }
+  
+  addCollaborator(): void {
+    //this.dialogRefCollab.close();
+  }
 
+  
 }

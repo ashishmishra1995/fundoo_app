@@ -7,6 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MatSnackBar } from "@angular/material";
 import { LoggerService } from '../../core/service/logger/logger.service';
+import { MessagingService } from '../../core/service/messaging-service/messaging.service';
 
 
 @Component({
@@ -43,7 +44,8 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router,
     private httpService: HttpService,
     private spinner: NgxSpinnerService,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    private msgService: MessagingService) { }
 
   ngOnInit() {
 
@@ -64,41 +66,43 @@ export class LoginComponent implements OnInit {
       this.spinner.hide();
     }, 2000);
   }
-
+  public message;
   login(show) {
-    //this.router.navigate(['home']);
     if (!show) {
       this.records = this.httpService.httpPost('user/login', this.body)
-      .subscribe(result => {
-        LoggerService.log('Login data: ' , result);
-        
-        this.snackBar.open('Login', 'Success', {
-          duration: 3000,
-        });
-        
-        var token=result["id"];
-        var userId=result['userId'];
-        var firstName=result['firstName'];
-        var lastName=result['lastName'];
-        var email=result['email'];
-        var imageUrl=result['imageUrl'];
+        .subscribe(result => {
+          LoggerService.log('Login data: ', result);
 
-        localStorage.setItem("userId", userId);
-        localStorage.setItem("token", token);
-        localStorage.setItem("firstName", firstName);
-        localStorage.setItem("lastName",lastName);
-        localStorage.setItem("email", email);
-        localStorage.setItem('imageUrl', imageUrl);
+          this.snackBar.open('Login', 'Success', {
+            duration: 3000,
+          });
 
-        this.router.navigate(['home']);
-      },error=>{
-        
-        this.snackBar.open('Invalid Email/Password', 'Login Failed', {
-          duration: 3000,
-        });
-      })
-      
-      
+          var token = result["id"];
+          var userId = result['userId'];
+          var firstName = result['firstName'];
+          var lastName = result['lastName'];
+          var email = result['email'];
+          var imageUrl = result['imageUrl'];
+
+          localStorage.setItem("userId", userId);
+          localStorage.setItem("token", token);
+          localStorage.setItem("firstName", firstName);
+          localStorage.setItem("lastName", lastName);
+          localStorage.setItem("email", email);
+          localStorage.setItem('imageUrl', imageUrl);
+
+          this.router.navigate(['home']);
+
+          //this.msgService.getPermission();
+         
+        }, error => {
+
+          this.snackBar.open('Invalid Email/Password', 'Login Failed', {
+            duration: 3000,
+          });
+        })
+
+
     }
   }
 

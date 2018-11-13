@@ -73,6 +73,24 @@ export class ChangeColorComponent implements OnInit {
         'colorCode': '#cfd8dc',
         'tooltip': 'grey'
       }
+    ],
+    [
+      {
+        'colorCode': '#8b008b',
+        'tooltip': 'dark magenta'
+      },
+      {
+        'colorCode': '#2F4F4F',
+        'tooltip': 'dark slate gray'
+      },
+      {
+        'colorCode': '#800000',
+        'tooltip': 'maroon'
+      },
+      {
+        'colorCode': '#556B2F',
+        'tooltip': 'dark olive green'
+      }
     ]
   ]
 

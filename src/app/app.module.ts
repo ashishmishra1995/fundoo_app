@@ -36,6 +36,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ChecklistModule } from "angular-checklist";
+import { ImageCropperModule } from "ngx-image-cropper";
+
+
 
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
@@ -62,14 +65,15 @@ import { NoteCollectionComponent } from './components/note-collection/note-colle
 import { UpdateNotesComponent } from './components/update-notes/update-notes.component';
 import { AddLabelComponent } from './components/add-label/add-label.component';
 import { LabelComponent } from "./components/label/label.component";
+import { CropImageComponent } from './components/crop-image/crop-image.component';
+
 
 import { HttpService } from './core/service/http/http.service';
 import { FilterPipe } from './core/pipes/filter.pipe';
 import { SearchComponent } from './components/search/search.component';
 import { FilterLabelPipe } from './core/pipes/filter-label.pipe';
 import { LoggerService } from './core/service/logger/logger.service';
-import { CropImageComponent } from './components/crop-image/crop-image.component';
-import { ImageCropperModule } from "ngx-image-cropper";
+import { MessagingService } from "./core/service/messaging-service/messaging.service";
 
 
 @NgModule({
@@ -145,9 +149,9 @@ import { ImageCropperModule } from "ngx-image-cropper";
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [HttpService, AuthGuard, LoggerService],
+  providers: [HttpService, AuthGuard, LoggerService, MessagingService],
   bootstrap: [AppComponent],
-  entryComponents: [AddLabelComponent, CropImageComponent]
+  entryComponents: [AddLabelComponent, CropImageComponent, CollaboratorComponent]
 
 })
 export class AppModule { }

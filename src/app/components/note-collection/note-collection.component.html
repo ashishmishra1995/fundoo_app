@@ -1,16 +1,22 @@
 <div class="note" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
-  <mat-card style="margin-top: 30px; border-radius:10px" 
-            *ngFor="let notes of notesArray | filter: searchNote" 
-            [style.backgroundColor]="notes.color">
+  <mat-card class="card" style="margin-top: 30px; border-radius:10px" *ngFor="let notes of notesArray | filter: searchNote"
+    [style.backgroundColor]="notes.color">
     <div [ngClass]="{
           'grid-card': !toggle,
           'list-card': toggle
         }">
-      <div (click)="openDialog(notes)" (eventUpdate)="nextDelete($event)">
-        <mat-card-title [innerHTML]="notes.title"><b>{{notes.title}}</b></mat-card-title>
-        <mat-card-content [innerHTML]="notes.description">{{notes.description}}</mat-card-content>
-        <div *ngFor="let box of notes.noteCheckLists">
-          <mat-checkbox>{{box.itemName}}</mat-checkbox>
+      <div>
+        <mat-card-title [innerHTML]="notes.title" (click)="openDialog(notes)" (eventUpdate)="nextDelete($event)"><b>{{notes.title}}</b></mat-card-title>
+        <mat-card-content [innerHTML]="notes.description" (click)="openDialog(notes)" (eventUpdate)="nextDelete($event)">{{notes.description}}</mat-card-content>
+        <div *ngFor="let checklist of notes.noteCheckLists" fxLayout="row">
+          <mat-checkbox fxFlex="10%" *ngIf="checklist.status=='open'&& !checklist.isDeleted" (click)=checkBox(checklist,notes)></mat-checkbox>
+          <input *ngIf="!checklist.isDeleted && checklist.status=='open' " [(ngModel)]=checklist.itemName fxFlex="90%" class="note"
+            (click)="openDialog(notes)" [style.backgroundColor]="notes.color" style="border:none">
+        </div>
+
+        <div class="note" *ngFor="let checklist of notes.noteCheckLists" fxLayout="row">
+          <mat-checkbox fxFlex="10%" checked=true *ngIf="checklist.status=='close'&& !checklist.isDeleted" (click)=checkBox(checklist,notes)></mat-checkbox>
+          <del *ngIf="!checklist.isDeleted && checklist.status=='close'" (click)="openDialog(notes)">{{checklist.itemName}}</del>
         </div>
         <mat-card-content>
           <div fxLayout="row wrap" fxLayoutGap="10px">
@@ -24,21 +30,21 @@
               </mat-chip-list>
             </div>
             <div *ngIf="notes.reminder.length!=0">
-                <mat-chip-list>
-                    <mat-chip class="chip" >
-                        <mat-icon>query_builder</mat-icon>{{notes.reminder | date:'fullDate'}}
-                      <mat-icon (click)="$event.stopPropagation()">
-                        cancel</mat-icon>
-                    </mat-chip>
-                  </mat-chip-list>
+              <mat-chip-list>
+                <mat-chip class="chip">
+                  <mat-icon >query_builder</mat-icon>{{notes.reminder | date:'medium'}}
+                  <mat-icon (click)="removeReminder(notes.id)" (click)="$event.stopPropagation()">
+                    cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
             </div>
           </div>
         </mat-card-content>
       </div>
 
       <div fxLayout="row">
-        <div fxLayout="row" style="width:100%">
-          <app-add-reminder [noteDetails]="notes" ></app-add-reminder>
+        <div fxLayout="row" style="width:100%" class="card-icons">
+          <app-add-reminder [noteDetails]="notes" (todayEvent)="addReminder($event)"></app-add-reminder>
           <app-collaborator></app-collaborator>
           <app-change-color [noteDetails]="notes" (eventColor)="nextDelete($event)">
           </app-change-color>

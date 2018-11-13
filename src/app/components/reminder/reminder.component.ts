@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { HttpService } from "../../core/service/http/http.service";
+import { DataServiceService } from '../../core/service/data-service/data-service.service';
 
 @Component({
   selector: 'app-reminder',
@@ -7,9 +9,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReminderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private httpService: HttpService,
+    private data: DataServiceService) { }
 
+  @Input() notesArray;
   ngOnInit() {
+    this.getReminder();
+    this.gridList();
+
+  }
+  toggle = false;
+  gridList() {
+    this.data.currentMessage.subscribe(message => {
+      this.toggle = message;
+    })
+  }
+  public reminder = [];
+  public val1;
+  public val2;
+  getReminder() {
+
+    var token = localStorage.getItem('token');
+    this.httpService.httpGetLabel('notes/getReminderNotesList', token).subscribe(result => {
+      console.log("result reminder: ", result);
+      this.reminder = result['data'].data;
+      console.log("reminders: ", this.reminder);
+      
+    }, error => {
+      console.log(error);
+    })
+  }
+  sortFunc (a, b) {
+    console.log("a",a.reminder[0],"b",b.reminder[0]);
+    return a.reminder[0] - b.reminder[0]
   }
 
 }

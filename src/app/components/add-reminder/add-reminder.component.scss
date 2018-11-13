@@ -2,7 +2,35 @@
 .reminderMenu{
     padding-top: 8px;
     padding-bottom: 8px;
-    width: 280px;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 225px;
     box-sizing: none;
     outline: none;
+    font-weight: 500;
+   
+}
+.timePick-menu{
+    padding-right: 16px;
+}
+.rem-text{
+    font-size:15px;
+    font-weight: 500;
+}
+
+.down-button{
+    height: 2em;
+    width: 2em
+}
+// .date-field{
+
+// }
+.time-field{
+    display: inline-flex;
+    align-items: baseline
+}
+.down-icon{
+    height:1em;
+    width: 1em;
+    color: gray;
 }

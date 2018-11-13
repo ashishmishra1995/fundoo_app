@@ -3,7 +3,8 @@ import { HttpService } from '../../core/service/http/http.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { UpdateNotesComponent } from '../update-notes/update-notes.component';
 import { DataServiceService } from "../../core/service/data-service/data-service.service";
-import { Condition } from 'selenium-webdriver';
+import { NoteServiceService } from '../../core/service/note-service/note-service.service';
+import { CollaboratorComponent } from '../collaborator/collaborator.component';
 
 @Component({
   selector: 'app-note-collection',
@@ -14,6 +15,9 @@ export class NoteCollectionComponent implements OnInit {
   
   @Input() notesArray;
   @Input() searchNote;
+  public checkArray=[];
+  public isChecked=false;
+
   @Output() listEmit= new EventEmitter();
   labels=[];
   labelBody={};
@@ -21,7 +25,8 @@ export class NoteCollectionComponent implements OnInit {
   search;
   constructor(private httpService: HttpService,
     public dialog: MatDialog,
-    public data: DataServiceService) { 
+    public data: DataServiceService,
+    private NoteService: NoteServiceService) { 
       this.data.currentEvent.subscribe(message=>{
         if(message){
           this.addEntry.emit();
@@ -29,8 +34,10 @@ export class NoteCollectionComponent implements OnInit {
       })
     }
     condition=true;
+    
   ngOnInit() {
     this.gridList();
+    
   }
   toggle=false;
   gridList(){
@@ -46,6 +53,19 @@ export class NoteCollectionComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.addEntry.emit({
+
+      })
+    });
+  }
+  collabDialog(notes): void {
+    const dialogRefCollab = this.dialog.open(CollaboratorComponent, {
+      width: '500px',
+      height:'300px',
+      data: notes
+    });
+
+    dialogRefCollab.afterClosed().subscribe(result => {
       this.addEntry.emit({
 
       })
@@ -71,6 +91,48 @@ export class NoteCollectionComponent implements OnInit {
     },error=>{
       console.log(error);
       
+    })
+  }
+  public reminderBody={};
+  removeReminder(id){
+    this.reminderBody={
+      "noteIdList":[id]
+    }
+    this.httpService.httpArchiveNote('notes/removeReminderNotes', this.reminderBody,localStorage.getItem('token')).subscribe(result=>{
+      console.log(result);
+      this.addEntry.emit({
+
+      });
+    })
+  }
+  addReminder($event){
+    this.addEntry.emit({
+
+    });
+  }
+  public modifiedCheckList
+  checkBox(checkList,note) {
+
+    if (checkList.status == "open") {
+      checkList.status = "close"
+    }
+    else {
+      checkList.status = "open"
+    }
+    console.log(checkList);
+    this.modifiedCheckList = checkList;
+    this.updatelist(note.id);
+  }
+  updatelist(id){
+    var apiData = {
+      "itemName": this.modifiedCheckList.itemName,
+      "status": this.modifiedCheckList.status
+    }
+  
+    this.NoteService.UpdateChecklist(JSON.stringify(apiData), id, this.modifiedCheckList.id)
+    .subscribe(response => {
+      console.log(response);
+
     })
   }
 

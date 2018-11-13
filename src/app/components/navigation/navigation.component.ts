@@ -70,11 +70,14 @@ export class NavigationComponent {
   lastName;
   email;
   public pic;
+  public toggle=false;
+  
   ngOnInit() {
     this.getLabelList();
     this.data.currentMsg.subscribe(message => this.message = message)
 
   }
+ 
 
   getLabelList() {
     var label = [];
@@ -121,20 +124,11 @@ export class NavigationComponent {
   img = environment.apiUrl + this.image2;
 
   onFileUpload(event) {
-    var token = localStorage.getItem('token');
     this.profileCropOpen(event);
 
     this.selectedFile = event.path[0].files[0];
     const uploadData = new FormData();
     uploadData.append('file', this.selectedFile, this.selectedFile.name);
-    // this.httpService.httpAddImage('user/uploadProfileImage', uploadData, token).subscribe(res => {
-    //   console.log(res);
-    //   console.log("url: ", res['status'].imageUrl)
-    //   this.img = environment.apiUrl + res['status'].imageUrl;
-    //   localStorage.setItem('imageUrl', res['status'].imageUrl);
-    // }, error => {
-    //   console.log(error);
-    // })
 
   }
   image = {};
@@ -151,9 +145,7 @@ export class NavigationComponent {
 
     dialogRefPic.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.data.currentMessage.subscribe(message => this.pic = message)
-      console.log("message", this.message);
-      console.log("pic", this.pic);
+      this.data.currentProfile.subscribe(message => this.pic = message)
       if (this.pic == true) {
         this.image2 = localStorage.getItem('imageUrl');
         this.img = environment.apiUrl + this.image2;

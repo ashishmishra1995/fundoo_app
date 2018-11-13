@@ -188,4 +188,80 @@ export class HttpService {
     };
     return this.http.post(environment.baseUrl+"/"+nexturl,body,httpOptions)
   }
+  httpRemoveReminder(nextUrl,token,body){
+    var httpOptions={
+      headers: new HttpHeaders({
+       'Authorization':token
+      })
+
+    };
+    return this.http.post(environment.baseUrl+'/'+nextUrl, body, httpOptions)
+   }
+
+   getData(name){
+    return this.http.get(environment.baseUrl+"/"+name);
+  }
+  postData(name,body){
+    console.log(body)
+    return this.http.post(environment.baseUrl+"/"+name,body);
+  }
+  post(name,input,access_token){
+    // console.log(input);
+    // console.log(access_token)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': access_token
+      })
+    };
+    // console.log(this.getFormUrlEncoded(input))
+    return this.http.post(environment.baseUrl+name,this.getFormUrlEncoded(input),httpOptions)
+  }
+
+  get(name,token){
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': token
+    })
+  }
+    return this.http.get(environment.baseUrl + "/" + name,httpOptions);
+  }
+
+postDel(name, input, access_token){
+ 
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': access_token
+    })
+  };
+  console.log(access_token)
+
+  return this.http.post(environment.baseUrl + "/" + name, input, httpOptions)
+}
+  addImage(name, input, access_token){
+  const httpOptions = {
+    headers: new HttpHeaders({
+      
+      'Authorization': access_token
+    })
+  };
+  console.log(access_token)
+
+  return this.http.post(environment.baseUrl+ "/" + name, input, httpOptions)
+}
+ NewPost(url,RequestBody,httpHeaders){
+   return this.http.post(url, RequestBody, httpHeaders)
+ }
+ NewGet(url,httpHeaders){
+   return this.http.get( url,  httpHeaders)
+ }
+  delete(url,httpHeaders) {
+   
+   
+    return this.http.delete(url, httpHeaders)
+
+  }
+
 }

@@ -1,50 +1,108 @@
-.spacing
-{
+// .spacing
+// {
     
-    margin-left:50px;
-    margin-right:350px;
-    margin-top:3%;
+//     margin-left:50px;
+//     margin-right:350px;
+//     margin-top:3%;
     
-}
-.spacing2
-{
-    margin:auto;
+// }
+// .spacing2
+// {
+//     margin:auto;
     
-    width:40%;
-}
-.spacing3
-{
-    padding-top: 5%;
-}
+//     width:40%;
+// }
+// .spacing3
+// {
+//     padding-top: 5%;
+// }
 
-.width
-{
-    width:60%;
-    height:fit-content;
-}
-.fullWidth
-{
-    width: 100%;
-}
-.fields
-{
-    border:none;
-    outline: none;
-    word-wrap: break-word;
-    background:transparent;
-}
-[contenteditable=true]:empty:not(:focus):before{
-    content:attr(data-text);
-    color:gray
-}
-mat-card
-{   
-    width: 480px;
-    border-radius:15px;
+// .width
+// {
+//     width:60%;
+//     height:fit-content;
+// }
+// .fullWidth
+// {
+//     width: 100%;
+// }
+// .fields
+// {
+//     border:none;
+//     outline: none;
+//     word-wrap: break-word;
+//     background:transparent;
+// }
+// [contenteditable=true]:empty:not(:focus):before{
+//     content:attr(data-text);
+//     color:gray
+// }
+// mat-card
+// {   
+//     width: 480px;
+//     border-radius:15px;
    
     
+// }
+// .icons{
+//     padding-left: 10%;
+// }
+
+
+
+
+
+
+/* .example-container {
+  position: absolute;
+  top: 57px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+} */
+.card{
+    height:auto;
+    width:550px;
+    border-radius: 15px;
 }
-.icons{
-    padding-left: 10%;
+.note{
+    width: 100%;
+  height: auto;
+  border:none;
+  
+  font-size: 15px;
+  
+  outline: none
+
+}
+.material-icons {
+    cursor: pointer;
+    opacity: 0.5;
+}
+.material-icons:hover {
+    cursor: pointer;
+    opacity: 1.5;
 }
 
+.take_notes{
+    /* position: relative; */
+    width: 80%;
+     padding: 2px 2px 2px 2px;
+    /* outline: none; */
+    /* overflow: hidden; */
+}
+.matContent{
+    padding: 2px 2px 2px 2px;
+}
+[contenteditable=true]:empty:not(:focus):before{
+    content: attr(placeholder);
+    display: block;
+    opacity:0.5;
+}
+.icondiv{
+    padding-top: 15px
+}
+/* mat-card{
+    width:600px;
+} */
