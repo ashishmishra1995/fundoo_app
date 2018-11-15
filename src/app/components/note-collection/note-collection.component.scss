@@ -1,12 +1,21 @@
 .grid-card{
     min-width:300px;
+    max-width:300px;
     min-height:100px;
-    max-width: 300px;
-    overflow-y: auto;
+    // max-width: 300px;
+    word-break: break-word;
+    border-radius:10px;
+}
+.grid-card2{
+    min-width:300px;
+    max-width:300px;
+    min-height:100px;
+    // max-width: 300px;
+    word-break: break-word;
     border-radius:10px;
 }
 .list-card{
-    width:700px;
+    min-width:100%;
     min-height:100px;
     /* max-width: 300px; */
     overflow-y: auto;
@@ -20,10 +29,21 @@
 .chip{
     background: grey;
     opacity: 0.7;
+    word-break: break-word;
+    
+}
+.reminder-chip{
+    width: 90%;
+    word-break: break-word;
+    opacity: 0.7;
+    background: grey;
+}
+.labelChip{
+    margin-bottom: 7px;
 }
 .card{
     margin-bottom: 20px;
-    padding-bottom: 10px;
+    
 }
 .card-icons{
     opacity: 0

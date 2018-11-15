@@ -54,7 +54,7 @@
         <div fxLayout="row">
             <mat-form-field class="time-field" (click)="$event.stopPropagation()">
                 <div fxFlex fxLayout="row">
-                    <input matInput placeholder="Choose Time" (click)="$event.stopPropagation()" [matMenuTriggerFor]="timeMenu" [(ngModel)]="reminderBody.time">
+                    <input matInput placeholder="Choose Time"  (click)="$event.stopPropagation()" [matMenuTriggerFor]="timeMenu" [(ngModel)]="reminderBody.time">
                     <button mat-icon-button class="down-button"> <mat-icon mat-suffix class="down-icon" (click)="$event.stopPropagation()" [matMenuTriggerFor]="timeMenu" class="timeSet">keyboard_arrow_down</mat-icon></button>
                 </div>
             </mat-form-field>

@@ -196,7 +196,8 @@ public status="open"
           "isPined": this.isPinned,
           "color": this.parentColor,
           "isArchived": this.isArchived,
-          "labelIdList": JSON.stringify(this.labelId)
+          "labelIdList": JSON.stringify(this.labelId),
+          "reminder":this.reminderVariable
         }
     
     }
@@ -222,7 +223,8 @@ public status="open"
          "isPined": this.isPinned,
          "color": this.parentColor,
          "isArchived": this.isArchived,
-         "labelIdList": JSON.stringify(this.labelId)
+         "labelIdList": JSON.stringify(this.labelId),
+         "reminder":this.reminderVariable
         }
  }
 if (this.title != "") {
@@ -258,9 +260,7 @@ if (this.title != "") {
    pinEvent(event){
       this.isPinned=true;
    }
-  // colorChanged(event){
-  //   this.changedColor=event;
-  // }
+ 
   public labelName=[];
   labelEvent(event){
     if(this.labelName.indexOf(event)<0){
@@ -323,6 +323,18 @@ if (this.title != "") {
   checklist($event){
     this.check=true;
   }
+  public reminderVariable;
+  public reminderArray=[];
+  notes={
+    'id':''
   }
-
-
+  reminderEvent(event){
+    if(event){
+      this.reminderVariable=event;
+      this.reminderArray.push(this.reminderVariable);
+    }
+  }
+  deleteReminder(){
+    this.reminderArray.pop();
+  }
+  }

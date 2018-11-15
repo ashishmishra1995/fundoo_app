@@ -74,6 +74,7 @@ import { SearchComponent } from './components/search/search.component';
 import { FilterLabelPipe } from './core/pipes/filter-label.pipe';
 import { LoggerService } from './core/service/logger/logger.service';
 import { MessagingService } from "./core/service/messaging-service/messaging.service";
+import { PinComponent } from './components/pin/pin.component';
 
 
 @NgModule({
@@ -106,7 +107,8 @@ import { MessagingService } from "./core/service/messaging-service/messaging.ser
     SearchComponent,
     FilterLabelPipe,
     LabelComponent,
-    CropImageComponent
+    CropImageComponent,
+    PinComponent
 
 
   ],

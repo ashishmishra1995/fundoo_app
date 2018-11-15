@@ -19,15 +19,12 @@
          
           <div fxLayout="row wrap" fxLayoutGap="10px">
             <div *ngFor="let item of labelName">
-
               <mat-chip-list>
                 <mat-chip class="chip" *ngIf="item.isDeleted==false">{{item.label}}
                   <mat-icon (click)="$event.stopPropagation(); removeLabel(notes.id,item.id)">
                             cancel</mat-icon>
                 </mat-chip>
-
               </mat-chip-list>
-
             </div>
             
           </div>
@@ -42,7 +39,6 @@
               <app-add-archive></app-add-archive>
               <app-more [noteDetails]="notes" (addEvent)="labelEvent($event)"></app-more>
             </div>
-
             <button mat-button (click)="close()">Close</button>
           </div>
         </mat-card-content>
@@ -50,7 +46,6 @@
     </div>
   </div>
 </div>
-
 <div *ngIf="!visible">
   <mat-card [ngStyle]="{'background-color':parentColor}">
     <mat-card-content>
@@ -71,7 +66,6 @@
           <app-add-archive></app-add-archive>
           <app-more></app-more>
         </div>
-
         <button mat-button (click)="close()">Close</button>
       </div>
     </mat-card-content>
@@ -126,12 +120,18 @@
 
     </mat-chip>
   </div>
+  <div *ngFor="let item of reminderArray">
+    <mat-chip>{{item}}
+      <mat-icon (click)="deleteReminder()">cancel
+      </mat-icon>
+    </mat-chip>
+  </div>
 
 </mat-chip-list>
 
 
       <div fxLayout="row" fxLayoutAlign="space-around center" class="icondiv">
-        <app-add-reminder [noteDetails]="notes" (todayEvent)="remToday($event)">
+        <app-add-reminder [noteDetails]="notes" (newEvent)="reminderEvent($event)" (todayEvent)="remToday($event)">
         </app-add-reminder>
         <app-collaborator></app-collaborator>
         <app-change-color (eventColor)="changeColor($event)"></app-change-color>

@@ -33,6 +33,7 @@ export class ReminderComponent implements OnInit {
     this.httpService.httpGetLabel('notes/getReminderNotesList', token).subscribe(result => {
       console.log("result reminder: ", result);
       this.reminder = result['data'].data;
+      this.reminder.sort(this.sortFunc)
       console.log("reminders: ", this.reminder);
       
     }, error => {
@@ -40,8 +41,13 @@ export class ReminderComponent implements OnInit {
     })
   }
   sortFunc (a, b) {
-    console.log("a",a.reminder[0],"b",b.reminder[0]);
-    return a.reminder[0] - b.reminder[0]
+    if (a.reminder < b.reminder) //sort string ascending
+        return -1 
+    if (a.reminder > b.reminder)
+        return 1
+    return 0 //default return value (no sorting)
   }
+
+  
 
 }

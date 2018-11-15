@@ -90,7 +90,12 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("lastName", lastName);
           localStorage.setItem("email", email);
           localStorage.setItem('imageUrl', imageUrl);
-
+          var pushNotification={
+            "pushToken":localStorage.getItem('pushToken')
+          }
+          this.httpService.httpAddReminder('user/registerPushToken',token,pushNotification).subscribe(result=>{
+            console.log("Push Token successfully registered: ", result);
+          })
           this.router.navigate(['home']);
 
           //this.msgService.getPermission();

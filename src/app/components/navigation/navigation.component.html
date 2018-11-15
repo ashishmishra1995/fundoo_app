@@ -6,7 +6,7 @@
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
       </span>
-      <span class="logo">fundoo</span>
+      <span class="logo">{{logoName}}</span>
       <i class="material-icons">
         search
       </i>
@@ -30,7 +30,7 @@
               #selectFile>
           </div>
           <div fxFlex=70 fxLayout="column">
-            <mat-content fxFlex class="contentstyle-name" style="margin-top:5px"><b>
+            <mat-content fxFlex class="contentstyle-name" class="profileName"><b>
                 {{firstName | titlecase}} {{lastName | titlecase}}</b> </mat-content>
             <mat-content class="contentstyle-email"><i>{{email}}</i></mat-content>
           </div>
@@ -52,12 +52,12 @@
         [opened]="(isHandset$ | async)" [position]="start">
         <mat-nav-list>
           
-          <a class="circle"  mat-list-item routerLink="/home/notes"><span>
+          <a (click)="changeLogo('fundoo')" class="circle"  mat-list-item routerLink="/home/notes"><span>
               <mat-icon>add_box</mat-icon></span>
             <span style="padding-left :20px">Note</span>
           </a>
           
-          <a class="circle"  mat-list-item routerLink="/home/reminder"><span>
+          <a (click)="changeLogo('Reminder')" class="circle"  mat-list-item routerLink="/home/reminder"><span>
               <mat-icon>notifications</mat-icon></span>
             <span style="padding-left :20px">Reminder</span>
           </a>
@@ -67,16 +67,16 @@
               <mat-icon>add</mat-icon></span>
             <span style="padding-left :20px">Labels</span>
           </a>
-          <a class="circle"  *ngFor="let labels of labels" mat-list-item (click)="clickLabel(labels)">
+          <a (click)="changeLogo(labels.label)" class="circle"  *ngFor="let labels of labels" mat-list-item (click)="clickLabel(labels)">
               <span><mat-icon>label</mat-icon> </span>
               <span style="padding-left: 20px">{{labels.label}}</span>
           </a><hr>
 
-          <a class="circle"  mat-list-item routerLink="/home/archieve"><span style="padding-left:0px;">
+          <a (click)="changeLogo('Archive')" class="circle"  mat-list-item routerLink="/home/archieve"><span style="padding-left:0px;">
               <mat-icon>archive</mat-icon></span>
             <span style="padding-left :20px">Archive</span>
           </a>
-          <a class="circle"  mat-list-item routerLink="/home/trash"><span style="padding-left:0px;">
+          <a (click)="changeLogo('Trash')" class="circle"  mat-list-item routerLink="/home/trash"><span style="padding-left:0px;">
               <mat-icon>delete</mat-icon></span>
             <span style="padding-left :20px">Trash</span></a>
 

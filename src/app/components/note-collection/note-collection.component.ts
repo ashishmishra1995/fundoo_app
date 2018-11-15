@@ -135,5 +135,14 @@ export class NoteCollectionComponent implements OnInit {
 
     })
   }
-
+  public currDate= new Date(); 
+  checkReminder(date){
+  
+    var showTime=new Date(date).getTime();
+    var currTime=this.currDate.getTime();
+    if(showTime>currTime){
+      return true
+    }else return false
+    
+  }
 }

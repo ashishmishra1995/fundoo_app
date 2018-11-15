@@ -75,9 +75,13 @@ export class NavigationComponent {
   ngOnInit() {
     this.getLabelList();
     this.data.currentMsg.subscribe(message => this.message = message)
-
+    this.logoName='fundoo'
   }
- 
+ public logoName;
+
+ changeLogo(logoName){
+   this.logoName=logoName;
+ }
 
   getLabelList() {
     var label = [];

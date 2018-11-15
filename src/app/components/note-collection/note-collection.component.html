@@ -1,12 +1,19 @@
-<div class="note" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
-  <mat-card class="card" style="margin-top: 30px; border-radius:10px" *ngFor="let notes of notesArray | filter: searchNote"
-    [style.backgroundColor]="notes.color">
-    <div [ngClass]="{
+<div fxLayoutAlign="center">
+ <div fxFlex.xs=0 fxFlex.sm=0 fxFlex.md=0 fxFlex.lg=10 fxFlex.xl=10>
+
+</div>
+<div fxFlex.xs=100 fxFlex.sm=100 fxFlex.md=100 fxFlex.lg=80 fxFlex.xl=80 class="note" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
+  <mat-card fxFlex.xs=100 fxFlex.sm=100 fxFlex.md=30 fxFlex.lg=25 fxFlex.xl=25 class="card" style="margin-top: 30px; border-radius:10px" *ngFor="let notes of notesArray | filter: searchNote"
+            [style.backgroundColor]="notes.color" [ngClass.xl]="toggle ? 'list-card' : 'grid-card'"
+            [ngClass.lg]="toggle ? 'list-card' : 'grid-card'" [ngClass.md]="toggle ? 'list-card' : 'grid-card2'"
+            [ngClass.sm]="list-card" [ngClass.xs]="list-card">
+    <!-- <div [ngClass]="{
           'grid-card': !toggle,
           'list-card': toggle
-        }">
-      <div>
+        }"> -->
+    <div>
         <mat-card-title [innerHTML]="notes.title" (click)="openDialog(notes)" (eventUpdate)="nextDelete($event)"><b>{{notes.title}}</b></mat-card-title>
+        <!-- <app-pin [arrayPin]="notes" ></app-pin> -->
         <mat-card-content [innerHTML]="notes.description" (click)="openDialog(notes)" (eventUpdate)="nextDelete($event)">{{notes.description}}</mat-card-content>
         <div *ngFor="let checklist of notes.noteCheckLists" fxLayout="row">
           <mat-checkbox fxFlex="10%" *ngIf="checklist.status=='open'&& !checklist.isDeleted" (click)=checkBox(checklist,notes)></mat-checkbox>
@@ -19,11 +26,11 @@
           <del *ngIf="!checklist.isDeleted && checklist.status=='close'" (click)="openDialog(notes)">{{checklist.itemName}}</del>
         </div>
         <mat-card-content>
-          <div fxLayout="row wrap" fxLayoutGap="10px">
-            <div *ngFor="let item of notes.noteLabels">
+          <div fxLayout="row wrap" >
+            <div class="labelChip" *ngFor="let item of notes.noteLabels">
 
               <mat-chip-list>
-                <mat-chip class="chip" *ngIf="item.isDeleted==false">{{item.label}}
+                <mat-chip class="chip" routerLink="/home/label/{{item.label}}" *ngIf="item.isDeleted==false">{{item.label}}
                   <mat-icon (click)="$event.stopPropagation(); removeLabel(notes.id,item.id)">
                     cancel</mat-icon>
                 </mat-chip>
@@ -31,8 +38,13 @@
             </div>
             <div *ngIf="notes.reminder.length!=0">
               <mat-chip-list>
-                <mat-chip class="chip">
-                  <mat-icon >query_builder</mat-icon>{{notes.reminder | date:'medium'}}
+                <mat-chip *ngIf="checkReminder(notes.reminder[0])" class="reminder-chip">
+                  <mat-icon >query_builder</mat-icon>{{notes.reminder[0] | date:'medium'}}
+                  <mat-icon (click)="removeReminder(notes.id)" (click)="$event.stopPropagation()">
+                    cancel</mat-icon>
+                </mat-chip>
+                <mat-chip *ngIf="!checkReminder(notes.reminder[0])" class="reminder-chip">
+                  <mat-icon >query_builder</mat-icon><del>{{notes.reminder[0] | date:'medium'}}</del>
                   <mat-icon (click)="removeReminder(notes.id)" (click)="$event.stopPropagation()">
                     cancel</mat-icon>
                 </mat-chip>
@@ -55,7 +67,11 @@
         </div>
 
       </div>
-    </div>
+    <!-- </div> -->
   </mat-card>
 
+</div>
+<div fxFlex.xs=0 fxFlex.sm=0 fxFlex.md=0 fxFlex.lg=10 fxFlex.xl=10>
+
+  </div>
 </div>
