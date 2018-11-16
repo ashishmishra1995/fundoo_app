@@ -181,7 +181,7 @@ public status="open"
       }
   addNotes(){
     //var apiColor=this.changedColor;
-    this.parentColor = "#ffffff";
+    //this.parentColor = "#ffffff";
     this.title = document.getElementById("title").innerHTML;
     this.clicked = !this.clicked;
 
@@ -197,9 +197,11 @@ public status="open"
           "color": this.parentColor,
           "isArchived": this.isArchived,
           "labelIdList": JSON.stringify(this.labelId),
-          "reminder":this.reminderVariable
+          "reminder":''
         }
-    
+        if(this.reminderVariable!=undefined){
+          this.body.reminder=this.reminderVariable
+        }
     }
       else{
         console.log("else part");
@@ -234,9 +236,12 @@ if (this.title != "") {
       this.labelName=[];
       this.dataArray=[];
       this.dataArrayApi=[];
+      this.reminderVariable=''
+      this.reminderArray=[];
       this.adding=false
       //emitting an event when the note is added
-      this.onNewEntryAdded.emit({})         
+      this.onNewEntryAdded.emit({})  
+      this.parentColor = "#ffffff";       
     },error=>{
       console.log(error);
       this.labelId = []
@@ -331,10 +336,16 @@ if (this.title != "") {
   reminderEvent(event){
     if(event){
       this.reminderVariable=event;
-      this.reminderArray.push(this.reminderVariable);
+      if(this.reminderArray.length==0){
+        this.reminderArray.push(this.reminderVariable);
+      }
+      
     }
   }
   deleteReminder(){
     this.reminderArray.pop();
+    this.reminderVariable = '';
   }
+  public todayDate= new Date();
+  public tomorrowDate= new Date(this.todayDate.getFullYear(),this.todayDate.getMonth(), (this.todayDate.getDate()+1))
   }

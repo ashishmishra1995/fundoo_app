@@ -41,12 +41,15 @@ describe('LoginComponent', () => {
       component.loginFormPassword.controls['password'].setValue('ak');
       component.loginFormPassword.controls['password'].setValue('aaaaaaaaaaaaaaaaaaa');
       component.loginFormEmail.controls['email'].setValue('AA.23@bbb.com');
+      component.loginFormPassword.controls['password'].setValue('aaaaaaaaaaaaaaaaaaa858578');
+
       expect(component.loginFormEmail.valid).toBeFalsy();
       expect(component.loginFormPassword.valid).toBeFalsy();
   }))
   it('form should be valid', async(()=>{
     component.loginFormEmail.controls['email'].setValue('aass@bbbb.com');
     component.loginFormPassword.controls['password'].setValue('akm123');
+    component.loginFormPassword.controls['password'].setValue('Akm@12345');
     
     expect(component.loginFormEmail.valid).toBeTruthy();
     expect(component.loginFormPassword.valid).toBeTruthy();

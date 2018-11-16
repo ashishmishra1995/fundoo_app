@@ -41,9 +41,11 @@ export class ReminderComponent implements OnInit {
     })
   }
   sortFunc (a, b) {
-    if (a.reminder < b.reminder) //sort string ascending
+    var first=new Date(a.reminder[0])
+    var second= new Date(b.reminder[0]);
+    if (first < second) //sort string ascending
         return -1 
-    if (a.reminder > b.reminder)
+    if (first > second)
         return 1
     return 0 //default return value (no sorting)
   }

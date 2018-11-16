@@ -135,12 +135,14 @@ export class NoteCollectionComponent implements OnInit {
 
     })
   }
+  public todayDate= new Date();
+  public tomorrowDate= new Date(this.todayDate.getFullYear(),this.todayDate.getMonth(), (this.todayDate.getDate()+1))
   public currDate= new Date(); 
   checkReminder(date){
   
     var showTime=new Date(date).getTime();
     var currTime=this.currDate.getTime();
-    if(showTime>currTime){
+    if(showTime<currTime){
       return true
     }else return false
     
