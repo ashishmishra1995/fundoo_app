@@ -32,6 +32,9 @@
     outline: none;
     word-wrap: break-word;
     background:transparent;
+    white-space:  nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden !important
 }
 [contenteditable=true]:empty:not(:focus):before{
     content:attr(data-text);

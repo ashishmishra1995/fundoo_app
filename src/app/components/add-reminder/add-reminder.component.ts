@@ -34,7 +34,7 @@ export class AddReminderComponent implements OnInit {
   addRemToday() {
     this.body = {
       "noteIdList": [this.noteDetails.id],
-      "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate(), 8, 0, 0, 0)
+      "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate(), 20, 0, 0, 0)
     }
     this.newEvent.emit(this.body['reminder']);
     this.httpService.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {

@@ -54,7 +54,7 @@
       <div fxLayout="row" fxLayoutAlign="space-between" >
           <app-add-reminder></app-add-reminder>
           <app-collaborator></app-collaborator>
-          <app-change-color [noteDetails]="data"></app-change-color>
+          <app-change-color (eventColor)=changeColor($event) [noteDetails]="data"></app-change-color>
           <app-add-photo></app-add-photo>
           <app-add-archive ></app-add-archive>
           <app-more [noteDetails]="data" (addEvent)="labelEvent($event)"></app-more>

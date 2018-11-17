@@ -193,4 +193,8 @@ export class UpdateNotesComponent implements OnInit {
       this.labelname.splice(this.labelname.indexOf(event),1)
     }
   }
+  public colorUpdate='#ffffff'
+  changeColor(event){
+    this.colorUpdate=event;
+  }
 }

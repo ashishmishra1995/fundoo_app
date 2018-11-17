@@ -32,8 +32,7 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
-              "/Users/apple/fundoo-app/node_modules/jquery/dist/jquery.min.js",
-              "/Users/apple/fundoo-app/node_modules/bootstrap/dist/js/bootstrap.min.js"
+              
             ]
           },
           "configurations": {

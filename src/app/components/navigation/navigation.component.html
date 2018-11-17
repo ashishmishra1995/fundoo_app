@@ -51,7 +51,6 @@
       <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
         [opened]="(isHandset$ | async)" [position]="start">
         <mat-nav-list>
-          
           <a (click)="changeLogo('fundoo')" class="circle"  mat-list-item routerLink="/home/notes"><span>
               <mat-icon>add_box</mat-icon></span>
             <span style="padding-left :20px">Note</span>

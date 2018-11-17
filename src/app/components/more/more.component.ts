@@ -35,7 +35,7 @@ export class MoreComponent implements OnInit {
   ngOnInit() {
     var token=localStorage.getItem('token');
       this.httpService.httpGetLabel('noteLabels/getNoteLabelList', token).subscribe(result=>{
-        console.log(result);
+        // console.log(result);
         for(var i=0; i<result['data']['details'].length; i++)
         {
           this.labels.push(result['data']['details'][i])

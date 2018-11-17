@@ -15,8 +15,8 @@ export interface DialogData {
   styleUrls: ['./add-label.component.scss']
 })
 export class AddLabelComponent implements OnInit {
-  note = {};
-  labels = [];
+  public note = {};
+  public labels = [];
   @Input() labelDetails;
   constructor(public dialogRef: MatDialogRef<NavigationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,

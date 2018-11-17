@@ -1,3 +1,6 @@
+/**
+ * @description This component aims at archiving a note 
+ */
 import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 import { HttpService } from '../../core/service/http/http.service';
 import { MatSnackBar } from "@angular/material";
@@ -9,11 +12,11 @@ import { MatSnackBar } from "@angular/material";
   styleUrls: ['./add-archive.component.scss']
 })
 export class AddArchiveComponent implements OnInit {
-  body={
+  public body={
     "isArchived":true,
     "noteIdList":[]
   }
-  records={};
+  public records={};
   constructor(private httpService: HttpService,
     public snackBar: MatSnackBar) { }
   @Input() noteDetails;
