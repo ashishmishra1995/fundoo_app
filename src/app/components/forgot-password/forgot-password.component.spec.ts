@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ForgotPasswordComponent } from './forgot-password.component';
+import { HttpService } from '../../core/service/http/http.service';
 
 describe('ForgotPasswordComponent', () => {
   let component: ForgotPasswordComponent;
@@ -8,9 +9,13 @@ describe('ForgotPasswordComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ForgotPasswordComponent ]
+      declarations: [ ForgotPasswordComponent ],
+      providers:[ { provide: HttpService, useClass: HttpService } ]
     })
-    .compileComponents();
+    .compileComponents().then(()=>{
+      fixture=TestBed.createComponent(ForgotPasswordComponent);
+      component=fixture.componentInstance;
+    });
   }));
 
   beforeEach(() => {
@@ -22,4 +27,12 @@ describe('ForgotPasswordComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should send email', async(()=>{
+    expect(component.body.email).toEqual('ashishkumishra1995@gmail.com');
+    expect(component.body.email).toBeTruthy();
+  }));
+  it('should not send email', async(()=>{
+    expect(component.body.email).toEqual('');
+    expect(component.body.email).toBeFalsy();
+  }));
 });

@@ -15,6 +15,8 @@ export class NoteCollectionComponent implements OnInit {
   
   @Input() notesArray;
   @Input() searchNote;
+  @Input() length;
+  @Input() string;
   public checkArray=[];
   public isChecked=false;
 

@@ -41,8 +41,6 @@ export class AddArchiveComponent implements OnInit {
       })
 
     }, error => {
-      console.log(error);
-      console.log(this.noteDetails.id);
       
       this.snackBar.open('Note archiving', 'Failed', {
         duration: 3000,

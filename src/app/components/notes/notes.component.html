@@ -5,7 +5,7 @@
                 <div fxFlex="20%" fxFlex.xs="0" fxFlex.sm="8" fxFlex.md="16" fxFlex.lg="22"> </div>
                 <div fxFlex="80% " fxFlex.xs="100%" fxFlex.sm="84" fxFlex.md="68" fxFlex.lg="56">
                     <!-- ---------------Add notes start------------------------ -->
-                    <app-add-note [notesArray]="notes" (onNewEntryAdded)='addNewEntry($event)'></app-add-note>
+                    <app-add-note [notesArray]="notes" (onNewData)='newNote($event)'></app-add-note>
     
                     <!-- ------------------Add notes end--------------------- -->
                 </div>
@@ -15,6 +15,8 @@
         <div fxFlex="0"> </div>
     </div>
     
-    <app-note-collection [notesArray]="notes" (addEntry)="addNewEntry($event)"></app-note-collection>
-    <!-- <div>Pinned:</div>
-    <app-note-collection [notesArray]="pinnedNotes" (addEntry)="addNewEntry($event)"></app-note-collection> -->
+    <app-note-collection [notesArray]="notes" [length]='pinnedNotes.length'
+    [string]="'Pined'" (addEntry)="addNewEntry($event)"></app-note-collection>
+
+    <app-note-collection [notesArray]="pinArray" [length]='pinnedNotes.length'
+    [string]="'Others'" (addEntry)="addNewEntry($event)"></app-note-collection> 

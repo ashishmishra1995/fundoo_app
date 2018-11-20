@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CropImageComponent } from './crop-image.component';
+import { HttpService } from '../../core/service/http/http.service';
 
 describe('CropImageComponent', () => {
   let component: CropImageComponent;
@@ -8,9 +9,13 @@ describe('CropImageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CropImageComponent ]
+      declarations: [ CropImageComponent ],
+      providers:[ { provide: HttpService, useClass: HttpService } ]
     })
-    .compileComponents();
+    .compileComponents().then(()=>{
+      fixture=TestBed.createComponent(CropImageComponent);
+      component=fixture.componentInstance;
+    });
   }));
 
   beforeEach(() => {
@@ -22,4 +27,8 @@ describe('CropImageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  // it('should crop image', async(()=>{
+  //   expect(component.croppedImage).toEqual('#556B2F')
+  //   expect(component.croppedImage).toBeTruthy();
+  // }));
 });

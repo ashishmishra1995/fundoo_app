@@ -30,8 +30,6 @@ export class AddLabelComponent implements OnInit {
 
   onNoClick(): void {
     var token = localStorage.getItem('token');
-    console.log(document.getElementById('label').innerHTML);
-    console.log(this.labels);
     if (!this.labels.some((data) => data.label == document.getElementById('label').innerHTML)) {
       this.note = {
         "userId": localStorage.getItem('userId'),
@@ -58,7 +56,7 @@ getLabelList(){
       }
       this.labels = label;
     }, error => {
-      console.log(error);
+      
     })
 }
   deleteLabel(id) {
@@ -68,7 +66,7 @@ getLabelList(){
       this.getLabelList();
 
     }, error => {
-      console.log(error);
+     
     });
   }
 
@@ -81,10 +79,10 @@ getLabelList(){
     }
 
     this.httpService.httpUpdateLabel('noteLabels/' + id + '/updateNoteLabel', this.note, localStorage.getItem('token')).subscribe(result => {
-      console.log(result);
+    
 
     }, error => {
-      console.log(error);
+      
     })
   }
 }

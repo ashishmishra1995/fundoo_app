@@ -11,14 +11,14 @@ import { DataServiceService } from '../../core/service/data-service/data-service
   styleUrls: ['./more.component.scss']
 })
 export class MoreComponent implements OnInit {
-  title;
-  note;
-  id;
-  notes=[];
-  labels=[];
-  records = {};
-  labelBody={};
-  body={
+  public title;
+  public note;
+  public id;
+  public notes=[];
+  public labels=[];
+  public records = {};
+  public labelBody={};
+  public body={
     
     "isDeleted": true,
     "noteIdList": []

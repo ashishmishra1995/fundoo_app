@@ -8,51 +8,44 @@ import { HttpService } from 'src/app/core/service/http/http.service';
 })
 export class PinComponent implements OnInit {
 
+  @Input() pinArray;
+  @Output() pinEmit=new EventEmitter();
 
-
-  @Input() arrayPin;
-  body={}
-  @Output() emitter = new EventEmitter();
-  constructor(private httpService:HttpService) { }
-  token=localStorage.getItem('token')
-  ngOnInit() 
-  {
-    console.log("arrayPin",this.arrayPin);
+  constructor(private httpService: HttpService) { }
+  
+  ngOnInit() {
   }
 
-  pin()
-  {
-  this.body={
-    'noteIdList':[this.arrayPin.id],
-    'isPined':true
-  }
-  this.httpService.httpArchiveNote('notes/pinUnpinNotes',this.body,this.token)
-  .subscribe(data=>{
-    console.log(data)
-      this.emitter.emit({
-      })
-  })
-  error=>
-  {
-    console.log(error)
-  }
-}
+  token = localStorage.getItem('token');
+  pin() {
+    this.httpService.httpArchiveNote('/notes/pinUnpinNotes',
+      {
+        "noteIdList": [this.pinArray.id],
+        "isPined": true
+      },
+      this.token).subscribe(
+        (data) => {
+          this.pinEmit.emit({});
 
-Unpin()
-{
-this.body={
-  'noteIdList':[this.arrayPin.id],
-  'isPined':false
-}
-this.httpService.httpArchiveNote('notes/pinUnpinNotes',this.body,this.token)
-.subscribe(data=>{
-  console.log(data)
-    this.emitter.emit({
-    })
-})
-error=>
-{
-  console.log(error)
-}
-}
+        },
+        error => {
+        })
+  }
+
+  unPin()
+  {
+    this.httpService.httpArchiveNote('/notes/pinUnpinNotes',
+      {
+        "noteIdList": [this.pinArray.id],
+        "isPined": false
+      },
+      this.token).subscribe(
+        (data) => {
+          this.pinEmit.emit({});
+
+        },
+        error => {
+        })
+  }
+
 }

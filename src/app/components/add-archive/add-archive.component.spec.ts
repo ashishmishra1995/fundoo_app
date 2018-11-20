@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddArchiveComponent } from './add-archive.component';
+import { HttpService } from '../../core/service/http/http.service';
 
 describe('AddArchiveComponent', () => {
   let component: AddArchiveComponent;
@@ -8,9 +9,13 @@ describe('AddArchiveComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddArchiveComponent ]
+      declarations: [ AddArchiveComponent ],
+      providers:[ { provide: HttpService, useClass: HttpService } ]
     })
-    .compileComponents();
+    .compileComponents().then(()=>{
+      fixture=TestBed.createComponent(AddArchiveComponent);
+      component=fixture.componentInstance
+    });
   }));
 
   beforeEach(() => {
@@ -22,4 +27,9 @@ describe('AddArchiveComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should be archived', async(()=>{
+    expect(component.body.isArchived).toEqual(true)
+    expect(component.body.noteIdList).toContain([])
+  }));
+  
 });

@@ -9,7 +9,7 @@ import * as firebase from "firebase";
 })
 
 export class AppComponent implements OnInit {
-
+  title="fundoo-app"
   message;
   messaging;
 

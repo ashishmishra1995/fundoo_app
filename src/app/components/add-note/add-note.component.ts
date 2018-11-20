@@ -141,7 +141,7 @@
 
 import { Component, OnInit, EventEmitter, Output, Input, ElementRef, ViewChild} from '@angular/core';
 import { NoteServiceService } from '../../core/service/note-service/note-service.service';
-
+import { Note } from "../../core/model/note";
 
 @Component({
     selector: 'app-add-note',
@@ -150,11 +150,11 @@ import { NoteServiceService } from '../../core/service/note-service/note-service
   })
 
 export class AddNoteComponent implements OnInit {
-public title;
-public note;
-//public changedColor="#ffffff"
-public parentColor='#ffffff';
+private title;
+private note;
+private parentColor='#ffffff';
   @Output() onNewEntryAdded = new EventEmitter();
+  @Output() onNewData =new EventEmitter();
  
 //creating an object for eventEmitter
   constructor(private NoteService:NoteServiceService) { }
@@ -167,6 +167,7 @@ public dataArray=[];
 public dataArrayApi=[];
 public isChecked=false;
 public status="open"
+//public notes: Note
   ngOnInit() {
 
   }
@@ -230,7 +231,7 @@ public status="open"
         }
  }
 if (this.title != "") {
-  this.NoteService.NewNote(this.getFormUrlEncoded(this.body)).subscribe(response=>{
+  this.NoteService.NewNote(this.getFormUrlEncoded(this.body)).subscribe(response =>{
    
       this.labelId = []
       this.labelName=[];
@@ -240,7 +241,8 @@ if (this.title != "") {
       this.reminderArray=[];
       this.adding=false
       //emitting an event when the note is added
-      this.onNewEntryAdded.emit({})  
+      //this.onNewEntryAdded.emit({}) 
+      this.onNewData.emit(response["status"].details); 
       this.parentColor = "#ffffff";       
     },error=>{
       console.log(error);

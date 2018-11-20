@@ -1,38 +1,22 @@
 .grid-card{
     width:300px;
-    // max-width:300px;
     min-height:100px;
-    // max-width: 300px;
     word-break: break-word;
     border-radius:10px;
 }
 .grid-card2{
     width:250px;
-    // max-width:250px;
     min-height:100px;
-    // max-width: 300px;
     word-break: break-word;
     border-radius:10px;
 }
 .list-card{
     width:100%;
     min-height:100px;
-    /* max-width: 300px; */
     overflow-y: auto;
     border-radius:10px;
 }
-// @media screen and (min-width:1400px) and (max-width: 1450px){
-//     .grid-card{
-//         min-width:280px !important;
-//         max-width:280px !important;
-//     }
-// }
 
-// .note{
-    
-//     padding:0px;
-    
-// }
 .chip{
     background: grey;
     opacity: 0.7;
