@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../../core/service/http/http.service';
 import { MatSnackBar } from '@angular/material';
 import { DataServiceService } from '../../core/service/data-service/data-service.service';
+import { NoteService } from "../../core/service/note-service/note-service.service";
 
 @Component({
   selector: 'app-trash',
@@ -13,7 +14,8 @@ export class TrashComponent implements OnInit {
   notes = [];
   constructor(private httpService: HttpService,
     private snackBar: MatSnackBar,
-  private data: DataServiceService) { }
+    private data: DataServiceService,
+    private noteService: NoteService) { }
   @Input() notesArray;
   @Output() eventDelete = new EventEmitter();
   ngOnInit() {
@@ -49,7 +51,7 @@ export class TrashComponent implements OnInit {
       "isDeleted": false,
       "noteIdList": [id]
     }
-    this.records = this.httpService.httpDeleteNote('notes/trashNotes', this.body, token).subscribe(result => {
+    this.records = this.noteService.trash(this.body).subscribe(result => {
       this.snackBar.open('Note restored', 'Successfully', {
         duration: 3000,
       });
@@ -72,7 +74,7 @@ export class TrashComponent implements OnInit {
       "isDeleted": false,
       "noteIdList": [id]
     }
-    this.records = this.httpService.httpDeleteNote('notes/deleteForeverNotes', this.body, token).subscribe(result => {
+    this.records = this.noteService.deleteForever(this.body).subscribe(result => {
       this.snackBar.open('Note deleted', 'Successfully', {
         duration: 3000,
       });

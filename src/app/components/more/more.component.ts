@@ -4,6 +4,7 @@ import { MatSnackBar } from "@angular/material";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { AddLabelComponent } from '../add-label/add-label.component';
 import { DataServiceService } from '../../core/service/data-service/data-service.service';
+import { NoteService } from "../../core/service/note-service/note-service.service";
 
 @Component({
   selector: 'app-more',
@@ -30,7 +31,8 @@ export class MoreComponent implements OnInit {
   constructor(private httpService: HttpService,
     public snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private data: DataServiceService) { }
+    private data: DataServiceService,
+  private noteService: NoteService) { }
 
   ngOnInit() {
     var token=localStorage.getItem('token');
@@ -66,7 +68,7 @@ export class MoreComponent implements OnInit {
       "isDeleted": true,
       "noteIdList": [this.noteDetails.id]
     }
-    this.records = this.httpService.httpDeleteNote('notes/trashNotes',this.body, token).subscribe(result => {
+    this.records = this.noteService.trash(this.body).subscribe(result => {
       this.snackBar.open('Note deleted', 'Successfully', {
         duration: 3000,
       });
@@ -88,7 +90,7 @@ export class MoreComponent implements OnInit {
       "noteId": this.noteDetails.id,
       "lableId": label.id
     }
-    this.httpService.httpAddLabelToNotes('notes/'+this.noteDetails.id+'/addLabelToNotes/'+label.id+'/add', localStorage.getItem('token'),this.labelBody).subscribe(result=>{
+    this.noteService.addLabeltoNotes(this.labelBody,this.noteDetails.id,label.id).subscribe(result=>{
       console.log(result);
       this.eventDelete.emit({
 

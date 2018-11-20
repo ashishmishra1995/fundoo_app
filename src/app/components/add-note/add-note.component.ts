@@ -140,7 +140,7 @@
 
 
 import { Component, OnInit, EventEmitter, Output, Input, ElementRef, ViewChild} from '@angular/core';
-import { NoteServiceService } from '../../core/service/note-service/note-service.service';
+import { NoteService } from '../../core/service/note-service/note-service.service';
 import { Note } from "../../core/model/note";
 
 @Component({
@@ -157,7 +157,7 @@ private parentColor='#ffffff';
   @Output() onNewData =new EventEmitter();
  
 //creating an object for eventEmitter
-  constructor(private NoteService:NoteServiceService) { }
+  constructor(private NoteService:NoteService) { }
   @ViewChild('editDiv') public editDiv: ElementRef;
 
 public clicked=false;

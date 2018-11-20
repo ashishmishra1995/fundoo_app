@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.data.currentDataSearch.subscribe(message => {
       this.search = message
-      console.log("search data: ",this.search)
+   
     })
     
     this.readData();
@@ -38,7 +38,7 @@ export class SearchComponent implements OnInit {
       data.data.data.forEach(element => {
         this.notes.push(element)
       })
-      console.log("read data: ", this.notes);
+     
     })
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../../core/service/http/http.service';
+import { NoteService } from "../../core/service/note-service/note-service.service";
 
 
 @Component({
@@ -9,7 +10,8 @@ import { HttpService } from '../../core/service/http/http.service';
 })
 export class ChangeColorComponent implements OnInit {
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService,
+    private noteService: NoteService) { }
   @Input() noteDetails;
   @Output() eventColor = new EventEmitter();
   body = {
@@ -101,7 +103,7 @@ export class ChangeColorComponent implements OnInit {
       "color": id,
       "noteIdList": [this.noteDetails.id]
     }
-    this.httpService.httpColorNote('notes/changesColorNotes', this.body, token).subscribe(result => {
+    this.noteService.changeColor(this.body).subscribe(result => {
 
       console.log(this.noteDetails.id);
       this.eventColor.emit({

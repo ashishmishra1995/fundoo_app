@@ -5,6 +5,7 @@ import { HttpService } from '../../core/service/http/http.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatSnackBar } from "@angular/material";
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from "../../core/service/user-service/user.service";
 
 @Component({
   selector: 'app-forgot-password',
@@ -17,7 +18,8 @@ export class ForgotPasswordComponent implements OnInit {
     private httpService: HttpService,
     private spinner: NgxSpinnerService,
     public snackBar: MatSnackBar,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService) { }
   
   body = {
       "email": ""
@@ -37,7 +39,7 @@ export class ForgotPasswordComponent implements OnInit {
     }, 2000);
   }
   recovery(){
-    this.records=this.httpService.httpPost('user/reset', this.body).subscribe(result=>{
+    this.records=this.userService.resetPassword(this.body).subscribe(result=>{
       console.log(result);
       this.snackBar.open('Email Sent', 'Success', {
         duration: 3000,

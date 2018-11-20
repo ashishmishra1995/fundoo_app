@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { HttpService } from '../../core/service/http/http.service';
 import { DataServiceService } from '../../core/service/data-service/data-service.service';
 import { MatSnackBar } from '@angular/material';
+import { NoteService } from "../../core/service/note-service/note-service.service";
+
 @Component({
   selector: 'app-archieve',
   templateUrl: './archieve.component.html',
@@ -14,7 +16,8 @@ export class ArchieveComponent implements OnInit {
 
   constructor(private httpService: HttpService,
   private data: DataServiceService,
-  public snackBar: MatSnackBar) { }
+  public snackBar: MatSnackBar,
+  private noteService: NoteService) { }
   
   ngOnInit() {
     this.getNotes();
@@ -51,7 +54,7 @@ export class ArchieveComponent implements OnInit {
       "isArchived": false,
       "noteIdList": [id]
     }
-    this.records = this.httpService.httpArchiveNote('notes/archiveNotes',this.body, token).subscribe(result => {
+    this.records = this.noteService.archive(this.body).subscribe(result => {
       this.snackBar.open('Note unarchived', 'Successfully', {
         duration: 3000,
       });

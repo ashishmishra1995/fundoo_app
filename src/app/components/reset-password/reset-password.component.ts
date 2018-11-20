@@ -6,6 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { MatSnackBar } from "@angular/material";
 import { ActivatedRoute } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
+import { UserService } from "../../core/service/user-service/user.service";
 
 @Component({
   selector: 'app-reset-password',
@@ -18,7 +19,8 @@ export class ResetPasswordComponent implements OnInit {
     private httpService: HttpService,
     private spinner: NgxSpinnerService,
     public snackBar: MatSnackBar,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService) { }
     body = {
       "newPassword": ""
     };
@@ -44,7 +46,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   reset(){
-      this.records=this.httpService.httpPasswordUpdate('user/reset-password', this.token, this.body ).subscribe(result=>{
+      this.records=this.userService.setPassword(this.body,this.token ).subscribe(result=>{
       this.snackBar.open('Password Updation', 'Success', {
         duration: 3000,
       });

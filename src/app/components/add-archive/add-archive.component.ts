@@ -4,6 +4,7 @@
 import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 import { HttpService } from '../../core/service/http/http.service';
 import { MatSnackBar } from "@angular/material";
+import { NoteService } from "../../core/service/note-service/note-service.service";
 
 
 @Component({
@@ -18,7 +19,8 @@ export class AddArchiveComponent implements OnInit {
   }
   public records={};
   constructor(private httpService: HttpService,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    private noteService: NoteService) { }
   @Input() noteDetails;
   @Output() eventArchive= new EventEmitter();
 
@@ -32,7 +34,7 @@ export class AddArchiveComponent implements OnInit {
       "isArchived": true,
       "noteIdList": [this.noteDetails.id]
     }
-    this.records = this.httpService.httpArchiveNote('notes/archiveNotes',this.body, token).subscribe(result => {
+    this.records = this.noteService.archive(this.body).subscribe(result => {
       this.snackBar.open('Note archived', 'Successfully', {
         duration: 3000,
       });

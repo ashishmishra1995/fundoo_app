@@ -98,7 +98,7 @@ export class NavigationComponent {
       }
       this.labels = label;
     }, error => {
-      console.log(error);
+     
     })
   }
   newMessage() {
@@ -110,7 +110,7 @@ export class NavigationComponent {
   onKeyUp(event) {
     this.body.data = event.target.value;
     this.data.searchData(this.body.data);
-    console.log(this.body.data);
+
   }
   grid = 0;
   viewList() {
@@ -148,7 +148,6 @@ export class NavigationComponent {
     });
 
     dialogRefPic.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.data.currentProfile.subscribe(message => this.pic = message)
       if (this.pic == true) {
         this.image2 = localStorage.getItem('imageUrl');

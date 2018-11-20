@@ -4,6 +4,7 @@ import { NavigationComponent } from '../navigation/navigation.component';
 import { HttpService } from '../../core/service/http/http.service';
 import { environment } from '../../../environments/environment';
 import { DataServiceService } from '../../core/service/data-service/data-service.service';
+import { NoteService } from "../../core/service/note-service/note-service.service";
 
 @Component({
 selector: 'app-crop-image',
@@ -17,7 +18,8 @@ constructor(
 public dialogRefPic: MatDialogRef<NavigationComponent>,
 @Inject(MAT_DIALOG_DATA) public data: any,
 private httpService: HttpService,
-private dataService: DataServiceService) { }
+private dataService: DataServiceService,
+private noteService: NoteService) { }
 
 ngOnInit() {
 }
@@ -31,7 +33,7 @@ var token = localStorage.getItem('token');
 console.log(this.croppedImage);
 const uploadData = new FormData();
 uploadData.append('file', this.croppedImage);
-this.httpService.httpAddImage('user/uploadProfileImage', uploadData, token).subscribe(res => {
+this.noteService.addImage(uploadData).subscribe(res => {
 this.img = environment.apiUrl + res['status'].imageUrl;
 localStorage.setItem("imageUrl", res['status'].imageUrl);
 this.dialogRefPic.close()

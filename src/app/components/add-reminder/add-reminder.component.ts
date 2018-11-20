@@ -3,7 +3,7 @@ import { HttpService } from '../../core/service/http/http.service';
 import { MatDatepickerModule } from "@angular/material";
 import { FormControl } from '@angular/forms';
 import { DataServiceService } from "../../core/service/data-service/data-service.service";
-
+import { NoteService } from "../../core/service/note-service/note-service.service";
 
 @Component({
   selector: 'app-add-reminder',
@@ -17,7 +17,8 @@ export class AddReminderComponent implements OnInit {
   @Output() newEvent=new EventEmitter();
 
   constructor(private httpService: HttpService,
-  private dataService: DataServiceService) { }
+  private dataService: DataServiceService,
+  private noteService: NoteService) { }
   public message;
   ngOnInit() {
 
@@ -37,7 +38,7 @@ export class AddReminderComponent implements OnInit {
       "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate(), 20, 0, 0, 0)
     }
     this.newEvent.emit(this.body['reminder']);
-    this.httpService.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+    this.noteService.addReminder(this.body).subscribe((result) => {
       console.log(result);
       this.dataService.changeEvent(true);
       this.todayEvent.emit();
@@ -51,7 +52,7 @@ export class AddReminderComponent implements OnInit {
       "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), (this.currentDate.getDate() + 1), 8, 0, 0, 0)
     }
     this.newEvent.emit(this.body['reminder']);
-    this.httpService.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+    this.noteService.addReminder(this.body).subscribe((result) => {
       console.log(result);
       this.todayEvent.emit();
     })
@@ -64,7 +65,7 @@ export class AddReminderComponent implements OnInit {
       "reminder": new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), (this.currentDate.getDate() + 7), 8, 0, 0, 0)
     }
     this.newEvent.emit(this.body['reminder']);
-    this.httpService.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+    this.noteService.addReminder(this.body).subscribe((result) => {
       console.log(result);
       this.todayEvent.emit();
     })
@@ -93,7 +94,7 @@ export class AddReminderComponent implements OnInit {
         "reminder": new Date(date.getFullYear(), date.getMonth(), date.getDate(), 8, 0, 0, 0)
       }
       this.newEvent.emit(this.body['reminder']);
-      this.httpService.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+      this.noteService.addReminder(this.body).subscribe((result) => {
         console.log(result);
         this.todayEvent.emit();
       })
@@ -103,7 +104,7 @@ export class AddReminderComponent implements OnInit {
         "reminder": new Date(date.getFullYear(), date.getMonth(), date.getDate(), 13, 0, 0, 0)
       }
       this.newEvent.emit(this.body['reminder']);
-      this.httpService.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+      this.noteService.addReminder(this.body).subscribe((result) => {
         console.log(result);
         this.todayEvent.emit();
       })
@@ -113,7 +114,7 @@ export class AddReminderComponent implements OnInit {
         "reminder": new Date(date.getFullYear(), date.getMonth(), date.getDate(), 18, 0, 0, 0)
       }
       this.newEvent.emit(this.body['reminder']);
-      this.httpService.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+      this.noteService.addReminder(this.body).subscribe((result) => {
         console.log(result);
         this.todayEvent.emit();
       })
@@ -123,7 +124,7 @@ export class AddReminderComponent implements OnInit {
         "reminder": new Date(date.getFullYear(), date.getMonth(), date.getDate(), 21, 0, 0, 0)
       }
       this.newEvent.emit(this.body['reminder']);
-      this.httpService.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+      this.noteService.addReminder(this.body).subscribe((result) => {
         console.log(result);
         this.todayEvent.emit();
       })
@@ -142,7 +143,7 @@ export class AddReminderComponent implements OnInit {
           "reminder": new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute, 0, 0)
         }
         this.newEvent.emit(this.body['reminder']);
-        this.httpService.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+        this.noteService.addReminder(this.body).subscribe((result) => {
           console.log(result);
           this.todayEvent.emit();
         })
@@ -152,7 +153,7 @@ export class AddReminderComponent implements OnInit {
           "reminder": new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour + 12, minute, 0, 0)
         }
         this.newEvent.emit(this.body['reminder']);
-        this.httpService.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+        this.noteService.addReminder(this.body).subscribe((result) => {
           console.log(result);
           this.todayEvent.emit();
         })

@@ -31,13 +31,13 @@ export class ReminderComponent implements OnInit {
 
     var token = localStorage.getItem('token');
     this.httpService.httpGetLabel('notes/getReminderNotesList', token).subscribe(result => {
-      console.log("result reminder: ", result);
+    
       this.reminder = result['data'].data;
       this.reminder.sort(this.sortFunc)
-      console.log("reminders: ", this.reminder);
+      
       
     }, error => {
-      console.log(error);
+     
     })
   }
   sortFunc (a, b) {

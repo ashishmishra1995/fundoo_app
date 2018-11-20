@@ -8,7 +8,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { MatSnackBar } from "@angular/material";
 import { LoggerService } from '../../core/service/logger/logger.service';
 import { MessagingService } from '../../core/service/messaging-service/messaging.service';
-
+import { NoteService } from "../../core/service/note-service/note-service.service";
+import { UserService } from "../../core/service/user-service/user.service";
 
 @Component({
   selector: 'app-login',
@@ -45,7 +46,9 @@ export class LoginComponent implements OnInit {
     private httpService: HttpService,
     private spinner: NgxSpinnerService,
     public snackBar: MatSnackBar,
-    private msgService: MessagingService) { }
+    private msgService: MessagingService,
+    private noteService: NoteService,
+    private userService:UserService) { }
 
   ngOnInit() {
 
@@ -69,7 +72,7 @@ export class LoginComponent implements OnInit {
   public message;
   login(show) {
     if (!show) {
-      this.records = this.httpService.httpPost('user/login', this.body)
+      this.records = this.userService.loginPost(this.body)
         .subscribe(result => {
           LoggerService.log('Login data: ', result);
 
@@ -93,8 +96,8 @@ export class LoginComponent implements OnInit {
           var pushNotification={
             "pushToken":localStorage.getItem('pushToken')
           }
-          this.httpService.httpAddReminder('user/registerPushToken',token,pushNotification).subscribe(result=>{
-            console.log("Push Token successfully registered: ", result);
+          this.userService.registerToken(pushNotification).subscribe(result=>{
+            LoggerService.log("Push Token successfully registered: ", result);
           })
           this.router.navigate(['home']);
 

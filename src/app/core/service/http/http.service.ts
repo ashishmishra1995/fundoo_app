@@ -8,7 +8,9 @@ import { environment } from "../../../../environments/environment";
 })
 export class HttpService {
 
-
+  public httpOptions; 
+  public httpO; 
+  public httpImage; 
   constructor(private http: HttpClient) { }
 
   httpGet(nextUrl) {
@@ -198,70 +200,81 @@ export class HttpService {
     return this.http.post(environment.baseUrl+'/'+nextUrl, body, httpOptions)
    }
 
-   getData(name){
-    return this.http.get(environment.baseUrl+"/"+name);
+
+
+
+
+   PostUrlEncoded(url,RequestBody){
+    this.httpOptions = {
+       headers: new HttpHeaders({
+         'Content-Type': 'application/x-www-form-urlencoded',
+         'Authorization': localStorage.getItem('token')
+       })
+     };
+    return this.http.post(url, RequestBody, this.httpOptions)
   }
-  postData(name,body){
-    console.log(body)
-    return this.http.post(environment.baseUrl+"/"+name,body);
-  }
-  post(name,input,access_token){
-    // console.log(input);
-    // console.log(access_token)
-    const httpOptions = {
+  PostnewPassword(url,RequestBody,token){
+    this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': access_token
+        'Authorization': token
       })
     };
-    // console.log(this.getFormUrlEncoded(input))
-    return this.http.post(environment.baseUrl+name,this.getFormUrlEncoded(input),httpOptions)
+    return this.http.post(url, RequestBody, this.httpOptions)
   }
-
-  get(name,token){
-    const httpOptions = {
-      headers: new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': token
-    })
+  PostJson(url,RequestBody){
+    this.httpO = {
+       headers: new HttpHeaders({
+         'Content-Type': 'application/json',
+         'Authorization': localStorage.getItem('token')
+       })
+     };
+     return this.http.post(url, RequestBody, this.httpO)
   }
-    return this.http.get(environment.baseUrl + "/" + name,httpOptions);
-  }
-
-postDel(name, input, access_token){
+  PostImage(url,RequestBody){
+     this.httpImage = {
+       headers: new HttpHeaders({
  
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': access_token
-    })
-  };
-  console.log(access_token)
-
-  return this.http.post(environment.baseUrl + "/" + name, input, httpOptions)
-}
-  addImage(name, input, access_token){
-  const httpOptions = {
-    headers: new HttpHeaders({
-      
-      'Authorization': access_token
-    })
-  };
-  console.log(access_token)
-
-  return this.http.post(environment.baseUrl+ "/" + name, input, httpOptions)
-}
- NewPost(url,RequestBody,httpHeaders){
-   return this.http.post(url, RequestBody, httpHeaders)
- }
- NewGet(url,httpHeaders){
-   return this.http.get( url,  httpHeaders)
- }
-  delete(url,httpHeaders) {
-   
-   
-    return this.http.delete(url, httpHeaders)
-
+         'Authorization': localStorage.getItem('token')
+       })
+     };
+   return this.http.post(url, RequestBody, this.httpImage)
   }
+  post(url,RequestBody){
+    return this.http.post(url, RequestBody)
+  }
+  get(url){
+    return this.http.get(url)
+  }
+  getUrlEncoded(url){
+     this.httpOptions = {
+       headers: new HttpHeaders({
+         'Content-Type': 'application/x-www-form-urlencoded',
+         'Authorization': localStorage.getItem('token')
+       })
+     };
+    return this.http.get( url,   this.httpOptions)
+  }
+  getJson(url){
+    this.httpO = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token')
+      })
+    };
+    return this.http.get(url, this.httpO)
+ 
+  }
+   delete(url) { 
+     this.httpO = {
+       headers: new HttpHeaders({
+         'Content-Type': 'application/json',
+         'Authorization': localStorage.getItem('token')
+       })
+     };
+     return this.http.delete(url, this.httpO)
+ 
+   }
+ 
 
 }

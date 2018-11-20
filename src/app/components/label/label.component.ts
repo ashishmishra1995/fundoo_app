@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { HttpService } from '../../core/service/http/http.service';
 import { LoggerService } from '../../core/service/logger/logger.service';
+import { Note } from '../../core/model/note';
 
 @Component({
   selector: 'app-label',
@@ -22,7 +23,6 @@ export class LabelComponent implements OnInit {
       (params: Params) => {
         this.labelsList = params['labelsList'];
         this.getLabel(this.labelsList);
-        console.log("labelsList:", this.labelsList);
 
       }
     )
@@ -33,21 +33,22 @@ export class LabelComponent implements OnInit {
   email;
   labels=[];
   getLabelList(){
-    var label=[];
+    var label:Note[]=[];
     var token = localStorage.getItem('token');
     this.firstName = localStorage.getItem('firstName');
     this.lastName = localStorage.getItem('lastName');
     this.email = localStorage.getItem('email');
     this.httpService.httpGetLabel('noteLabels/getNoteLabelList', token).subscribe(result => {
       LoggerService.log("labelList: ",result);
-      for (var i = 0; i < result['data']['details'].length; i++) {
-        if (result['data']['details'][i].isDeleted == false) {
-          label.push(result['data']['details'][i])
+      var myData:Note[]=[]
+      for (var i = 0; i < myData.length; i++) {
+        if (myData[i].isDeleted == false) {
+          label.push(myData[i])
         }
       }
       this.labels=label;
     }, error => {
-      console.log(error);
+      
     })
   }
   getLabel(labelsList) {
@@ -56,13 +57,11 @@ export class LabelComponent implements OnInit {
     this.httpService.httpAddNote('notes/getNotesListByLabel/' + labelsList, this.token ,{})
       .subscribe(
         (data) => {
-          console.log("POST Request is successful ", data);
+          
           this.labelsArray = data['data'].data;
-          console.log("labelsArray: ",this.labelsArray);
+         
         },
         error => {
-          console.log("Error", error);
-          console.log("labelsArray: ",this.labelsArray);
 
         })
   }

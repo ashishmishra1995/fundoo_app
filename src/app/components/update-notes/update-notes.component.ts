@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, Output, EventEmitter, Input } from '@angular
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NoteCollectionComponent } from '../note-collection/note-collection.component';
 import { HttpService } from '../../core/service/http/http.service';
-import { NoteServiceService } from '../../core/service/note-service/note-service.service';
+import { NoteService } from '../../core/service/note-service/note-service.service';
 
 export interface DialogData {
   id: string;
@@ -31,7 +31,7 @@ export class UpdateNotesComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<NoteCollectionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private httpService: HttpService,
-    private NoteService:NoteServiceService) { }
+    private NoteService:NoteService) { }
 
   ngOnInit() {
     this.tempArray=[];

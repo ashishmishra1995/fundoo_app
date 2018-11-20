@@ -56,10 +56,11 @@ export class NotesComponent implements OnInit {
     var token=localStorage.getItem('token');
     this.records=this.httpService.httpGetNote('notes/getNotesList',token).subscribe(result=>{
       console.log(result);
+      var pinnedData: Note[]=result['data']['data']
       this.pinnedNotes =[];
-      for(var i=result['data']['data'].length-1; i>=0; i--){
-        if(result['data']['data'][i].isDeleted==false && result['data']['data'][i].isPined==true){
-        this.pinnedNotes.push(result['data']['data'][i])
+      for(var i=pinnedData.length-1; i>=0; i--){
+        if(pinnedData[i].isDeleted==false && pinnedData[i].isPined==true){
+        this.pinnedNotes.push(pinnedData[i])
         }
       }
    

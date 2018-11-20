@@ -53,5 +53,6 @@ describe('LoginComponent', () => {
     
     expect(component.loginFormEmail.valid).toBeTruthy();
     expect(component.loginFormPassword.valid).toBeTruthy();
+    
   }))
 });

@@ -5,6 +5,7 @@ import { ValidatorUtil } from '../../core/utils/validator.util';
 import { HttpService } from '../../core/service/http/http.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatSnackBar } from "@angular/material";
+import { UserService } from "../../core/service/user-service/user.service";
 
 @Component({
   selector: 'app-signup',
@@ -36,7 +37,8 @@ export class SignupComponent implements OnInit {
   constructor(private router: Router,
     private httpService: HttpService,
     private spinner: NgxSpinnerService,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    private userService: UserService) { }
      
 
   ngOnInit() {
@@ -102,7 +104,7 @@ export class SignupComponent implements OnInit {
       "password": this.body.password
     };
     
-    this.records = this.httpService.httpPost('user/userSignUp', this.reg).subscribe(result => {
+    this.records = this.userService.signupPost(this.reg).subscribe(result => {
       this.snackBar.open('SignUp', 'Success', {
         duration: 3000,
       });
