@@ -3,12 +3,12 @@
     <div fxFlex.xs=0 fxFlex.sm=0 fxFlex.md=5 fxFlex.lg=5 fxFlex.xl=10>
    
    </div>
-   <div *ngIf="length!=0" fxLayoutAlign="left" style="width:100%">
+   <!-- <div *ngIf="length!=0" fxLayoutAlign="left" style="width:100%">
     <b> {{string}} </b>
-   </div>
+   </div> -->
  
    <div fxFlex.xs=100 fxFlex.sm=100 fxFlex.md=90 fxFlex.lg=90 fxFlex.xl=80 class="note" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
-     <mat-card fxFlex.xs=100 fxFlex.sm=40 fxFlex.md=35 fxFlex.lg=25 fxFlex.xl=25 class="card" style="margin-top: 30px; border-radius:10px" *ngFor="let notes of notesArray | filter: searchNote"
+     <mat-card ngStyle.xs='width: 100%' class="card" style="margin-top: 30px; border-radius:10px" *ngFor="let notes of notesArray | filter: searchNote"
                [style.backgroundColor]="notes.color" [ngClass.xl]="toggle ? 'list-card' : 'grid-card'"
                [ngClass.lg]="toggle ? 'list-card' : 'grid-card'" [ngClass.md]="toggle ? 'list-card' : 'grid-card2'"
                [ngClass.sm]="toggle ? 'list-card' : 'grid-card2'" [ngClass.xs]="list-card">
