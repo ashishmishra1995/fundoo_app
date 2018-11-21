@@ -1,8 +1,10 @@
-import { Component, OnInit, Inject, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NoteCollectionComponent } from '../note-collection/note-collection.component';
 import { HttpService } from '../../core/service/http/http.service';
 import { NoteService } from '../../core/service/note-service/note-service.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 export interface DialogData {
   id: string;
@@ -15,7 +17,8 @@ export interface DialogData {
   templateUrl: './update-notes.component.html',
   styleUrls: ['./update-notes.component.scss']
 })
-export class UpdateNotesComponent implements OnInit {
+export class UpdateNotesComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   note = {};
   @Output() eventUpdate=new EventEmitter();
   @Input() noteDetails;
@@ -51,7 +54,9 @@ export class UpdateNotesComponent implements OnInit {
       "title": document.getElementById('title').innerHTML,
       "description": document.getElementById('take-note').innerHTML
     }
-    this.httpService.httpUpdateNote('notes/updateNotes', this.note, token).subscribe(result => {
+    this.httpService.httpUpdateNote('notes/updateNotes', this.note, token)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
 
       
       this.dialogRef.close();
@@ -67,8 +72,9 @@ export class UpdateNotesComponent implements OnInit {
  }
  
    this.NoteService.UpdateChecklist(JSON.stringify(apiData), this.data.id, this.modifiedCheckList.id)
-  .subscribe(response => {
-     console.log(response,"checklist updated");
+   .pipe(takeUntil(this.destroy$))
+   .subscribe(response => {
+    
      this.dialogRef.close();
       this.eventUpdate.emit({
         
@@ -89,7 +95,7 @@ export class UpdateNotesComponent implements OnInit {
   
     editing(editedList,event){
       
-      console.log(editedList);
+
       if(event.code=="Enter"){
       this.modifiedCheckList=editedList;
       this.onNoClick();
@@ -106,20 +112,21 @@ export class UpdateNotesComponent implements OnInit {
       else{
         checkList.status = "open"
       }
-      console.log(checkList);
+    
       this.modifiedCheckList=checkList;
       this.onNoClick();
     }
     public removedList;
     removeList(checklist){
-      console.log(checklist)
+
       this.removedList=checklist;
       this.removeCheckList()
     }
     removeCheckList(){
       this.NoteService.removeChecklist(null, this.data.id, this.removedList.id)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(response => {
-        console.log(response);
+     
         for(var i=0;i<this.tempArray.length;i++){
           if(this.tempArray[i].id==this.removedList.id){
             this.tempArray.splice(i,1)
@@ -150,16 +157,17 @@ export class UpdateNotesComponent implements OnInit {
           "status":this.status
         }
       this.NoteService.addChecklist(this.newData,this.data.id)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(response => {
-        console.log(response);
+      
         this.newList=null;
         this.addCheck=false;
         this.adding=false;
-        console.log(response['data'].details);
+   
         
         this.tempArray.push(response['data'].details)
   
-        console.log(this.tempArray)
+
   
       })
     }
@@ -172,13 +180,15 @@ export class UpdateNotesComponent implements OnInit {
       "noteId": noteId,
       "lableId": labelId
     }
-    this.httpService.httpAddLabelToNotes('notes/'+noteId+'/addLabelToNotes/'+labelId+'/remove', localStorage.getItem('token'),this.labelBody).subscribe(result=>{
-      console.log(result);
+    this.httpService.httpAddLabelToNotes('notes/'+noteId+'/addLabelToNotes/'+labelId+'/remove', localStorage.getItem('token'),this.labelBody)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result=>{
+
       this.eventUpdate.emit({
 
       })
     },error=>{
-      console.log(error);
+
       
     })
   }
@@ -196,5 +206,10 @@ export class UpdateNotesComponent implements OnInit {
   public colorUpdate='#ffffff'
   changeColor(event){
     this.colorUpdate=event;
+  }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 }

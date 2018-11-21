@@ -1,12 +1,15 @@
-import { Component, OnInit,Output,Input,EventEmitter} from '@angular/core';
+import { Component, OnInit,Output,Input,EventEmitter, OnDestroy} from '@angular/core';
 import { HttpService } from 'src/app/core/service/http/http.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pin',
   templateUrl: './pin.component.html',
   styleUrls: ['./pin.component.scss']
 })
-export class PinComponent implements OnInit {
+export class PinComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   @Input() pinArray;
   @Output() pinEmit=new EventEmitter();
@@ -23,7 +26,9 @@ export class PinComponent implements OnInit {
         "noteIdList": [this.pinArray.id],
         "isPined": true
       },
-      this.token).subscribe(
+      this.token)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
         (data) => {
           this.pinEmit.emit({});
 
@@ -39,13 +44,21 @@ export class PinComponent implements OnInit {
         "noteIdList": [this.pinArray.id],
         "isPined": false
       },
-      this.token).subscribe(
+      this.token)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
         (data) => {
           this.pinEmit.emit({});
 
         },
         error => {
         })
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 
 }

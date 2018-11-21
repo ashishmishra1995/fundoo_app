@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -11,13 +11,16 @@ import { Router } from '@angular/router';
 import { environment } from "../../../environments/environment";
 import { LoggerService } from '../../core/service/logger/logger.service';
 import { CropImageComponent } from "../crop-image/crop-image.component";
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   records = {};
   @Input() noteDetails;
   @Input() notesArray;
@@ -43,7 +46,9 @@ export class NavigationComponent {
 
   logout() {
     var token = localStorage.getItem('token');
-    this.records = this.httpService.httpLogout('user/logout', token).subscribe(result => {
+    this.records = this.httpService.httpLogout('user/logout', token)
+    .pipe(takeUntil(this.destroy$)) 
+    .subscribe(result => {
       this.snackBar.open('Logout', 'Successful', {
         duration: 3000,
       });
@@ -62,7 +67,9 @@ export class NavigationComponent {
 
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$)) 
+    .subscribe(result => {
       this.getLabelList();
     });
   }
@@ -74,7 +81,9 @@ export class NavigationComponent {
   
   ngOnInit() {
     this.getLabelList();
-    this.data.currentMsg.subscribe(message => this.message = message)
+    this.data.currentMsg
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(message => this.message = message)
     this.logoName='fundoo'
   }
  public logoName;
@@ -89,7 +98,9 @@ export class NavigationComponent {
     this.firstName = localStorage.getItem('firstName');
     this.lastName = localStorage.getItem('lastName');
     this.email = localStorage.getItem('email');
-    this.httpService.httpGetLabel('noteLabels/getNoteLabelList', token).subscribe(result => {
+    this.httpService.httpGetLabel('noteLabels/getNoteLabelList', token)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       LoggerService.log("labelList: ", result);
       for (var i = 0; i < result['data']['details'].length; i++) {
         if (result['data']['details'][i].isDeleted == false) {
@@ -147,13 +158,22 @@ export class NavigationComponent {
       data: data
     });
 
-    dialogRefPic.afterClosed().subscribe(result => {
-      this.data.currentProfile.subscribe(message => this.pic = message)
+    dialogRefPic.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
+      this.data.currentProfile
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(message => this.pic = message)
       if (this.pic == true) {
         this.image2 = localStorage.getItem('imageUrl');
         this.img = environment.apiUrl + this.image2;
       }
 
     });
+  }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 }

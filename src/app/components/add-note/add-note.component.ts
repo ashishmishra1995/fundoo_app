@@ -1,147 +1,9 @@
-// import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-// import { HttpService } from '../../core/service/http/http.service';
-// import { MatSnackBar } from "@angular/material";
-
-// @Component({
-//   selector: 'app-add-note',
-//   templateUrl: './add-note.component.html',
-//   styleUrls: ['./add-note.component.scss']
-// })
-// export class AddNoteComponent implements OnInit {
-//   show = true;
-//   records = {};
-//   notes = [];
-//   note={};
-//   checklist = [];
-//   public title;
-//   check=[];
-//   public parentColor='#fafafa';
-//   visible = true;
-  
-//   checked: boolean;
-//   body = {
-//     "title": "",
-//     "description": "",
-//     "color": "",
-//     "checkList": []
-
-//   }
-//   checkBody={
-//     'textVal':"",
-//     'status':true
-//   }
-//   @Input() notesArray;
-//   @Output() onNewEntryAdded = new EventEmitter();
-//   // list = [2];
-//   constructor(private httpService: HttpService,
-//     public snackBar: MatSnackBar) {
-    
-//   }
-
-//   ngOnInit() {
-//     console.log("notes=> ", this.notesArray)
-//   }
-//   changeColor(event) {
-//     if (event) {
-//       this.parentColor = event;
-//     }
-//   }
-  
-//   addCheckBox(event){
-//     this.visible=!this.visible;
-//     //if ( this.checkBody.textVal != "") {
-//       this.checklist.push({
-//         'itemName':"",
-//         'status':"open"
-//       });
-//       console.log("checklist=>", this.checklist);
-
-//     //}
-//   }
-//   onKeydown(event,index) {
-
-//     console.log(index);
-    
-//     if (event.key === "Enter" && this.checklist[parseInt(index)].textVal !="" &&  this.checklist.length-1 ==index) {
-//       this.checklist.push({
-//         'itemName':"",
-//         'status':"open"
-//       });
-//     }else if(((event.keyCode === 46) || (event.keyCode=8))){
-//       this.checklist.pop();
-//     }
-//   }
-//   close() {
-//     if ((!this.show) || (!this.visible)) {
-//       this.show = !this.show;
-      
-//       var token = localStorage.getItem('token');
-//       this.title = document.getElementById("title").innerHTML;
-      
-//       if(this.checklist.length != 0){
-
-//         this.note = {
-//           "title": this.title,
-//           "color": this.parentColor,
-//           "checklist": JSON.stringify(this.checklist)
-//         }
-//       }else{
-//         this.note = {
-//           "title": this.title,
-//           "description": document.getElementById("take-note").innerHTML,
-//           "color": this.parentColor,
-//           "labelIdList": JSON.stringify(this.labelId)
-          
-//         }
-//       }
-      
-//       this.parentColor = "#ffffff"
-//       this.records = this.httpService.httpAddNote('notes/addNotes', token, this.note).subscribe(result => {
-//         this.snackBar.open('Note added', 'Successfully', {
-//           duration: 3000,
-//         });
-//         this.onNewEntryAdded.emit({
-
-//         });
-//         this.visible=!this.visible;
-//       }, error => {
-//         console.log(error);
-//         this.snackBar.open('Note addition', 'Failed', {
-//           duration: 3000,
-//         });
-//       });
-//     }
-//   }
-  
-//   public labelId=[];
-//   public labelName=[];
-//   labelEvent(event){
-//     if(this.labelName.indexOf(event)<0){
-//       this.labelId.push(event.id);
-//       this.labelName.push(event);
-//     }else{
-//       this.labelId.splice(this.labelId.indexOf(event),1)
-//       this.labelName.splice(this.labelName.indexOf(event),1)
-//     }
-//   }
-//   // rem1=[];
-//   // remToday(event){
-//   //   if(this.rem1.indexOf(event)<0){
-//   //     this.rem1.push(event);
-//   //   }else{
-//   //     this.rem1.splice(this.rem1.indexOf(event),1)
-//   //   }
-//   // }
-// }
-
-
-
-
-
-
-import { Component, OnInit, EventEmitter, Output, Input, ElementRef, ViewChild} from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, ElementRef, ViewChild, OnDestroy} from '@angular/core';
 import { NoteService } from '../../core/service/note-service/note-service.service';
 import { Note } from "../../core/model/note";
+import { Subject } from 'rxjs';
+
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-add-note',
@@ -149,7 +11,8 @@ import { Note } from "../../core/model/note";
     styleUrls: ['./add-note.component.scss']
   })
 
-export class AddNoteComponent implements OnInit {
+export class AddNoteComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 private title;
 private note;
 private parentColor='#ffffff';
@@ -181,8 +44,7 @@ public status="open"
         }
       }
   addNotes(){
-    //var apiColor=this.changedColor;
-    //this.parentColor = "#ffffff";
+  
     this.title = document.getElementById("title").innerHTML;
     this.clicked = !this.clicked;
 
@@ -205,7 +67,7 @@ public status="open"
         }
     }
       else{
-        console.log("else part");
+        
         
  for(var i=0;i<this.dataArray.length;i++){
    if(this.dataArray[i].isChecked==true){
@@ -218,7 +80,7 @@ public status="open"
    this.dataArrayApi.push(apiObj)
    this.status="open"
  }
- console.log(this.dataArrayApi);
+ 
  
        this.body={
          "title": this.title,
@@ -231,7 +93,9 @@ public status="open"
         }
  }
 if (this.title != "") {
-  this.NoteService.NewNote(this.getFormUrlEncoded(this.body)).subscribe(response =>{
+  this.NoteService.NewNote(this.getFormUrlEncoded(this.body))
+  .pipe(takeUntil(this.destroy$))
+  .subscribe(response =>{
    
       this.labelId = []
       this.labelName=[];
@@ -245,7 +109,7 @@ if (this.title != "") {
       this.onNewData.emit(response["status"].details); 
       this.parentColor = "#ffffff";       
     },error=>{
-      console.log(error);
+   
       this.labelId = []
       this.labelName = [];
       this.dataArray=[];
@@ -278,7 +142,7 @@ if (this.title != "") {
       this.labelName.splice(this.labelName.indexOf(event),1);
       this.labelId.splice(this.labelId.indexOf(event), 1);
     }
-    console.log("add component label",event)
+    
   }
   public data;
   public i=0;
@@ -294,14 +158,14 @@ if (this.title != "") {
    this.i++;
    this.isChecked=this.addCheck
     if (this.data != null && event.code == "Enter"){
-    console.log(event,"keydown");
+    
     var obj={
       "index":this.i,
       "data":this.data,
       "isChecked":this.isChecked
     }
     this.dataArray.push(obj)
-    console.log(this.dataArray);
+    
     this.data=null;
     this.adding=false;
     this.isChecked=false;
@@ -309,7 +173,7 @@ if (this.title != "") {
      }
   }
   onDelete(deletedObj){
-    console.log("onDelete function");
+    
        for(var i=0;i<this.dataArray.length;i++){
           if(deletedObj.index==this.dataArray[i].index){
             this.dataArray.splice(i,1);
@@ -317,7 +181,7 @@ if (this.title != "") {
        }
         
       }
-    console.log(this.dataArray)
+ 
   }
  
   deleteLabel(label){
@@ -350,4 +214,10 @@ if (this.title != "") {
   }
   public todayDate= new Date();
   public tomorrowDate= new Date(this.todayDate.getFullYear(),this.todayDate.getMonth(), (this.todayDate.getDate()+1))
+  
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
   }

@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { InterceptorService } from "./core/service/Interceptor/interceptor.service";
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -75,6 +76,7 @@ import { FilterLabelPipe } from './core/pipes/filter-label.pipe';
 import { LoggerService } from './core/service/logger/logger.service';
 import { MessagingService } from "./core/service/messaging-service/messaging.service";
 import { PinComponent } from './components/pin/pin.component';
+import { SlidePanelComponent } from './components/slide-panel/slide-panel.component';
 
 
 @NgModule({
@@ -108,7 +110,8 @@ import { PinComponent } from './components/pin/pin.component';
     FilterLabelPipe,
     LabelComponent,
     CropImageComponent,
-    PinComponent
+    PinComponent,
+    SlidePanelComponent
 
 
   ],
@@ -151,7 +154,12 @@ import { PinComponent } from './components/pin/pin.component';
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [HttpService, AuthGuard, LoggerService, MessagingService],
+  providers: [HttpService, AuthGuard, LoggerService, MessagingService, InterceptorService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }],
   bootstrap: [AppComponent],
   entryComponents: [AddLabelComponent, CropImageComponent, CollaboratorComponent]
 

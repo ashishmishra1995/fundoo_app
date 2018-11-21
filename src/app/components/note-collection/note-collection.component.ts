@@ -1,18 +1,20 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { HttpService } from '../../core/service/http/http.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { UpdateNotesComponent } from '../update-notes/update-notes.component';
 import { DataServiceService } from "../../core/service/data-service/data-service.service";
 import { NoteService } from '../../core/service/note-service/note-service.service';
 import { CollaboratorComponent } from '../collaborator/collaborator.component';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-note-collection',
   templateUrl: './note-collection.component.html',
   styleUrls: ['./note-collection.component.scss']
 })
-export class NoteCollectionComponent implements OnInit {
-  
+export class NoteCollectionComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   @Input() notesArray;
   @Input() searchNote;
   @Input() length;
@@ -29,7 +31,9 @@ export class NoteCollectionComponent implements OnInit {
     public dialog: MatDialog,
     public data: DataServiceService,
     private NoteService: NoteService) { 
-      this.data.currentEvent.subscribe(message=>{
+      this.data.currentEvent
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(message=>{
         if(message){
           this.addEntry.emit();
         }
@@ -43,7 +47,9 @@ export class NoteCollectionComponent implements OnInit {
   }
   toggle=false;
   gridList(){
-    this.data.currentMessage.subscribe(message=>{
+    this.data.currentMessage
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(message=>{
       this.toggle=message;
     })
   }
@@ -54,7 +60,9 @@ export class NoteCollectionComponent implements OnInit {
       data: notes
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       this.addEntry.emit({
 
       })
@@ -67,7 +75,9 @@ export class NoteCollectionComponent implements OnInit {
       data: notes
     });
 
-    dialogRefCollab.afterClosed().subscribe(result => {
+    dialogRefCollab.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       this.addEntry.emit({
 
       })
@@ -85,13 +95,15 @@ export class NoteCollectionComponent implements OnInit {
       "noteId": noteId,
       "lableId": labelId
     }
-    this.NoteService.removeLabelFromNotes(this.labelBody,noteId,labelId).subscribe(result=>{
-      console.log(result);
+    this.NoteService.removeLabelFromNotes(this.labelBody,noteId,labelId)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result=>{
+     
       this.addEntry.emit({
 
       })
     },error=>{
-      console.log(error);
+
       
     })
   }
@@ -100,8 +112,10 @@ export class NoteCollectionComponent implements OnInit {
     this.reminderBody={
       "noteIdList":[id]
     }
-    this.NoteService.deleteReminder(this.reminderBody).subscribe(result=>{
-      console.log(result);
+    this.NoteService.deleteReminder(this.reminderBody)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result=>{
+
       this.addEntry.emit({
 
       });
@@ -121,7 +135,7 @@ export class NoteCollectionComponent implements OnInit {
     else {
       checkList.status = "open"
     }
-    console.log(checkList);
+
     this.modifiedCheckList = checkList;
     this.updatelist(note.id);
   }
@@ -132,8 +146,9 @@ export class NoteCollectionComponent implements OnInit {
     }
   
     this.NoteService.UpdateChecklist(JSON.stringify(apiData), id, this.modifiedCheckList.id)
+    .pipe(takeUntil(this.destroy$))
     .subscribe(response => {
-      console.log(response);
+
 
     })
   }
@@ -148,5 +163,10 @@ export class NoteCollectionComponent implements OnInit {
       return true
     }else return false
     
+  }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 }

@@ -1,17 +1,20 @@
-import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output,EventEmitter, OnDestroy } from '@angular/core';
 import { HttpService } from '../../core/service/http/http.service';
 import { MatSnackBar } from "@angular/material";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { AddLabelComponent } from '../add-label/add-label.component';
 import { DataServiceService } from '../../core/service/data-service/data-service.service';
 import { NoteService } from "../../core/service/note-service/note-service.service";
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-more',
   templateUrl: './more.component.html',
   styleUrls: ['./more.component.scss']
 })
-export class MoreComponent implements OnInit {
+export class MoreComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   public title;
   public note;
   public id;
@@ -36,18 +39,22 @@ export class MoreComponent implements OnInit {
 
   ngOnInit() {
     var token=localStorage.getItem('token');
-      this.httpService.httpGetLabel('noteLabels/getNoteLabelList', token).subscribe(result=>{
-        // console.log(result);
+      this.httpService.httpGetLabel('noteLabels/getNoteLabelList', token)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result=>{
+  
         for(var i=0; i<result['data']['details'].length; i++)
         {
           this.labels.push(result['data']['details'][i])
         }
       },error=>{
-        console.log(error);
+
       })
-      this.data.currentDataSearch.subscribe(message => {
+      this.data.currentDataSearch
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(message => {
         this.search = message
-        console.log("search data: ",this.search)
+
       })
   }
 
@@ -57,7 +64,9 @@ export class MoreComponent implements OnInit {
       height: '300px',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       
     });
   }
@@ -68,16 +77,18 @@ export class MoreComponent implements OnInit {
       "isDeleted": true,
       "noteIdList": [this.noteDetails.id]
     }
-    this.records = this.noteService.trash(this.body).subscribe(result => {
+    this.records = this.noteService.trash(this.body)
+    .pipe(takeUntil(this.destroy$)) 
+    .subscribe(result => {
       this.snackBar.open('Note deleted', 'Successfully', {
         duration: 3000,
       });
-      console.log(this.noteDetails.id);
+    
       this.eventDelete.emit({
 
       })
     }, error => {
-      console.log(error);
+
       this.snackBar.open('Note deletion', 'Failed', {
         duration: 3000,
       });
@@ -90,13 +101,15 @@ export class MoreComponent implements OnInit {
       "noteId": this.noteDetails.id,
       "lableId": label.id
     }
-    this.noteService.addLabeltoNotes(this.labelBody,this.noteDetails.id,label.id).subscribe(result=>{
-      console.log(result);
+    this.noteService.addLabeltoNotes(this.labelBody,this.noteDetails.id,label.id)
+    .pipe(takeUntil(this.destroy$)) 
+    .subscribe(result=>{
+
       this.eventDelete.emit({
 
       })
     },error=>{
-      console.log(error);
+  
     })
   }
   labBody={
@@ -105,7 +118,11 @@ export class MoreComponent implements OnInit {
   onKeyUp(event){
     this.labBody.data=event.target.value;
     this.data.searchData(this.labBody.data);
-    console.log(this.labBody.data);
+  }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 
 }

@@ -208,7 +208,7 @@ export class HttpService {
     this.httpOptions = {
        headers: new HttpHeaders({
          'Content-Type': 'application/x-www-form-urlencoded',
-         'Authorization': localStorage.getItem('token')
+        //  'Authorization': localStorage.getItem('token')
        })
      };
     return this.http.post(url, RequestBody, this.httpOptions)
@@ -217,7 +217,7 @@ export class HttpService {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': token
+        // 'Authorization': token
       })
     };
     return this.http.post(url, RequestBody, this.httpOptions)
@@ -226,7 +226,7 @@ export class HttpService {
     this.httpO = {
        headers: new HttpHeaders({
          'Content-Type': 'application/json',
-         'Authorization': localStorage.getItem('token')
+        //  'Authorization': localStorage.getItem('token')
        })
      };
      return this.http.post(url, RequestBody, this.httpO)
@@ -235,7 +235,7 @@ export class HttpService {
      this.httpImage = {
        headers: new HttpHeaders({
  
-         'Authorization': localStorage.getItem('token')
+        //  'Authorization': localStorage.getItem('token')
        })
      };
    return this.http.post(url, RequestBody, this.httpImage)
@@ -250,7 +250,7 @@ export class HttpService {
      this.httpOptions = {
        headers: new HttpHeaders({
          'Content-Type': 'application/x-www-form-urlencoded',
-         'Authorization': localStorage.getItem('token')
+        //  'Authorization': localStorage.getItem('token')
        })
      };
     return this.http.get( url,   this.httpOptions)
@@ -269,7 +269,7 @@ export class HttpService {
      this.httpO = {
        headers: new HttpHeaders({
          'Content-Type': 'application/json',
-         'Authorization': localStorage.getItem('token')
+        //  'Authorization': localStorage.getItem('token')
        })
      };
      return this.http.delete(url, this.httpO)

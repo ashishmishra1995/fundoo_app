@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpService } from '../../core/service/http/http.service';
 import { Note } from "../../core/model/note";
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss']
 })
-export class NotesComponent implements OnInit {
+export class NotesComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   records={};
   private notes : Note[]=[];
   public pinnedNotes=[];
@@ -33,29 +36,32 @@ export class NotesComponent implements OnInit {
   getNotes(){
     
     var token=localStorage.getItem('token');
-    this.records=this.httpService.httpGetNote('notes/getNotesList',token).subscribe(result=>{
-      console.log(result);
+    this.records=this.httpService.httpGetNote('notes/getNotesList',token)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result=>{
+  
       var mydata:Note[]=result['data']['data']; 
-      console.log("mydata",mydata);
-      // mydata[0].noteLabels[0]
+    
       this.notes =[];
       for(var i=mydata.length-1; i>=0; i--){
         if(mydata[i].isDeleted==false && mydata[i].isArchived==false && mydata[i].isPined==false){
         this.notes.push(mydata[i]);
         }
       }
-          console.log(this.notes);
+    
       
     },error=>{
-      console.log(error);
+
     });
   }
 
   getPinnedNotes(){
     
     var token=localStorage.getItem('token');
-    this.records=this.httpService.httpGetNote('notes/getNotesList',token).subscribe(result=>{
-      console.log(result);
+    this.records=this.httpService.httpGetNote('notes/getNotesList',token)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result=>{
+     
       var pinnedData: Note[]=result['data']['data']
       this.pinnedNotes =[];
       for(var i=pinnedData.length-1; i>=0; i--){
@@ -64,11 +70,16 @@ export class NotesComponent implements OnInit {
         }
       }
    
-          console.log(this.pinnedNotes);
+     
       
     },error=>{
-      console.log(error);
+ 
     });
   }
   
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
 }

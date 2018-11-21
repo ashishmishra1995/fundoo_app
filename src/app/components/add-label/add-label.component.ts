@@ -1,9 +1,12 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Component, OnInit, Inject, Input, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NavigationComponent } from "../navigation/navigation.component";
 import { HttpService } from '../../core/service/http/http.service';
 import { DataServiceService } from '../../core/service/data-service/data-service.service';
 import { NoteService } from "../../core/service/note-service/note-service.service";
+import { Subject } from 'rxjs';
+
+import { takeUntil } from 'rxjs/operators';
 
 export interface DialogData {
   label: string;
@@ -15,7 +18,8 @@ export interface DialogData {
   templateUrl: './add-label.component.html',
   styleUrls: ['./add-label.component.scss']
 })
-export class AddLabelComponent implements OnInit {
+export class AddLabelComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   public note = {};
   public labels = [];
   @Input() labelDetails;
@@ -38,7 +42,9 @@ export class AddLabelComponent implements OnInit {
         "label": document.getElementById('label').innerHTML,
         "isDeleted": false
       }
-      this.noteService.addLabel(this.note).subscribe(result => {
+      this.noteService.addLabel(this.note)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
         this.getLabelList();
       });
       this.dialogRef.close();
@@ -49,8 +55,10 @@ export class AddLabelComponent implements OnInit {
 getLabelList(){
   var label = [];
   var token = localStorage.getItem('token');
-    this.httpService.httpGetLabel('noteLabels/getNoteLabelList', token).subscribe(result => {
-      console.log(result);
+    this.httpService.httpGetLabel('noteLabels/getNoteLabelList', token)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
+      
       for (var i = 0; i < result['data']['details'].length; i++) {
         if (result['data']['details'][i].isDeleted == false) {
         label.push(result['data']['details'][i])
@@ -62,8 +70,10 @@ getLabelList(){
     })
 }
   deleteLabel(id) {
-    this.noteService.deleteLabel(id).subscribe(result => {
-      console.log(result);
+    this.noteService.deleteLabel(id)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
+     
       this.dataService.changeEvent(true);
       this.getLabelList();
 
@@ -80,11 +90,18 @@ getLabelList(){
       "isDeleted": false
     }
 
-    this.noteService.editLabel(id , this.note).subscribe(result => {
+    this.noteService.editLabel(id , this.note)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
     
 
     }, error => {
       
     })
+  }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 }

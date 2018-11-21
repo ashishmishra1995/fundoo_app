@@ -1,17 +1,23 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { HttpService } from '../../core/service/http/http.service';
 import { environment } from '../../../environments/environment';
 import { DataServiceService } from '../../core/service/data-service/data-service.service';
 import { NoteService } from "../../core/service/note-service/note-service.service";
+import { Subject } from 'rxjs';
+
+import { takeUntil } from 'rxjs/operators';
+
 
 @Component({
 selector: 'app-crop-image',
 templateUrl: './crop-image.component.html',
 styleUrls: ['./crop-image.component.scss']
 })
-export class CropImageComponent implements OnInit {
+export class CropImageComponent implements OnInit, OnDestroy {
+    destroy$: Subject<boolean> = new Subject<boolean>();
+
 public croppedImage: any = '';
 imageChangedEvent: any = '';
 constructor(
@@ -30,10 +36,12 @@ public image2 = localStorage.getItem('imageUrl');
 img = environment.apiUrl + this.image2;
 onUpload() {
 var token = localStorage.getItem('token');
-console.log(this.croppedImage);
+
 const uploadData = new FormData();
 uploadData.append('file', this.croppedImage);
-this.noteService.addImage(uploadData).subscribe(res => {
+this.noteService.addImage(uploadData)
+.pipe(takeUntil(this.destroy$))
+.subscribe(res => {
 this.img = environment.apiUrl + res['status'].imageUrl;
 localStorage.setItem("imageUrl", res['status'].imageUrl);
 this.dialogRefPic.close()
@@ -44,5 +52,10 @@ this.dataService.changeProfile(true);
 })
 
 }
+ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
 
 }

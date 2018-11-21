@@ -1,15 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { HttpService } from '../../core/service/http/http.service';
 import { MatSnackBar } from '@angular/material';
 import { DataServiceService } from '../../core/service/data-service/data-service.service';
 import { NoteService } from "../../core/service/note-service/note-service.service";
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-trash',
   templateUrl: './trash.component.html',
   styleUrls: ['./trash.component.scss']
 })
-export class TrashComponent implements OnInit {
+export class TrashComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   records = {};
   notes = [];
   constructor(private httpService: HttpService,
@@ -24,23 +27,25 @@ export class TrashComponent implements OnInit {
   }
   toggle=false;
   gridList(){
-    this.data.currentMessage.subscribe(message=>{
+    this.data.currentMessage
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(message=>{
       this.toggle=message;
     })
   }
   getDelNotes() {
     var token = localStorage.getItem('token');
-    this.records = this.httpService.httpGetNote('notes/getTrashNotesList', token).subscribe(result => {
-      console.log(result);
+    this.records = this.httpService.httpGetNote('notes/getTrashNotesList', token)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       for (var i = 0; i < result['data']['data'].length; i++) {
         if (result['data']['data'][i].isDeleted == true) {
           this.notes.push(result['data']['data'][i])
         }
       }
-      console.log(this.notes);
 
     }, error => {
-      console.log(error);
+   
     });
   }
   body = {};
@@ -51,7 +56,9 @@ export class TrashComponent implements OnInit {
       "isDeleted": false,
       "noteIdList": [id]
     }
-    this.records = this.noteService.trash(this.body).subscribe(result => {
+    this.records = this.noteService.trash(this.body)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       this.snackBar.open('Note restored', 'Successfully', {
         duration: 3000,
       });
@@ -60,7 +67,7 @@ export class TrashComponent implements OnInit {
 
       })
     }, error => {
-      console.log(error);
+
       this.snackBar.open('Note restoration', 'Failed', {
         duration: 3000,
       });
@@ -74,7 +81,9 @@ export class TrashComponent implements OnInit {
       "isDeleted": false,
       "noteIdList": [id]
     }
-    this.records = this.noteService.deleteForever(this.body).subscribe(result => {
+    this.records = this.noteService.deleteForever(this.body)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       this.snackBar.open('Note deleted', 'Successfully', {
         duration: 3000,
       });
@@ -83,11 +92,16 @@ export class TrashComponent implements OnInit {
 
       })
     }, error => {
-      console.log(error);
+     
       this.snackBar.open('Note deletion', 'Failed', {
         duration: 3000,
       });
 
     });
+  }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 }

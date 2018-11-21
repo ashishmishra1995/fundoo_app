@@ -1,103 +1,128 @@
-<ngx-spinner bdColor="rgba(51,51,51,0.8)"
-size="medium"
-color="#4285f4"
-type="ball-scale-multiple">
+<!-----------------Spinner Loading for login page--------------->
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#4285f4" type="ball-scale-multiple">
 </ngx-spinner>
+<!-- The login page -->
 <div fxLayout='column' fxLayoutGap='13%'>
   <div fxFlex='38%'></div>
   <div fxFlex='24%'>
     <div fxLayout='row'>
       <div fxFlex='38%' fxFlex.xs='0' fxFlex.sm='8' fxFlex.md='16' fxFlex.lg='33'></div>
 
-      <div *ngIf="show" fxFlex='24%' fxFlex.xs='100' fxFlex.sm='84' fxFlex.md='68' fxFlex.lg='34' >
-        <mat-card class="main-card">
-          <div fxLayoutAlign='center'>
-            <p class="logo">
-              <span class="blue">F</span>
-              <span class="red">U</span>
-              <span class="yellow">N</span>
-              <span class="blue">D</span>
-              <span class="green">O</span>
-              <span class="red">O</span>
-            </p>
-          </div>
-          <div class='head-text' fxLayoutAlign='center'>
-            Sign in
-          </div><br><br>
-          <div   class="container" fxLayoutAlign='space-around center' fxLayout='column' 
-                [formGroup]="loginFormEmail">
-            <mat-form-field>
-              <input matInput placeholder="Email" formControlName="email" [(ngModel)]='body.email'
-                     required>
-              <mat-error *ngIf="loginFormEmail.controls.email.hasError('required')">
-                Please enter email
-              </mat-error>
-            </mat-form-field><br>
-            </div>
-          
-          <div class='button-row button,button-row a' fxLayoutAlign='space-around center'>
-            <nav>
-              <a routerLink="/signup">Create your account</a>
-            </nav>
-            <button mat-raised-button color="primary" (click)="login(show)" 
-                    [disabled]='loginFormEmail.invalid' (click)="show = !show">
-                    {{show ? 'Next' : 'Sign in'}}</button>
-          </div>
-        </mat-card>
+      <div fxFlex='24%' fxFlex.xs='100' fxFlex.sm='84' fxFlex.md='68' fxFlex.lg='34'>
+        <div>
+          <mat-card class="main-card">
+            <my-slide-panel [activePane]="isLeftVisible ? 'right' : 'left'">
+              <!-- The left side of the login page For EMAIL-->
+              <div leftPane>
+                <div class="container1">
+                  <!-- The logo of the  App  -->
+                  <div class="header">
+                    <p fxLayoutAlign="center" class="logo" dir="ltr">
+                      <span class="blue"> F </span>
+
+                      <span class="red"> U </span>
+
+                      <span class="yellow"> N </span>
+                      <span class="blue"> D </span>
+                      <span class="green"> O </span>
+                      <span class="red"> O </span>
+                    </p>
+                    <h2 fxLayoutAlign="center" class="tagline"> Sign In</h2>
+                    <!-- <h4 class="tagline" fxLayoutAlign="center"> with your Fundoo Account</h4> -->
+                  </div>
+                  <!-- The logo of the  App  -->
+
+
+                  <div fxLayout="column" [formGroup]="loginFormEmail">
+                    <mat-form-field>
+                      <input matInput placeholder="Email" formControlName="email" [(ngModel)]='body.email' required>
+                      <mat-error *ngIf="loginFormEmail.controls.email.hasError('required')">
+                        Please enter email
+                      </mat-error>
+                    </mat-form-field>
+
+
+                    <div class="button-row" fxLayoutAlign="space-between center">
+
+                      <nav>
+                        <a routerLink="/signup">Create your account</a>
+                      </nav>
+
+                      <button [disabled]='loginFormEmail.invalid' (click)="isLeftVisible = !isLeftVisible" mat-raised-button color="primary">Next</button>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+              <!-- The left side of the login page For EMAIL-->
+
+              <!-- The right side of the login page For PASSWORD-->
+              <div rightPane>
+
+                <div class="container1">
+
+                  <div class="header">
+                    <p fxLayoutAlign="center" class="logo">
+                      <span class="blue"> F </span>
+                      <span class="red"> U </span>
+                      <span class="yellow"> N </span>
+                      <span class="blue"> D </span>
+                      <span class="green"> O </span>
+                      <span class="red"> O </span>
+                    </p>
+                    <h2 fxLayoutAlign="center" class="tagline"> Sign In </h2>
+                  </div>
+
+                  <div fxLayout="column" [formGroup]="loginFormPassword">
+
+
+                    <mat-form-field>
+                      <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" minlength="6" maxlength="15" formControlName="password"
+                        [(ngModel)]='body.password' required>
+                      <mat-error *ngIf="loginFormPassword.controls.password.hasError('required')">
+                        Please enter password
+                      </mat-error>
+                      <mat-error *ngIf="loginFormPassword.controls.password.hasError('minlength')">
+                        Password must be 6-15 characters long
+                      </mat-error>
+                      <mat-icon matSuffix (click)="hide = !hide">
+                        {{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                    </mat-form-field>
+                    <div class="button-row" fxLayoutAlign="space-between center">
+
+
+                      <nav>
+                        <a routerLink="/forgot-password">Forgot Password?</a>
+                      </nav>
+
+                      <span fxLayout="row" fxLayoutGap="10%">
+                        <button (click)="isLeftVisible = !isLeftVisible" mat-raised-button color="primary">Back
+                        </button>
+                        <button [disabled]='loginFormPassword.invalid' mat-raised-button color="primary" (click)="login()">
+                          Login
+                        </button>
+                      </span>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+              <!-- The right side of the login page For PASSWORD-->
+            </my-slide-panel>
+          </mat-card>
+
+        </div>
+
+
       </div>
 
-      
-      <div *ngIf="!show"  fxFlex='24%' fxFlex.xs='100' fxFlex.sm='84' fxFlex.md='68' 
-            fxFlex.lg='34' >
-          <mat-card class="main-card">
-            <div [@EnterLeave]>
-            <div fxLayoutAlign='center'>
-                <p class="logo">
-                    <span class="blue">F</span>
-                    <span class="red">U</span>
-                    <span class="yellow">N</span>
-                    <span class="blue">D</span>
-                    <span class="green">O</span>
-                    <span class="red">O</span>
-                  </p>
-            </div>
-            <div class='head-text' fxLayoutAlign='center'>
-              Sign in
-            </div><br><br>
-            
-              <div class="container" fxLayoutAlign='space-around center' fxLayout='column' 
-                    [formGroup]="loginFormPassword">
-              <mat-form-field>
-                <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'"
-                       minlength="6" maxlength="15" formControlName="password" 
-                       [(ngModel)]='body.password'
-                        required>
-                <mat-error *ngIf="loginFormPassword.controls.password.hasError('required')">
-                  Please enter password
-                </mat-error>
-                <mat-error *ngIf="loginFormPassword.controls.password.hasError('minlength')">
-                  Password must be 6-15 characters long
-                </mat-error>
-                <mat-icon matSuffix (click)="hide = !hide">
-                          {{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-              </mat-form-field><br>
-  
-            </div>
-            <div class='button-row button,button-row a' fxLayoutAlign='space-around center'>
-              <nav>
-                <a routerLink="/forgot-password">Forgot Password?</a>
-              </nav>
-              <button mat-raised-button color="primary" (click)="login(show)" 
-                      [disabled]='loginFormPassword.invalid' (click)="show = !show">
-                      {{show ? 'Next' : 'Sign in'}}</button>
-            </div>
-          </div>
-          </mat-card>
-        </div>
-  
 
-      <div fxFlex='38%' fxFlex.xs='0' fxFlex.sm='8' fxFlex.md='16' fxFlex.lg='33'></div>
+
+
+      <div fxFlex="25"></div>
     </div>
   </div>
-  <div fxFlex='38%'></div>
 </div>
+<!-- The login page -->

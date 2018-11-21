@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -10,26 +10,19 @@ import { LoggerService } from '../../core/service/logger/logger.service';
 import { MessagingService } from '../../core/service/messaging-service/messaging.service';
 import { NoteService } from "../../core/service/note-service/note-service.service";
 import { UserService } from "../../core/service/user-service/user.service";
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  animations: [
-    trigger('EnterLeave', [
-      state('flyIn', style({ transform: 'translateX(0)' })),
-      transition(':enter', [
-        style({ transform: 'translateX(100%)' }),
-        animate('0.3s 300ms ease-in')
-      ]),
-      transition(':leave', [
-        animate('0.5s ease-out', style({ transform: 'translateX(-100%)' }))
-      ])
-    ])
-  ]
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   loginFormEmail: FormGroup;
   loginFormPassword: FormGroup;
 
@@ -70,10 +63,11 @@ export class LoginComponent implements OnInit {
     }, 2000);
   }
   public message;
-  login(show) {
-    if (!show) {
+  login() {
+    // if (!show) {
       this.records = this.userService.loginPost(this.body)
-        .subscribe(result => {
+      .pipe(takeUntil(this.destroy$))  
+      .subscribe(result => {
           LoggerService.log('Login data: ', result);
 
           this.snackBar.open('Login', 'Success', {
@@ -111,7 +105,12 @@ export class LoginComponent implements OnInit {
         })
 
 
-    }
+    // }
+  }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 
 }
