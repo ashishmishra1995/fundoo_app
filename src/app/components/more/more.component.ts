@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output,EventEmitter, OnDestroy } from '@angular/core';
-import { HttpService } from '../../core/service/http/http.service';
+import { HttpService } from '@service/http/http.service';
 import { MatSnackBar } from "@angular/material";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { AddLabelComponent } from '../add-label/add-label.component';
-import { DataServiceService } from '../../core/service/data-service/data-service.service';
-import { NoteService } from "../../core/service/note-service/note-service.service";
+import { AddLabelComponent } from '@components/add-label/add-label.component';
+import { DataServiceService } from '@service/data-service/data-service.service';
+import { NoteService } from "@service/note-service/note-service.service";
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 

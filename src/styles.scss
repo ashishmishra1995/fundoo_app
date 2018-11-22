@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
 html, body
 {
     margin:0;
@@ -10,19 +11,5 @@ html, body
 body { margin: 0; 
     font-family:'Gill Sans', 'Gill Sans MT';
     color: black}
-/* 
-height: 100vh;
-padding: 0;
-margin: 0;
-display: flex;
-flex-direction: column;
-align-content: stretch;
-align-items: stretch; } 
 
-/* app-root{
-    order: 0;
-    align-self: auto;
-    display: block;
-    background: red;
-} */
 button:focus { outline:0 !important; }

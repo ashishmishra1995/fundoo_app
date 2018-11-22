@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, OnDestroy } from '@angular/core';
 import { Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FilterPipe } from '../../core/pipes/filter.pipe';
-import { DataServiceService } from '../../core/service/data-service/data-service.service';
-import { HttpService } from '../../core/service/http/http.service';
+import { FilterPipe } from '@pipes/filter.pipe';
+import { DataServiceService } from '@service/data-service/data-service.service';
+import { HttpService } from '@service/http/http.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 

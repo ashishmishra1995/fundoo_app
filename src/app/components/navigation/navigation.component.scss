@@ -1,124 +1,124 @@
+@import '../../../scss/mixins';
+@import '../../../scss/variables';
+
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
 }
-.toolbar{
-  background: #fb0;
-  font-family: 'Gill Sans', 'Gill Sans MT';
+
+.toolbar {
+  background: $yellow;
+  font-family: $font;
   font-size: 30px;
   position: fixed;
   z-index: 2;
   width: 100%;
 }
-.menu{
-  background: #fb0;
+
+.toggleBtn{
+  color: $black;
 }
-.sidebar{
+
+.menu {
+  background: $yellow;
+}
+
+.sidebar {
   margin-left: 0px;
 }
+
 .sidenav[_ngcontent-c2] {
   width: 240px;
   margin-left: 0px;
   position: fixed;
   margin: 64px 0px 0px 0px;
- 
-  
 }
 
-.logo{
+.logo {
+  color: $black;
   padding: 10px;
   font-size: 30px;
 }
 
-.refresh{
+.refresh, .notifications, .accounts {
   margin-right: 3%;
 }
-.notifications{
-  margin-right: 3%;
-}
-.accounts{
-  margin-right: 3%;
-}
+
 .material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 25px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
+  @include materialIcon
 }
+
 .round {
-  border-radius: 5px 10px 15px 20px; 
+  border-radius: 5px 10px 15px 20px;
 }
-.signout{
+
+.signout {
   height: 50px;
   width: 500px;
 }
+
 .mat-menu-content {
   padding-top: 0px;
   padding-bottom: 0px;
 }
+
 .example-full-width {
   width: 270px;
 }
-.searchbar {
 
+.searchbar {
   background: rgba(80, 80, 79, 0.096);
   border: none;
-  border-radius:20px;
+  border-radius: 20px;
   font: normal 20px Roboto,sans-serif;
   font-variant-ligatures: none;
   height: 50px;
   outline: none;
   padding: 11px 16px 11px 16px;
   box-sizing: border-box;
-  width:stretch;
-  
-  }
-  .search_flex{
-    flex: 1 1 auto;
-  }
+  width: stretch;
+}
 
-  .name{
-    font-size:25px;
-    font-family: Verdana, sans-serif;
+.search_flex {
+  flex: 1 1 auto;
+}
 
-  }
-  .name-icon{
-    font-size: 20px;
-  }
-  .profile-pic{
-    background-color:#fb0;
-    //float:right;
-    color:white;
-    text-transform:uppercase;
-    height:60px;
-    width:60px;
-  }
-  
+.name {
+  font-size: 25px;
+  font-family: Verdana, sans-serif;
+}
+
+.name-icon {
+  font-size: 20px;
+}
+
+.profile-pic {
+  background-color: $dark-blue;
+  //float:right;
+  color: white;
+  text-transform: uppercase;
+  height: 60px;
+  width: 60px;
+}
 
 .sidenav-container {
   height: 100%;
   background-color: white;
 }
-.contentstyle-name{
+
+.contentstyle-name {
   font-size: 20px;
 }
-.contentstyle-email{
-  font-size: 12px;
 
+.contentstyle-email {
+  font-size: 12px;
 }
-.add{
+
+.add {
   float: right;
 }
 
-.signout-menu{
+.signout-menu {
   padding-top: 8px;
   padding-bottom: 10px;
   padding-left: 15px;
@@ -128,21 +128,22 @@
 .sidenav {
   width: 200px;
   position: fixed;
-  z-index:2;
+  z-index: 2;
   margin-top: 65px;
   padding-bottom: 20%;
 }
+
 .circle {
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
-  
 }
-.logo-img{
+
+.logo-img {
   height: 10px;
   width: 10px;
 }
-.profileName{
+
+.profileName {
   margin-top: 5px;
   word-break: break-all;
 }
-

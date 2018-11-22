@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { NavigationComponent } from '../navigation/navigation.component';
-import { HttpService } from '../../core/service/http/http.service';
-import { environment } from '../../../environments/environment';
-import { DataServiceService } from '../../core/service/data-service/data-service.service';
-import { NoteService } from "../../core/service/note-service/note-service.service";
+import { NavigationComponent } from '@components/navigation/navigation.component';
+import { HttpService } from '@service/http/http.service';
+import { environment } from '@environments/environment';
+import { DataServiceService } from '@service/data-service/data-service.service';
+import { NoteService } from "@service/note-service/note-service.service";
 import { Subject } from 'rxjs';
 
 import { takeUntil } from 'rxjs/operators';

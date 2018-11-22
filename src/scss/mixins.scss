@@ -1,0 +1,51 @@
+@import '/Users/apple/fundoo-app/src/scss/variables.scss';
+
+@mixin logo($font-color) {
+    color: $font-color;
+    font-family: 'Gill Sans', 'Gill Sans MT';
+    font-size: 50px;
+}
+@mixin dialog {
+    box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12);
+    display: contents;
+    border-radius: 10px;
+    box-sizing: border-box;
+    overflow: auto;
+    outline: 0;
+    width: 96%;
+    height: 53%;
+    max-height: -webkit-fill-available;
+}
+@mixin gridCard {
+    min-width: 300px;
+    min-height: 100px;
+    max-width: 300px;
+    overflow-y: auto;
+    border-radius: 10px;
+}
+@mixin listCard {
+    width: 700px;
+    min-height: 100px;
+    /* max-width: 300px; */
+    overflow-y: auto;
+    border-radius: 10px;
+}
+@mixin materialIcon {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 25px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    color: $black;
+}
+@mixin fontSize($fontSize) {
+    font-size: $fontSize
+    
+}

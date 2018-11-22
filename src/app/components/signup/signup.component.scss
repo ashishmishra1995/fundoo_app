@@ -1,63 +1,62 @@
+@import '../../../scss/mixins';
+@import '../../../scss/variables';
 
 .example-container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* .example-container > * {
-    width: 100%;
-  } */
-  .fname{
-    width: 50%;
-  }
-  .lname{
-    width: 50%;
-  }
-  .button-row button,
-.button-row a {
-  margin-right: 10px;
-  font-family: 'Gill Sans', 'Gill Sans MT'
+  display: flex;
+  flex-direction: column;
 }
-.example-right-align {
-    text-align: right;
+
+/* .example-container > * {
+  width: 100%;
+} */
+
+.fname, .lname {
+  width: 50%;
+}
+
+.button-row {
+  button, a {
+    margin-right: 10px;
+    font-family: $font;
   }
-  
-  input.example-right-align::-webkit-outer-spin-button,
-  input.example-right-align::-webkit-inner-spin-button {
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align {
+  &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
     display: none;
   }
-  
-  input.example-right-align {
-    -moz-appearance: textfield;
-  }
-  .selected{
-    background-color: blue;
-  }
-  .notselected{
-    background-color: grey;
-  }
-  .card{
-    width: 200px;
-    height: 220px;
-    
-  }
-  .blue{
-    color: #4285f4; 
-    font-family:'Gill Sans', 'Gill Sans MT'; 
-    font-size: 50px
-  }
-  .green{
-    color: #34a853; 
-    font-family:'Gill Sans', 'Gill Sans MT'; 
-    font-size: 50px
-  }
-  .yellow{
-    color: #fbbc05;
-    font-family:'Gill Sans', 'Gill Sans MT'; 
-    font-size: 50px
-  }
-  .red{
-    color: #ea4335; 
-    font-family:'Gill Sans', 'Gill Sans MT'; 
-    font-size: 50px
-  }
+  -moz-appearance: textfield;
+}
+
+.selected {
+  background-color: $dark-blue;
+}
+
+.notselected {
+  background-color: $grey;
+}
+
+.card {
+  width: 200px;
+  height: 220px;
+}
+
+.blue {
+  @include logo($blue)
+}
+
+.green {
+  @include logo($green)
+}
+
+.yellow {
+  @include logo($yellow)
+}
+
+.red {
+  @include logo($red)
+}

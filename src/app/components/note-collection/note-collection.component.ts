@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { HttpService } from '../../core/service/http/http.service';
+import { HttpService } from '@service/http/http.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { UpdateNotesComponent } from '../update-notes/update-notes.component';
-import { DataServiceService } from "../../core/service/data-service/data-service.service";
-import { NoteService } from '../../core/service/note-service/note-service.service';
-import { CollaboratorComponent } from '../collaborator/collaborator.component';
+import { UpdateNotesComponent } from '@components/update-notes/update-notes.component';
+import { DataServiceService } from "@service/data-service/data-service.service";
+import { NoteService } from '@service/note-service/note-service.service';
+import { CollaboratorComponent } from '@components/collaborator/collaborator.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 

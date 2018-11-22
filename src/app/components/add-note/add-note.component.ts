@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input, ElementRef, ViewChild, OnDestroy} from '@angular/core';
-import { NoteService } from '../../core/service/note-service/note-service.service';
-import { Note } from "../../core/model/note";
+import { NoteService } from '@service/note-service/note-service.service';
+import { Note } from "@model/note";
 import { Subject } from 'rxjs';
 
 import { takeUntil } from 'rxjs/operators';

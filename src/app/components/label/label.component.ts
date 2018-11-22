@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { HttpService } from '../../core/service/http/http.service';
-import { LoggerService } from '../../core/service/logger/logger.service';
-import { Note } from '../../core/model/note';
+import { HttpService } from '@service/http/http.service';
+import { LoggerService } from '@service/logger/logger.service';
+import { Note } from '@model/note';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpService } from '../../core/service/http/http.service';
-import { Note } from "../../core/model/note";
+import { HttpService } from '@service/http/http.service';
+import { Note } from "@model/note";
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 @Component({

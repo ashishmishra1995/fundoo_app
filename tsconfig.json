@@ -1,7 +1,17 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
+    "paths": {
+      "@app/*": ["app/*"],
+      "@components/*":["app/components/*"],
+      "@model/*":["app/core/model/*"],
+      "@pipes/*":["app/core/pipes/*"],
+      "@service/*":["app/core/service/*"],
+      "@utils/*":["app/core/utils/*"],
+      "@environments/*":["environments/*"],
+      "@scss/*":["scss/*"] 
+    },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,

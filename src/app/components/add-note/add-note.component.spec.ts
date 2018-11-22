@@ -28,11 +28,13 @@ describe('AddNoteComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should have title', async(()=>{
+
+  it('should add note', async(()=>{
     expect(component.body.title).toEqual('abcd');
     expect(component.body.title).toBeTruthy();
   }));
-  it('should not have title', async(()=>{
+  
+  it('should not add note', async(()=>{
     expect(component.body.title).toEqual('');
     expect(component.body.title).toBeFalsy();
   }));

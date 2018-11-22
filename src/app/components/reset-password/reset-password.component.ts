@@ -1,12 +1,12 @@
 import { Component, OnInit, NgModule, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, Params } from '@angular/router';
-import { HttpService } from '../../core/service/http/http.service';
+import { HttpService } from '@service/http/http.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatSnackBar } from "@angular/material";
 import { ActivatedRoute } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
-import { UserService } from "../../core/service/user-service/user.service";
+import { UserService } from "@service/user-service/user.service";
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 

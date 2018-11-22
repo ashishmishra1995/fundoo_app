@@ -1,5 +1,5 @@
 import { Component, OnInit,Output,Input,EventEmitter, OnDestroy} from '@angular/core';
-import { HttpService } from 'src/app/core/service/http/http.service';
+import { HttpService } from '@service/http/http.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 

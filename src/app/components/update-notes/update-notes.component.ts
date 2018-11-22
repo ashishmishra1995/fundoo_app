@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { NoteCollectionComponent } from '../note-collection/note-collection.component';
-import { HttpService } from '../../core/service/http/http.service';
-import { NoteService } from '../../core/service/note-service/note-service.service';
+import { NoteCollectionComponent } from '@components/note-collection/note-collection.component';
+import { HttpService } from '@service/http/http.service';
+import { NoteService } from '@service/note-service/note-service.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 

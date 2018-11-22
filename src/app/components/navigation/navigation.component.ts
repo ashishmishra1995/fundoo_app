@@ -2,15 +2,15 @@ import { Component, Input, OnInit, Output, EventEmitter, OnDestroy } from '@angu
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpService } from '../../core/service/http/http.service';
+import { HttpService } from '@service/http/http.service';
 import { MatSnackBar } from "@angular/material";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { AddLabelComponent } from '../add-label/add-label.component';
-import { DataServiceService } from '../../core/service/data-service/data-service.service';
+import { AddLabelComponent } from '@components/add-label/add-label.component';
+import { DataServiceService } from '@service/data-service/data-service.service';
 import { Router } from '@angular/router';
-import { environment } from "../../../environments/environment";
-import { LoggerService } from '../../core/service/logger/logger.service';
-import { CropImageComponent } from "../crop-image/crop-image.component";
+import { environment } from "@environments/environment";
+import { LoggerService } from '@service/logger/logger.service';
+import { CropImageComponent } from "@components/crop-image/crop-image.component";
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 

@@ -1,96 +1,94 @@
+@import '../../../scss/mixins';
+@import '../../../scss/variables';
 
 .container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-   .container > * {
+  display: flex;
+  flex-direction: column;
+  > * {
     width: 70%;
-  } 
-
-  .head-text{
-      
-      font-family: 'Gill Sans', 'Gill Sans MT';
-      font-size: 40px;
-      color:blue;
   }
+}
 
-  .text{
-      font-family: Arial, Helvetica;
-      font-size: 25px;
-      color:grey;
-  }
+.head-text {
+  font-family: $font;
+  @include fontSize(40px);
+  color: $dark-blue;
+}
 
-  .name{
-    display: flex;
-    flex-direction: row;
+.text {
+  font-family: $font;
+  @include fontSize(25px);
+  color: $grey;
+}
 
-  }
-  .name > * {
+.name {
+  display: flex;
+  flex-direction: row;
+  > * {
     width: 60%;
   }
+}
+
+.main-card {
+  border-radius: 15px;
+}
+
+.button-row {
+  button, a {
+    margin-right: 10px;
+    font-family: $font;
+  }
+}
+
+.blue {
+  @include logo($blue)
   
-  .main-card{
+}
+
+.green {
+  @include logo($green)
   
-    border-radius:15px; 
-    
-    
 }
-.button-row button,
-.button-row a {
-  margin-right: 10px;
-  font-family: 'Gill Sans', 'Gill Sans MT'
+
+.yellow {
+  @include logo($yellow)
+  
 }
-.blue{
-  color: #4285f4; 
-  font-family:'Gill Sans', 'Gill Sans MT'; 
-  font-size: 50px
+
+.red {
+  @include logo($red)
+  
 }
-.green{
-  color: #34a853; 
-  font-family:'Gill Sans', 'Gill Sans MT'; 
-  font-size: 50px
+
+.tagline {
+  font-family: $font;
+  color: $dark-blue;
 }
-.yellow{
-  color: #fbbc05;
-  font-family:'Gill Sans', 'Gill Sans MT'; 
-  font-size: 50px
-}
-.red{
-  color: #ea4335; 
-  font-family:'Gill Sans', 'Gill Sans MT'; 
-  font-size: 50px
-}
-.tagline{
-  font-family: 'Google Sans',arial,sans-serif;
-  color: blue;
-}
+
 .container1 {
   display: flex;
   flex-direction: column;
   border-radius: 15px;
   box-shadow: 20px;
- 
-}
-
-.container1 > * {
-  width: 100%;
-}
-
-.button-row button,
-.button-row a {
-  margin-right: 8px;
-  margin-top:5px;
-  font-size:16px
-}
-.header{
-  position: center;
-  
-}
-
-  .logo{
-    color: blue;
-    font-size: 30px;
-    margin: 2px;
+  > * {
+    width: 100%;
   }
- 
+}
+
+.button-row {
+  button, a {
+    margin-right: 8px;
+    margin-top: 5px;
+    @include fontSize(16px);
+  }
+}
+
+.header {
+  position: center;
+}
+
+.logo {
+  color: $dark-blue;
+  @include fontSize(30px);
+  margin: 2px;
+}

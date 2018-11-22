@@ -61,48 +61,55 @@
   right: 0;
   background: #eee;
 } */
-.card{
-    height:auto;
-    width:470px;
-    border-radius: 15px;
-}
-.note{
-    width: 100%;
-  height: auto;
-  border:none;
-  
-  font-size: 15px;
-  
-  outline: none
 
-}
-.material-icons {
+@import '../../../scss/mixins';
+@import '../../../scss/variables';
+
+.card {
+    height: auto;
+    width: 470px;
+    border-radius: 15px;
+  }
+  
+  .note {
+    width: 100%;
+    height: auto;
+    border: none;
+    @include fontSize(15px);
+    outline: none;
+  }
+  
+  .material-icons {
     cursor: pointer;
     opacity: 0.5;
-}
-.material-icons:hover {
-    cursor: pointer;
-    opacity: 1.5;
-}
-
-.take_notes{
+    &:hover {
+      cursor: pointer;
+      opacity: 1.5;
+    }
+  }
+  
+  .take_notes {
     /* position: relative; */
     width: 80%;
-     padding: 2px 2px 2px 2px;
+    padding: 2px 2px 2px 2px;
     /* outline: none; */
     /* overflow: hidden; */
-}
-.matContent{
+  }
+  
+  .matContent {
     padding: 2px 2px 2px 2px;
-}
-[contenteditable=true]:empty:not(:focus):before{
+  }
+  
+  [contenteditable=true]:empty:not(:focus):before {
     content: attr(placeholder);
     display: block;
-    opacity:0.5;
-}
-.icondiv{
-    padding-top: 15px
-}
-/* mat-card{
-    width:600px;
-} */
+    opacity: 0.5;
+  }
+  
+  .icondiv {
+    padding-top: 15px;
+  }
+  
+  /* mat-card{
+      width:600px;
+  } */

@@ -34,6 +34,7 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
   it('form should be invalid', async(()=>{
       component.loginFormEmail.controls['email'].setValue('');
       component.loginFormEmail.controls['email'].setValue('@bb.AA.com');
@@ -46,6 +47,7 @@ describe('LoginComponent', () => {
       expect(component.loginFormEmail.valid).toBeFalsy();
       expect(component.loginFormPassword.valid).toBeFalsy();
   }))
+  
   it('form should be valid', async(()=>{
     component.loginFormEmail.controls['email'].setValue('aass@bbbb.com');
     component.loginFormPassword.controls['password'].setValue('akm123');
@@ -53,6 +55,5 @@ describe('LoginComponent', () => {
     
     expect(component.loginFormEmail.valid).toBeTruthy();
     expect(component.loginFormPassword.valid).toBeTruthy();
-    
   }))
 });
