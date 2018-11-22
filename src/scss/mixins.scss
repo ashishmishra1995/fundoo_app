@@ -49,3 +49,12 @@
     font-size: $fontSize
     
 }
+@mixin profilePic {
+    
+    background-color: $dark-blue;
+    color: white;
+    text-transform: uppercase;
+    height: 60px;
+    width: 60px;
+      
+}

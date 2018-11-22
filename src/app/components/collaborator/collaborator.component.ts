@@ -1,6 +1,7 @@
 import { Component, OnInit,Inject } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { NoteCollectionComponent } from '../note-collection/note-collection.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { NoteCollectionComponent } from '@components/note-collection/note-collection.component';
+import { CollaboratorPopupComponent } from '@components/collaborator-popup/collaborator-popup.component';
 
 export interface DialogData {
   firstName: string,
@@ -16,13 +17,20 @@ export interface DialogData {
 })
 export class CollaboratorComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
   }
   
   addCollaborator(): void {
-    //this.dialogRefCollab.close();
+    const dialogRef = this.dialog.open(CollaboratorPopupComponent, {
+      width: '500px',
+      
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      
+    });
   }
 
   

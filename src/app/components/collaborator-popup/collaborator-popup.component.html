@@ -1,0 +1,38 @@
+<div  fxLayout="row wrap" fxLayoutAlign="space-evenly start">
+  <mat-card>
+    <div class="heading">Collaborators</div><hr>
+    <div fxLayoutAlign="row wrap" class="collaboratorDesign">
+    <div fxFlex=20>
+    <button (click)="$event.stopPropagation()" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}"
+              matTooltip="{{firstName | titlecase}} {{lastName | titlecase}}" mat-mini-fab class="profile-pic">
+    </button></div>
+    <div fxLayout="column" fxFlex=80>
+    <mat-content class="myName"><b>{{firstName | titlecase}} {{lastName | titlecase}}</b></mat-content>
+    <mat-content class="myEmail"><i>{{email}}</i></mat-content>
+    <mat-content class="myEmail"><i>(Owner)</i></mat-content>
+    
+  </div>
+  </div>
+
+  <div fxLayoutAlign="row wrap" class="collaboratorDesign">
+    <div fxFlex=20>
+    <button (click)="$event.stopPropagation()" mat-mini-fab class="profile-pic">
+      <mat-icon>person_add</mat-icon>
+    </button></div>
+    <div fxLayout="column" fxFlex=80>
+    
+    <mat-content class="myEmail">
+      <input class="inputField" placeholder="Person or email to share with" (keyup)="searchUser()"
+              [(ngModel)]="requestBody.searchWord" [matMenuTriggerFor]="appMenu">
+    </mat-content>
+    <mat-menu #appMenu="matMenu">
+        <a *ngFor="let item of userList">
+          {{item.firstName}} {{item.lastName}} [{{item.email}}]
+        </a>
+    </mat-menu>
+    
+    
+  </div>
+  </div>
+  </mat-card>
+</div>

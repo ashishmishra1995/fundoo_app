@@ -67,6 +67,9 @@ import { UpdateNotesComponent } from './components/update-notes/update-notes.com
 import { AddLabelComponent } from './components/add-label/add-label.component';
 import { LabelComponent } from "./components/label/label.component";
 import { CropImageComponent } from './components/crop-image/crop-image.component';
+import { PinComponent } from './components/pin/pin.component';
+import { SlidePanelComponent } from './components/slide-panel/slide-panel.component';
+import { CollaboratorPopupComponent } from './components/collaborator-popup/collaborator-popup.component';
 
 
 import { HttpService } from './core/service/http/http.service';
@@ -75,8 +78,7 @@ import { SearchComponent } from './components/search/search.component';
 import { FilterLabelPipe } from './core/pipes/filter-label.pipe';
 import { LoggerService } from './core/service/logger/logger.service';
 import { MessagingService } from "./core/service/messaging-service/messaging.service";
-import { PinComponent } from './components/pin/pin.component';
-import { SlidePanelComponent } from './components/slide-panel/slide-panel.component';
+
 
 
 @NgModule({
@@ -111,7 +113,8 @@ import { SlidePanelComponent } from './components/slide-panel/slide-panel.compon
     LabelComponent,
     CropImageComponent,
     PinComponent,
-    SlidePanelComponent
+    SlidePanelComponent,
+    CollaboratorPopupComponent
 
 
   ],
@@ -161,7 +164,7 @@ import { SlidePanelComponent } from './components/slide-panel/slide-panel.compon
       multi: true
     }],
   bootstrap: [AppComponent],
-  entryComponents: [AddLabelComponent, CropImageComponent, CollaboratorComponent]
+  entryComponents: [AddLabelComponent, CropImageComponent, CollaboratorPopupComponent]
 
 })
 export class AppModule { }
