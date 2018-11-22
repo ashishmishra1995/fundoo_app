@@ -1,7 +1,7 @@
 import { Injectable }          from '@angular/core';
 import * as firebase from 'firebase';
 import { BehaviorSubject } from 'rxjs';
-import { environment } from "../../../../environments/environment";
+import { environment } from "@environments/environment";
 
 @Injectable()
 export class MessagingService {

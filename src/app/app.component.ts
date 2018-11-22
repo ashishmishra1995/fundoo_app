@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessagingService } from "./core/service/messaging-service/messaging.service";
+import { MessagingService } from "@service/messaging-service/messaging.service";
 import * as firebase from "firebase";
 
 @Component({
