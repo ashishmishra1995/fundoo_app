@@ -148,6 +148,13 @@ export class NoteService {
     this.url = this.URL + "/noteLabels/" + labelId + "/deleteNoteLabel";
     return this.service.delete(this.url);
   }
-
+  addCollaborator(noteId,RequestBody){
+    this.url = this.URL + "/notes/"+noteId+"/AddcollaboratorsNotes";
+    return this.service.PostJson(this.url,RequestBody)
+  }
+  removeCollaborator(collaboratorId,noteId){
+    this.url = this.URL + "/notes/"+noteId+"/removeCollaboratorsNotes/"+collaboratorId;
+    return this.service.delete(this.url);
+  }
 
 }

@@ -107,7 +107,7 @@
          <div fxLayout="row">
            <div fxLayout="row" style="width:100%" class="card-icons">
              <app-add-reminder [noteDetails]="notes" (todayEvent)="addReminder($event)"></app-add-reminder>
-             <app-collaborator></app-collaborator>
+             <app-collaborator [noteDetails]="notes" (onCollaborator)="nextDelete($event)"></app-collaborator>
              <app-change-color [noteDetails]="notes" (eventColor)="nextDelete($event)">
              </app-change-color>
              <app-add-photo></app-add-photo>

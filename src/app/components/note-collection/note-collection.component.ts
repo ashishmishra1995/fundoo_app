@@ -86,8 +86,9 @@ export class NoteCollectionComponent implements OnInit, OnDestroy {
   nextDelete(event){
     if(event){
       this.addEntry.emit({
-
+        
       })
+      
     }
   }
   removeLabel(noteId,labelId){

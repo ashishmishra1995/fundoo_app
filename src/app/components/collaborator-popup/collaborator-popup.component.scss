@@ -5,7 +5,8 @@
     @include dialog
 }
 mat-card{
-    width:600px;
+    width:700px;
+    border-radius: 15px;
 }
 .collaboratorCard{
     width:600px;
@@ -17,6 +18,8 @@ mat-card{
 }
 .profile-pic {
   @include profilePic;
+  @include fontSize(25px);
+  font-family: $font
 }
 .collaboratorDesign{
     padding-top: 8px;
@@ -30,6 +33,7 @@ mat-card{
 }
 .myEmail{
     @include fontSize(15px);
+   
 }
 .inputField{
     width:100%;

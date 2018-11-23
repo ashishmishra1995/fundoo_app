@@ -3,6 +3,7 @@ import { HttpService } from '@service/http/http.service';
 import { Note } from "@model/note";
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { LoggerService } from '@app/core/service/logger/logger.service';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -18,6 +19,7 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getNotes();
+    LoggerService.log("notes: ",this.notes)
     // this.getPinnedNotes();
   }
   addNewEntry(event){
@@ -48,6 +50,7 @@ export class NotesComponent implements OnInit, OnDestroy {
         this.notes.push(mydata[i]);
         }
       }
+      LoggerService.log("notes: ",this.notes)
     
       
     },error=>{

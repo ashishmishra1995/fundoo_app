@@ -14,6 +14,17 @@
   </div>
   </div>
 
+  <div *ngFor="let user of collaborators" fxLayoutAlign="row wrap" class="collaboratorDesign">
+    <div fxFlex=20>
+    <button (click)="$event.stopPropagation()" mat-mini-fab class="profile-pic">{{user.firstName | slice:0:1}}
+    </button></div>
+    <div fxLayout="column" fxFlex=70>
+    <mat-content class="myName"><b>{{user.firstName | titlecase}} {{user.lastName | titlecase}}</b></mat-content>
+    <mat-content class="myEmail"><i>{{user.email}}</i></mat-content>
+    </div>
+    <div fxFlex=10><mat-icon (click)="removeCollaborator(user.userId)" style="cursor: pointer;">close</mat-icon></div>
+  </div>
+
   <div fxLayoutAlign="row wrap" class="collaboratorDesign">
     <div fxFlex=20>
     <button (click)="$event.stopPropagation()" mat-mini-fab class="profile-pic">
@@ -26,9 +37,9 @@
               [(ngModel)]="requestBody.searchWord" [matMenuTriggerFor]="appMenu">
     </mat-content>
     <mat-menu #appMenu="matMenu">
-        <a *ngFor="let item of userList">
-          {{item.firstName}} {{item.lastName}} [{{item.email}}]
-        </a>
+        <button (click)="addCollaborator(item)" mat-button *ngFor="let item of userList">
+          {{item.firstName}} {{item.lastName}} ({{item.email}})
+        </button>
     </mat-menu>
     
     
