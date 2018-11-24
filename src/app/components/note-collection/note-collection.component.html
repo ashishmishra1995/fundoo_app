@@ -102,6 +102,14 @@
                </div>
              </div>
            </mat-card-content>
+           <div fxLayout="row wrap">
+           <div *ngFor="let item of notes.collaborators">
+               <button mat-mini-fab (click)=openCollaborator(notes)>
+                    {{item.firstName | slice:0:1}}
+               </button>
+
+           </div>
+        </div>
          </div>
    
          <div fxLayout="row">

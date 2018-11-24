@@ -7,6 +7,7 @@ import { NoteService } from '@service/note-service/note-service.service';
 import { CollaboratorComponent } from '@components/collaborator/collaborator.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { CollaboratorPopupComponent } from '@app/components/collaborator-popup/collaborator-popup.component';
 
 @Component({
   selector: 'app-note-collection',
@@ -19,6 +20,7 @@ export class NoteCollectionComponent implements OnInit, OnDestroy {
   @Input() searchNote;
   @Input() length;
   @Input() string;
+  @Output() onCollaborator=new EventEmitter();
   public checkArray=[];
   public isChecked=false;
 
@@ -164,6 +166,16 @@ export class NoteCollectionComponent implements OnInit, OnDestroy {
       return true
     }else return false
     
+  }
+  openCollaborator(notes) : void{
+    const dialogRef = this.dialog.open(CollaboratorPopupComponent, {
+      width: '500px',
+      data: notes
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.onCollaborator.emit({})
+    });
   }
   ngOnDestroy() {
     this.destroy$.next(true);

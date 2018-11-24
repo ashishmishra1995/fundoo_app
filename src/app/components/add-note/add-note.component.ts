@@ -4,6 +4,9 @@ import { Note } from "@model/note";
 import { Subject } from 'rxjs';
 
 import { takeUntil } from 'rxjs/operators';
+import { LoggerService } from '@app/core/service/logger/logger.service';
+import { environment } from '@environments/environment';
+import { UserService } from '@app/core/service/user-service/user.service';
 
 @Component({
     selector: 'app-add-note',
@@ -18,9 +21,11 @@ private note;
 private parentColor='#ffffff';
   @Output() onNewEntryAdded = new EventEmitter();
   @Output() onNewData =new EventEmitter();
+  
  
 //creating an object for eventEmitter
-  constructor(private NoteService:NoteService) { }
+  constructor(private NoteService:NoteService,
+  private userService: UserService) { }
   @ViewChild('editDiv') public editDiv: ElementRef;
 
 public clicked=false;
@@ -31,8 +36,11 @@ public dataArrayApi=[];
 public isChecked=false;
 public status="open"
 //public notes: Note
+private collaborators=[];
   ngOnInit() {
-
+    for (let i = 0; i < this.data['collaborators'].length; i++) {
+      this.collaborators.push(this.data['collaborators'][i])
+    }
   }
   public isPinned = false;
   public isArchived=false;
@@ -60,7 +68,8 @@ public status="open"
           "color": this.parentColor,
           "isArchived": this.isArchived,
           "labelIdList": JSON.stringify(this.labelId),
-          "reminder":''
+          "reminder":'',
+          "collaberators": JSON.stringify(this.collaborators)
         }
         if(this.reminderVariable!=undefined){
           this.body.reminder=this.reminderVariable
@@ -89,7 +98,8 @@ public status="open"
          "color": this.parentColor,
          "isArchived": this.isArchived,
          "labelIdList": JSON.stringify(this.labelId),
-         "reminder":this.reminderVariable
+         "reminder":this.reminderVariable,
+         "collaberators": JSON.stringify(this.collaborators)
         }
  }
 if (this.title != "") {
@@ -104,6 +114,7 @@ if (this.title != "") {
       this.reminderVariable=''
       this.reminderArray=[];
       this.adding=false
+      this.collaborators=[];
       //emitting an event when the note is added
       //this.onNewEntryAdded.emit({}) 
       this.onNewData.emit(response["status"].details); 
@@ -215,6 +226,55 @@ if (this.title != "") {
   public todayDate= new Date();
   public tomorrowDate= new Date(this.todayDate.getFullYear(),this.todayDate.getMonth(), (this.todayDate.getDate()+1))
   
+   collab=true;
+   collaborator(){
+    this.collab=!this.collab;
+    LoggerService.log("collab",true);
+  }
+  private image2 = localStorage.getItem('imageUrl');
+  img = environment.apiUrl + this.image2;
+
+  private firstName = localStorage.getItem('firstName');
+  private lastName = localStorage.getItem('lastName');
+  private email = localStorage.getItem('email');
+
+  private requestBody = {
+    "searchWord": ""
+  }
+  private userList = [];
+  searchUser() {
+    this.userService.searchUser(this.requestBody)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
+      this.userList = result['data']['details']
+      
+    })
+  }
+  addCollaborator(userDetails) {
+    
+    let collaboratorBody = {
+      "firstName": userDetails.firstName,
+      "lastName": userDetails.lastName,
+      "email": userDetails.email,
+      "userId": userDetails.userId
+    }
+    this.collaborators.push(collaboratorBody);
+    this.requestBody.searchWord="";
+    
+  }
+  removeCollaborator(collaboratorId){
+    for(let i=0; i<this.collaborators.length; i++){
+      if(collaboratorId==this.collaborators[i].userId){
+        this.collaborators.splice(i,1);
+      }
+    }
+
+  }
+  closeCollaborator(){
+    this.collab=!this.collab
+    
+  }
+
   ngOnDestroy() {
     this.destroy$.next(true);
     // Now let's also unsubscribe from the subject itself:

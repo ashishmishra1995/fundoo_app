@@ -22,10 +22,7 @@ mat-card{
   font-family: $font
 }
 .collaboratorDesign{
-    padding-top: 8px;
-    padding-bottom: 10px;
-    padding-left: 15px;
-    padding-right: 30px;
+    @include collaboratorDesign;
 }
 .myName{
     @include fontSize(20px);

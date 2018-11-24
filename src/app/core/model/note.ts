@@ -15,7 +15,7 @@ export interface Note {
     labelIdList: [Object]
     noteCheckLists: Array<Checklists>
     questionAndAnswerNotes: Array<Object>
-    collaborators: Array<Object>
+    collaborators: Array<Collaborators>
 }
 export interface Label{
     id: string
@@ -32,4 +32,10 @@ export interface Checklists{
     modifiedDate: Date
     notesId: string
     status: string
+}
+export interface Collaborators{
+    firstName: string
+    lastName: string
+    email: string
+    userId: string
 }

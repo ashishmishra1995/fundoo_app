@@ -7,8 +7,8 @@
               matTooltip="{{firstName | titlecase}} {{lastName | titlecase}}" mat-mini-fab class="profile-pic">
     </button></div>
     <div fxLayout="column" fxFlex=80>
-    <mat-content class="myName"><b>{{firstName | titlecase}} {{lastName | titlecase}}</b></mat-content>
-    <mat-content class="myEmail"><i>{{email}}</i></mat-content>
+    <mat-content class="myName"><b>{{owner.firstName | titlecase}} {{owner.lastName | titlecase}}</b></mat-content>
+    <mat-content class="myEmail"><i>{{owner.email}}</i></mat-content>
     <mat-content class="myEmail"><i>(Owner)</i></mat-content>
     
   </div>
@@ -44,6 +44,9 @@
     
     
   </div>
+  </div>
+  <div fxLayoutAlign="end">
+      <button mat-button (click)="closeCollaborator()">Save</button>
   </div>
   </mat-card>
 </div>
