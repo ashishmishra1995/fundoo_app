@@ -1,9 +1,11 @@
+<!------------Add Label Component main div-------------------------------->
 <div class="note" fxLayout="row wrap" fxLayoutAlign="space-evenly start">
   <mat-card style="margin-top: 30px; padding-left: 40px">
+    <!--Editable div to create new label-->
     <div contenteditable="true" class="fields" id="label" data-text="Create new label"></div>
     <div class="spacing3"></div>
 
-
+    <!--Div to show the labels-->
     <div fxLayoutAlign="space-between center" fxLayout="row" *ngFor="let labels of labels">
       <div fxFlex="20">
         <mat-icon style="cursor: pointer" matTooltip="delete label" (click)=deleteLabel(labels.id)>delete</mat-icon>

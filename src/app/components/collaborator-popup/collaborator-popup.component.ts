@@ -28,8 +28,7 @@ export class CollaboratorPopupComponent implements OnInit {
     }
 
   }
-  private image2 = localStorage.getItem('imageUrl');
-  img = environment.apiUrl + this.image2;
+  
 
   private firstName = localStorage.getItem('firstName');
   private lastName = localStorage.getItem('lastName');
@@ -44,6 +43,8 @@ export class CollaboratorPopupComponent implements OnInit {
       this.userList = result['data']['details']
     })
   }
+  private owner = this.data['user'];
+  private img= environment.apiUrl+this.owner.imageUrl;
 
   addCollaborator(userDetails) {
     
@@ -57,6 +58,7 @@ export class CollaboratorPopupComponent implements OnInit {
     this.noteService.addCollaborator(this.data['id'], collaboratorBody).subscribe(result => {
       LoggerService.log("add Collaborator:", result);
       this.collaborators.push(userDetails);
+      this.requestBody.searchWord="";
     })
   }
   removeCollaborator(collaboratorId){

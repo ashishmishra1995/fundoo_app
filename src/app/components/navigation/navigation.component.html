@@ -23,11 +23,15 @@
 
         <div fxLayoutAlign="row wrap" class="signout-menu">
           <div fxFlex=30>
-            <button (click)="$event.stopPropagation()" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" (click)="selectFile.click()"
+            <button *ngIf="image2!=''" (click)="$event.stopPropagation()" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" (click)="selectFile.click()"
               matTooltip="{{firstName | titlecase}} {{lastName | titlecase}}" mat-mini-fab class="profile-pic">
             </button>
+            <button *ngIf="image2==''" (click)="$event.stopPropagation()"  (click)="selectFile.click()"
+              matTooltip="{{firstName | titlecase}} {{lastName | titlecase}}" mat-mini-fab class="profile-pic">
+            {{firstName | slice:0:1}}</button>
             <input style="display:none" (click)="$event.stopPropagation()" class="image" type="file" (change)="onFileUpload($event)"
               #selectFile>
+            
           </div>
           <div fxFlex=70 fxLayout="column">
             <mat-content fxFlex class="contentstyle-name" class="profileName"><b>

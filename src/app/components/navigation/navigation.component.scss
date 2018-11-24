@@ -119,16 +119,13 @@
 }
 
 .signout-menu {
-  padding-top: 8px;
-  padding-bottom: 10px;
-  padding-left: 15px;
-  padding-right: 30px;
+  @include collaboratorDesign;
 }
 
 .sidenav {
   width: 200px;
   position: fixed;
-  z-index: 2;
+  z-index: 3;
   margin-top: 65px;
   padding-bottom: 20%;
 }

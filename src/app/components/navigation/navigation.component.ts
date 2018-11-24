@@ -137,7 +137,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   selectedFile = null;
   public image2 = localStorage.getItem('imageUrl');
   img = environment.apiUrl + this.image2;
-
+  
   onFileUpload(event) {
     this.profileCropOpen(event);
 
