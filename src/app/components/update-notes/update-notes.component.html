@@ -1,8 +1,63 @@
-<div class="note" fxLayout="row wrap" fxLayoutAlign="space-evenly start" >
+<!--collaborator card-->
+<div *ngIf="!collab" fxLayout="row wrap" fxLayoutAlign="space-evenly start">
+    <mat-card>
+      <div class="heading">Collaborators</div><hr>
+      <div fxLayoutAlign="row wrap" class="collaboratorDesign">
+      <div fxFlex=20>
+      <button (click)="$event.stopPropagation()" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}"
+                matTooltip="{{firstName | titlecase}} {{lastName | titlecase}}" mat-mini-fab class="profile-pic">
+      </button></div>
+      <div fxLayout="column" fxFlex=80>
+      <mat-content class="myName"><b>{{firstName | titlecase}} {{lastName | titlecase}}</b></mat-content>
+      <mat-content class="myEmail"><i>{{email}}</i></mat-content>
+      <mat-content class="myEmail"><i>(Owner)</i></mat-content>
+      
+    </div>
+    </div>
+  
+    <div *ngFor="let user of collaborators" fxLayoutAlign="row wrap" class="collaboratorDesign">
+      <div fxFlex=20>
+      <button (click)="$event.stopPropagation()" mat-mini-fab class="profile-pic">{{user.firstName | slice:0:1}}
+      </button></div>
+      <div fxLayout="column" fxFlex=70>
+      <mat-content class="myName"><b>{{user.firstName | titlecase}} {{user.lastName | titlecase}}</b></mat-content>
+      <mat-content class="myEmail"><i>{{user.email}}</i></mat-content>
+      </div>
+      <div fxFlex=10><mat-icon (click)="removeCollaborator(user.userId)" style="cursor: pointer;">close</mat-icon></div>
+    </div>
+  
+    <div fxLayoutAlign="row wrap" class="collaboratorDesign">
+      <div fxFlex=20>
+      <button (click)="$event.stopPropagation()" mat-mini-fab class="profile-pic">
+        <mat-icon>person_add</mat-icon>
+      </button></div>
+      <div fxLayout="column" fxFlex=80>
+      
+      <mat-content class="myEmail">
+        <input class="inputField" placeholder="Person or email to share with" (keyup)="searchUser()"
+                [(ngModel)]="requestBody.searchWord" [matMenuTriggerFor]="appMenu">
+      </mat-content>
+      <mat-menu #appMenu="matMenu">
+          <button (click)="addCollaborator(item)" mat-button *ngFor="let item of userList">
+            {{item.firstName}} {{item.lastName}} ({{item.email}})
+          </button>
+      </mat-menu>
+      
+      
+    </div>
+    </div>
+    <div fxLayoutAlign="end">
+      <button mat-button (click)="closeCollaborator()">Save</button>
+    </div>
+    </mat-card>
+  </div>
+  <!--collaborator card ends-->
+<div *ngIf="collab" class="note" fxLayout="row wrap" fxLayoutAlign="space-evenly start" >
   <mat-card style="margin-top: 30px" [style.backgroundColor]="data.color">
     <div contenteditable="true" class="fields" [innerHTML]="data.title" id="title" data-text="">
     </div>
         <div class="spacing3"></div>
+        
         <div contenteditable="true" class="fields" [innerHTML]="data.description" id="take-note" 
               data-text=""></div>
               <div class="note" *ngFor="let check of tempArray" fxLayout="row">
@@ -53,7 +108,10 @@
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <div fxLayout="row" fxLayoutAlign="space-between" >
           <app-add-reminder></app-add-reminder>
-          <app-collaborator></app-collaborator>
+          <button mat-icon-button (click)="collaborator()">
+              <mat-icon style="cursor:pointer" matTooltip="Collaborator" aria-label="list" class="icons">
+                          person_add</mat-icon>
+          </button>
           <app-change-color (eventColor)=changeColor($event) [noteDetails]="data"></app-change-color>
           <app-add-photo></app-add-photo>
           <app-add-archive ></app-add-archive>

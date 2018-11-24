@@ -5,6 +5,9 @@ import { HttpService } from '@service/http/http.service';
 import { NoteService } from '@service/note-service/note-service.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { environment } from '@environments/environment';
+import { LoggerService } from '@app/core/service/logger/logger.service';
+import { UserService } from '@app/core/service/user-service/user.service';
 
 export interface DialogData {
   id: string;
@@ -34,7 +37,8 @@ export class UpdateNotesComponent implements OnInit, OnDestroy {
   constructor(public dialogRef: MatDialogRef<NoteCollectionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private httpService: HttpService,
-    private NoteService:NoteService) { }
+    private NoteService:NoteService,
+    private userService:UserService) { }
 
   ngOnInit() {
     this.tempArray=[];
@@ -207,6 +211,57 @@ export class UpdateNotesComponent implements OnInit, OnDestroy {
   changeColor(event){
     this.colorUpdate=event;
   }
+
+  collab=true;
+   collaborator(){
+    this.collab=!this.collab;
+    LoggerService.log("collab",true);
+  }
+  private image2 = localStorage.getItem('imageUrl');
+  img = environment.apiUrl + this.image2;
+
+  private firstName = localStorage.getItem('firstName');
+  private lastName = localStorage.getItem('lastName');
+  private email = localStorage.getItem('email');
+
+  private requestBody = {
+    "searchWord": ""
+  }
+  private userList = [];
+  private collaborators=[]
+  searchUser() {
+    this.userService.searchUser(this.requestBody)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
+      this.userList = result['data']['details']
+      
+    })
+  }
+  addCollaborator(userDetails) {
+    
+    let collaboratorBody = {
+      "firstName": userDetails.firstName,
+      "lastName": userDetails.lastName,
+      "email": userDetails.email,
+      "userId": userDetails.userId
+    }
+    this.collaborators.push(collaboratorBody);
+    this.requestBody.searchWord="";
+    
+  }
+  removeCollaborator(collaboratorId){
+    for(let i=0; i<this.collaborators.length; i++){
+      if(collaboratorId==this.collaborators[i].userId){
+        this.collaborators.splice(i,1);
+      }
+    }
+
+  }
+  closeCollaborator(){
+    this.collab=!this.collab
+    
+  }
+
   ngOnDestroy() {
     this.destroy$.next(true);
     // Now let's also unsubscribe from the subject itself:
