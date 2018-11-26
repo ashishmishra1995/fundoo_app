@@ -1,9 +1,8 @@
 
 <div fxLayoutAlign="center">
     <div fxFlex.xs=0 fxFlex.sm=0 fxFlex.md=5 fxFlex.lg=5 fxFlex.xl=10>
-   
    </div>
-   <!-- <div *ngIf="length!=0" fxLayoutAlign="left" style="width:100%">
+   <!-- <div fxLayout="row" *ngIf="length!=0" fxLayoutAlign="left" style="width:100%">
     <b> {{string}} </b>
    </div> -->
  
@@ -18,7 +17,7 @@
            }"> -->
        <div>
            <mat-card-title [innerHTML]="notes.title" (click)="openDialog(notes)" (eventUpdate)="nextDelete($event)"><b>{{notes.title}}</b></mat-card-title>
-           <app-pin (pinEmit)="nextDelete($event)" [pinArray]="notes" ></app-pin>
+           <app-pin (pinEmit)="nextDelete($event)" [notesArray]="notes" ></app-pin>
            <mat-card-content [innerHTML]="notes.description" (click)="openDialog(notes)" (eventUpdate)="nextDelete($event)">{{notes.description}}</mat-card-content>
            <div *ngFor="let checklist of notes.noteCheckLists" fxLayout="row">
              <mat-checkbox fxFlex="10%" *ngIf="checklist.status=='open'&& !checklist.isDeleted" (click)=checkBox(checklist,notes)></mat-checkbox>

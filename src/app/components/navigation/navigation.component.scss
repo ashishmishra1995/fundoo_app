@@ -9,7 +9,7 @@
 .toolbar {
   background: $yellow;
   font-family: $font;
-  font-size: 30px;
+  @include fontSize(30px);
   position: fixed;
   z-index: 2;
   width: 100%;
@@ -37,7 +37,7 @@
 .logo {
   color: $black;
   padding: 10px;
-  font-size: 30px;
+  @include fontSize(30px);
 }
 
 .refresh, .notifications, .accounts {
@@ -102,7 +102,7 @@
 }
 
 .sidenav-container {
-  height: 100%;
+  height: fit-content;
   background-color: white;
 }
 

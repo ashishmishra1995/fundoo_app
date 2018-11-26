@@ -46,7 +46,7 @@
         </div>
       </mat-menu>
 
-      <button mat-icon-button [matMenuTriggerFor]="appMenu" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
+      <button style="background: blue" mat-icon-button [matMenuTriggerFor]="appMenu" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
       </button>
     </mat-toolbar>
 
@@ -60,7 +60,7 @@
             <span style="padding-left :20px">Note</span>
           </a>
           
-          <a (click)="changeLogo('Reminder')" class="circle"  mat-list-item routerLink="/home/reminder"><span>
+          <a (click)="changeLogo('reminder')" class="circle"  mat-list-item routerLink="/home/reminder"><span>
               <mat-icon>notifications</mat-icon></span>
             <span style="padding-left :20px">Reminder</span>
           </a>
@@ -75,11 +75,11 @@
               <span style="padding-left: 20px">{{labels.label}}</span>
           </a><hr>
 
-          <a (click)="changeLogo('Archive')" class="circle"  mat-list-item routerLink="/home/archieve"><span style="padding-left:0px;">
+          <a (click)="changeLogo('archive')" class="circle"  mat-list-item routerLink="/home/archieve"><span style="padding-left:0px;">
               <mat-icon>archive</mat-icon></span>
             <span style="padding-left :20px">Archive</span>
           </a>
-          <a (click)="changeLogo('Trash')" class="circle"  mat-list-item routerLink="/home/trash"><span style="padding-left:0px;">
+          <a (click)="changeLogo('trash')" class="circle"  mat-list-item routerLink="/home/trash"><span style="padding-left:0px;">
               <mat-icon>delete</mat-icon></span>
             <span style="padding-left :20px">Trash</span></a>
 

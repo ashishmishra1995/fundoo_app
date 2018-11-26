@@ -14,9 +14,11 @@
         </div>
         <div fxFlex="0"> </div>
     </div>
-    
-    <app-note-collection [notesArray]="notes" [length]='pinnedNotes.length'
-    [string]="'Pined'" (addEntry)="addNewEntry($event)"></app-note-collection>
 
-    <app-note-collection [notesArray]="pinArray" [length]='pinnedNotes.length'
-    [string]="'Others'" (addEntry)="addNewEntry($event)"></app-note-collection> 
+    <app-note-collection [notesArray]="pinArray" [length]='pinArray.length'
+    [string]="'Pinned'" (addEntry)="addNewEntry($event)"></app-note-collection>
+    
+    <app-note-collection [notesArray]="notes" [length]='pinArray.length'
+    [string]="'Others'" (addEntry)="addNewEntry($event)"></app-note-collection>
+
+     

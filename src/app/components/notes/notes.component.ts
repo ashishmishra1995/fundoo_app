@@ -13,14 +13,14 @@ export class NotesComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   records={};
   private notes : Note[]=[];
-  public pinnedNotes=[];
+  public pinArray=[];
 
   constructor(private httpService: HttpService) { }
 
   ngOnInit() {
     this.getNotes();
     LoggerService.log("notes: ",this.notes)
-    // this.getPinnedNotes();
+    this.getPinnedNotes();
   }
   addNewEntry(event){
     if(event){
@@ -66,10 +66,10 @@ export class NotesComponent implements OnInit, OnDestroy {
     .subscribe(result=>{
      
       var pinnedData: Note[]=result['data']['data']
-      this.pinnedNotes =[];
+      this.pinArray =[];
       for(var i=pinnedData.length-1; i>=0; i--){
         if(pinnedData[i].isDeleted==false && pinnedData[i].isPined==true){
-        this.pinnedNotes.push(pinnedData[i])
+        this.pinArray.push(pinnedData[i])
         }
       }
    

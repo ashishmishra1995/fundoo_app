@@ -85,6 +85,22 @@ export class NavigationComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.destroy$))
     .subscribe(message => this.message = message)
     this.logoName='fundoo'
+
+    if (this.router.url == "/home/notes") {
+      this.logoName = "fundoo"
+      }
+      if (this.router.url == "/home/archieve") {
+      this.logoName = "archive"
+      }
+      if (this.router.url == "/home/search") {
+      this.logoName = "fundoo"
+      }
+      if (this.router.url == "/home/reminder") {
+      this.logoName = "reminder"
+      }
+      if (this.router.url == "/home/trash") {
+      this.logoName = "trash"
+      }
   }
  public logoName;
 
@@ -171,6 +187,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
     });
   }
+  
   ngOnDestroy() {
     this.destroy$.next(true);
     // Now let's also unsubscribe from the subject itself:

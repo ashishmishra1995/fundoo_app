@@ -76,6 +76,7 @@ export class TrashComponent implements OnInit, OnDestroy {
   }
 
   deleteForever(id){
+    
     // var token = localStorage.getItem('token');
     this.body = {
       "isDeleted": false,

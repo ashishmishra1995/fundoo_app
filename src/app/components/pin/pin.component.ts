@@ -11,7 +11,7 @@ import { takeUntil } from 'rxjs/operators';
 export class PinComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  @Input() pinArray;
+  @Input() notesArray;
   @Output() pinEmit=new EventEmitter();
 
   constructor(private httpService: HttpService) { }
@@ -23,7 +23,7 @@ export class PinComponent implements OnInit, OnDestroy {
   pin() {
     this.httpService.httpArchiveNote('/notes/pinUnpinNotes',
       {
-        "noteIdList": [this.pinArray.id],
+        "noteIdList": [this.notesArray.id],
         "isPined": true
       },
       this.token)
@@ -41,7 +41,7 @@ export class PinComponent implements OnInit, OnDestroy {
   {
     this.httpService.httpArchiveNote('/notes/pinUnpinNotes',
       {
-        "noteIdList": [this.pinArray.id],
+        "noteIdList": [this.notesArray.id],
         "isPined": false
       },
       this.token)

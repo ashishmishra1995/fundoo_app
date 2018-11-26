@@ -35,7 +35,7 @@ export class ErrorHandlerService {
         }
       } else {
 
-        // console.log(error);
+        console.log(error);
         // router.navigate(['/error'], { queryParams: {error: error} });    
       }
     }

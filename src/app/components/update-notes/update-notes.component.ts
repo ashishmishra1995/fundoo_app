@@ -24,71 +24,71 @@ export interface DialogData {
 export class UpdateNotesComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   note = {};
-  @Output() eventUpdate=new EventEmitter();
-  @Output() onCollaborator=new EventEmitter();
+  @Output() eventUpdate = new EventEmitter();
+  @Output() onCollaborator = new EventEmitter();
   @Input() noteDetails;
-  public checklist=false;
+  public checklist = false;
   public modifiedCheckList;
   public newList;
-  public tempArray=[];
-  public newData:any={};
-  public arrayObj:any={};
-  public dataArray=[];
-  public bgcolor=this.data.color;
+  public tempArray = [];
+  public newData: any = {};
+  public arrayObj: any = {};
+  public dataArray = [];
+  public bgcolor = this.data.color;
 
   constructor(public dialogRef: MatDialogRef<NoteCollectionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private httpService: HttpService,
-    private NoteService:NoteService,
-    private userService:UserService,
+    private NoteService: NoteService,
+    private userService: UserService,
     public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.tempArray=[];
-    this.labelname=this.data['noteLabels'];
-    if (this.data.noteCheckLists.length>0){
-      this.checklist=true;
+    this.tempArray = [];
+    this.labelname = this.data['noteLabels'];
+    if (this.data.noteCheckLists.length > 0) {
+      this.checklist = true;
     }
-    this.tempArray=this.data.noteCheckLists;
+    this.tempArray = this.data.noteCheckLists;
   }
-  
+
   onNoClick(): void {
-    
+
     var token = localStorage.getItem('token');
-    if(this.checklist==false){
-    this.note = {
-      "noteId": [this.data.id],
-      "title": document.getElementById('title').innerHTML,
-      "description": document.getElementById('take-note').innerHTML
+    if (this.checklist == false) {
+      this.note = {
+        "noteId": [this.data.id],
+        "title": document.getElementById('title').innerHTML,
+        "description": document.getElementById('take-note').innerHTML
+      }
+      this.httpService.httpUpdateNote('notes/updateNotes', this.note, token)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(result => {
+
+
+          this.dialogRef.close();
+          this.eventUpdate.emit({
+
+          })
+
+        });
+    } else {
+      var apiData = {
+        "itemName": this.modifiedCheckList.itemName,
+        "status": this.modifiedCheckList.status
+      }
+
+      this.NoteService.UpdateChecklist(JSON.stringify(apiData), this.data.id, this.modifiedCheckList.id)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(response => {
+
+          this.dialogRef.close();
+          this.eventUpdate.emit({
+
+          })
+        })
     }
-    this.httpService.httpUpdateNote('notes/updateNotes', this.note, token)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
 
-      
-      this.dialogRef.close();
-      this.eventUpdate.emit({
-        
-      })
-
-    });
-  }else{
-    var apiData={
-      "itemName": this.modifiedCheckList.itemName,
-      "status":this.modifiedCheckList.status
- }
- 
-   this.NoteService.UpdateChecklist(JSON.stringify(apiData), this.data.id, this.modifiedCheckList.id)
-   .pipe(takeUntil(this.destroy$))
-   .subscribe(response => {
-    
-     this.dialogRef.close();
-      this.eventUpdate.emit({
-        
-      })
-   })
-  }
-    
   }
   getFormUrlEncoded(toConvert) {
     const formBody = [];
@@ -99,126 +99,136 @@ export class UpdateNotesComponent implements OnInit, OnDestroy {
     }
     return formBody.join('&');
   }
-  
-    editing(editedList,event){
-      
 
-      if(event.code=="Enter"){
-      this.modifiedCheckList=editedList;
-      this.onNoClick();
-      }
-    }
-    colorChanged(event){
-      this.bgcolor=event; 
-    }
-    checkBox(checkList){
-    
-      if (checkList.status=="open"){
-        checkList.status = "close"
-      }
-      else{
-        checkList.status = "open"
-      }
-    
-      this.modifiedCheckList=checkList;
+  editing(editedList, event) {
+
+
+    if (event.code == "Enter") {
+      this.modifiedCheckList = editedList;
       this.onNoClick();
     }
-    public removedList;
-    removeList(checklist){
+  }
+  colorChanged(event) {
+    this.bgcolor = event;
+  }
+  checkBox(checkList) {
 
-      this.removedList=checklist;
-      this.removeCheckList()
+    if (checkList.status == "open") {
+      checkList.status = "close"
     }
-    removeCheckList(){
-      this.NoteService.removeChecklist(null, this.data.id, this.removedList.id)
+    else {
+      checkList.status = "open"
+    }
+
+    this.modifiedCheckList = checkList;
+    this.onNoClick();
+  }
+  public removedList;
+  removeList(checklist) {
+
+    this.removedList = checklist;
+    this.removeCheckList()
+  }
+  removeCheckList() {
+    this.NoteService.removeChecklist(null, this.data.id, this.removedList.id)
       .pipe(takeUntil(this.destroy$))
       .subscribe(response => {
-     
-        for(var i=0;i<this.tempArray.length;i++){
-          if(this.tempArray[i].id==this.removedList.id){
-            this.tempArray.splice(i,1)
+
+        for (var i = 0; i < this.tempArray.length; i++) {
+          if (this.tempArray[i].id == this.removedList.id) {
+            this.tempArray.splice(i, 1)
           }
         }
       })
+  }
+
+  public adding = false;
+  public addCheck = false;
+  public status = "open"
+  addList(event) {
+    if (this.newList != "") {
+      this.adding = true;
     }
-   
-    public adding=false;
-    public addCheck=false;
-    public status="open"
-    addList(event){
-      if(this.newList!=""){
-        this.adding = true;
+    else {
+      this.adding = false;
+    }
+    if (event.code == "Enter") {
+      if (this.addCheck == true) {
+        this.status = "close";
       }
-     else{
-        this.adding = false;
-     }
-      if (event.code == "Enter") {
-        if(this.addCheck==true){
-          this.status="close";
-        }
-        else{
-          this.status="open"
-        }
-        this.newData={
-          "itemName":this.newList,
-          "status":this.status
-        }
-      this.NoteService.addChecklist(this.newData,this.data.id)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(response => {
-      
-        this.newList=null;
-        this.addCheck=false;
-        this.adding=false;
-   
-        
-        this.tempArray.push(response['data'].details)
-  
+      else {
+        this.status = "open"
+      }
+      this.newData = {
+        "itemName": this.newList,
+        "status": this.status
+      }
+      this.NoteService.addChecklist(this.newData, this.data.id)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(response => {
 
-  
-      })
-    }
-    }
+          this.newList = null;
+          this.addCheck = false;
+          this.adding = false;
 
-  labelBody={};
-  removeLabel(noteId,labelId){
-    
-    this.labelBody={
+
+          this.tempArray.push(response['data'].details)
+
+
+
+        })
+    }
+  }
+
+  labelBody = {};
+  removeLabel(noteId, labelId) {
+
+    this.labelBody = {
       "noteId": noteId,
       "lableId": labelId
     }
-    this.httpService.httpAddLabelToNotes('notes/'+noteId+'/addLabelToNotes/'+labelId+'/remove', localStorage.getItem('token'),this.labelBody)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result=>{
+    this.httpService.httpAddLabelToNotes('notes/' + noteId + '/addLabelToNotes/' + labelId + '/remove', localStorage.getItem('token'), this.labelBody)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
 
-      this.eventUpdate.emit({
+        this.eventUpdate.emit({
+
+        })
+      }, error => {
+
 
       })
-    },error=>{
-
-      
-    })
   }
-  public labelid=[];
-  public labelname=[];
-  labelEvent(event){
-    if(this.labelname.indexOf(event)<0){
+  public labelid = [];
+  public labelname = [];
+  labelEvent(event) {
+    if (this.labelname.indexOf(event) < 0) {
       this.labelid.push(event.id);
       this.labelname.push(event);
-    }else{
-      this.labelid.splice(this.labelid.indexOf(event),1)
-      this.labelname.splice(this.labelname.indexOf(event),1)
+    } else {
+      this.labelid.splice(this.labelid.indexOf(event), 1)
+      this.labelname.splice(this.labelname.indexOf(event), 1)
     }
   }
-  public colorUpdate='#ffffff'
-  changeColor(event){
-    this.colorUpdate=event;
+  public colorUpdate = '#ffffff'
+  changeColor(event) {
+    this.colorUpdate = event;
   }
 
-  collab=true;
-   collaborator(){
-    this.collab=!this.collab;
-    LoggerService.log("collab",true);
+  collab = true;
+  collaborator(noteDetail) {
+    this.collab = !this.collab;
+    if(!this.collab){
+      const dialogRef = this.dialog.open(CollaboratorPopupComponent, {
+        width: '500px',
+        data: noteDetail
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        this.onCollaborator.emit({})
+      });
+    }
+    
   }
   private image2 = localStorage.getItem('imageUrl');
   img = environment.apiUrl + this.image2;
@@ -231,17 +241,17 @@ export class UpdateNotesComponent implements OnInit, OnDestroy {
     "searchWord": ""
   }
   private userList = [];
-  private collaborators=[]
+  private collaborators = []
   searchUser() {
     this.userService.searchUser(this.requestBody)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
-      this.userList = result['data']['details']
-      
-    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.userList = result['data']['details']
+
+      })
   }
   addCollaborator(userDetails) {
-    
+
     let collaboratorBody = {
       "firstName": userDetails.firstName,
       "lastName": userDetails.lastName,
@@ -252,21 +262,21 @@ export class UpdateNotesComponent implements OnInit, OnDestroy {
     this.NoteService.addCollaborator(this.data['id'], collaboratorBody).subscribe(result => {
       LoggerService.log("add Collaborator:", result);
       this.collaborators.push(userDetails);
-      this.requestBody.searchWord="";
+      this.requestBody.searchWord = "";
     })
   }
-  removeCollaborator(collaboratorId){
+  removeCollaborator(collaboratorId) {
     LoggerService.log("c_id: ", collaboratorId);
-    this.NoteService.removeCollaborator(collaboratorId,this.data['id']).subscribe(result=>{
-      
+    this.NoteService.removeCollaborator(collaboratorId, this.data['id']).subscribe(result => {
+
     })
 
   }
-  closeCollaborator(){
-    this.collab=!this.collab
-    
+  closeCollaborator() {
+    this.collab = !this.collab
+
   }
-  openCollaborator(notes) : void{
+  openCollaborator(notes): void {
     const dialogRef = this.dialog.open(CollaboratorPopupComponent, {
       width: '500px',
       data: notes
@@ -276,6 +286,16 @@ export class UpdateNotesComponent implements OnInit, OnDestroy {
       this.onCollaborator.emit({})
     });
   }
+  // collabUser(noteDetail): void {
+  //   const dialogRef = this.dialog.open(CollaboratorPopupComponent, {
+  //     width: '500px',
+  //     data: noteDetail
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     this.onCollaborator.emit({})
+  //   });
+  // }
 
   ngOnDestroy() {
     this.destroy$.next(true);

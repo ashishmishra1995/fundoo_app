@@ -64,7 +64,11 @@ export class CollaboratorPopupComponent implements OnInit {
   removeCollaborator(collaboratorId){
     LoggerService.log("c_id: ", collaboratorId);
     this.noteService.removeCollaborator(collaboratorId,this.data['id']).subscribe(result=>{
-      
+      for(let i=0; i<this.collaborators.length; i++){
+        if(collaboratorId==this.collaborators[i].userId){
+          this.collaborators.splice(i,1);
+        }
+      }
     })
 
   }
