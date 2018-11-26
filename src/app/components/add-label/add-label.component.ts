@@ -35,7 +35,7 @@ export class AddLabelComponent implements OnInit, OnDestroy {
   }
 
   onNoClick(): void {
-    var token = localStorage.getItem('token');
+    
     if (!this.labels.some((data) => data.label == document.getElementById('label').innerHTML)) {
       this.note = {
         "userId": localStorage.getItem('userId'),

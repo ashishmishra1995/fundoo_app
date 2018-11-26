@@ -7,8 +7,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 describe('SignupComponent', () => {
   let component: SignupComponent;
   let fixture: ComponentFixture<SignupComponent>;
-  let de = DebugElement;
-  let el = HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

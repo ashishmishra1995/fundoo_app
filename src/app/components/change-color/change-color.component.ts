@@ -102,7 +102,7 @@ export class ChangeColorComponent implements OnInit, OnDestroy {
 
   setColor(id) {
     this.eventColor.emit(id);
-    var token = localStorage.getItem('token');
+    // var token = localStorage.getItem('token');
     this.body = {
       "color": id,
       "noteIdList": [this.noteDetails.id]

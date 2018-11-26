@@ -35,7 +35,7 @@ this.croppedImage =event.file;
 public image2 = localStorage.getItem('imageUrl');
 img = environment.apiUrl + this.image2;
 onUpload() {
-var token = localStorage.getItem('token');
+// var token = localStorage.getItem('token');
 
 const uploadData = new FormData();
 uploadData.append('file', this.croppedImage);

@@ -24,6 +24,9 @@ export class DataServiceService {
   private profileSource= new BehaviorSubject(false);
   currentProfile= this.profileSource.asObservable();
 
+  private errorSource= new BehaviorSubject("default");
+  currentError = this.errorSource.asObservable();
+
   constructor() { }
 
   changeMessage(message: boolean) {
@@ -47,6 +50,9 @@ export class DataServiceService {
   }
   changeProfile(message:boolean){
     this.profileSource.next(message);
+  }
+  errorChangeMessage(message:string){
+    this.errorSource.next(message);
   }
 
 }

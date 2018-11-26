@@ -9,8 +9,6 @@ import { DebugElement } from '@angular/core';
 describe('ResetPasswordComponent', () => {
   let component: ResetPasswordComponent;
   let fixture: ComponentFixture<ResetPasswordComponent>;
-  let de = DebugElement;
-  let el = HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

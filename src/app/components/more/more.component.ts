@@ -72,7 +72,7 @@ export class MoreComponent implements OnInit, OnDestroy {
   }
   delete(id) {
     
-    var token = localStorage.getItem('token');
+    // var token = localStorage.getItem('token');
     this.body={
       "isDeleted": true,
       "noteIdList": [this.noteDetails.id]

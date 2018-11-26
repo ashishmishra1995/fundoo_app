@@ -149,8 +149,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
   image = {};
 
   clickLabel(labelsList) {
-    var labelsList = labelsList.label;
-    this.router.navigate(['/home/label/' + labelsList])
+    var labelList = labelsList.label;
+    this.router.navigate(['/home/label/' + labelList])
   }
   profileCropOpen(data): void { //Function for the dialog box
     const dialogRefPic = this.dialog.open(CropImageComponent, {

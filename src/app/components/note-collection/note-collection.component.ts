@@ -64,7 +64,7 @@ export class NoteCollectionComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed()
     .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
+    .subscribe(data => {
       this.addEntry.emit({
 
       })
@@ -100,7 +100,7 @@ export class NoteCollectionComponent implements OnInit, OnDestroy {
     }
     this.NoteService.removeLabelFromNotes(this.labelBody,noteId,labelId)
     .pipe(takeUntil(this.destroy$))
-    .subscribe(result=>{
+    .subscribe(resp=>{
      
       this.addEntry.emit({
 
@@ -150,7 +150,7 @@ export class NoteCollectionComponent implements OnInit, OnDestroy {
   
     this.NoteService.UpdateChecklist(JSON.stringify(apiData), id, this.modifiedCheckList.id)
     .pipe(takeUntil(this.destroy$))
-    .subscribe(response => {
+    .subscribe(res => {
 
 
     })
@@ -173,7 +173,7 @@ export class NoteCollectionComponent implements OnInit, OnDestroy {
       data: notes
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(response => {
       this.onCollaborator.emit({})
     });
   }

@@ -51,7 +51,7 @@ export class TrashComponent implements OnInit, OnDestroy {
   body = {};
   restore(id) {
     
-    var token = localStorage.getItem('token');
+    // var token = localStorage.getItem('token');
     this.body = {
       "isDeleted": false,
       "noteIdList": [id]
@@ -76,7 +76,7 @@ export class TrashComponent implements OnInit, OnDestroy {
   }
 
   deleteForever(id){
-    var token = localStorage.getItem('token');
+    // var token = localStorage.getItem('token');
     this.body = {
       "isDeleted": false,
       "noteIdList": [id]

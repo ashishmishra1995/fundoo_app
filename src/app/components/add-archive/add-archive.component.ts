@@ -31,7 +31,7 @@ export class AddArchiveComponent implements OnInit, OnDestroy {
 
   archive(id) {
     
-    var token = localStorage.getItem('token');
+    // var token = localStorage.getItem('token');
     this.body={
       "isArchived": true,
       "noteIdList": [this.noteDetails.id]
