@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ErrorHandler } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -41,44 +41,44 @@ import { ImageCropperModule } from "ngx-image-cropper";
 
 
 
-import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { NavigationComponent } from './components/navigation/navigation.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { NotesComponent } from './components/notes/notes.component';
-import { ArchieveComponent } from './components/archieve/archieve.component';
-import { TrashComponent } from './components/trash/trash.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ReminderComponent } from './components/reminder/reminder.component';
-import { AddReminderComponent } from './components/add-reminder/add-reminder.component';
-import { CollaboratorComponent } from './components/collaborator/collaborator.component';
-import { ChangeColorComponent } from './components/change-color/change-color.component';
-import { AddPhotoComponent } from './components/add-photo/add-photo.component';
-import { AddArchiveComponent } from './components/add-archive/add-archive.component';
-import { MoreComponent } from './components/more/more.component';
-import { AddNoteComponent } from './components/add-note/add-note.component';
-import { AuthGuard } from './core/service/Authguard/auth.guard';
-import { NoteCollectionComponent } from './components/note-collection/note-collection.component';
-import { UpdateNotesComponent } from './components/update-notes/update-notes.component';
-import { AddLabelComponent } from './components/add-label/add-label.component';
-import { LabelComponent } from "./components/label/label.component";
-import { CropImageComponent } from './components/crop-image/crop-image.component';
-import { PinComponent } from './components/pin/pin.component';
-import { SlidePanelComponent } from './components/slide-panel/slide-panel.component';
-import { CollaboratorPopupComponent } from './components/collaborator-popup/collaborator-popup.component';
+import { HomeComponent } from '@components/home/home.component';
+import { LoginComponent } from '@components/login/login.component';
+import { SignupComponent } from '@components/signup/signup.component';
+import { ForgotPasswordComponent } from '@components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from '@components/reset-password/reset-password.component';
+import { NavigationComponent } from '@components/navigation/navigation.component';
+import { ToolbarComponent } from '@components/toolbar/toolbar.component';
+import { SidebarComponent } from '@components/sidebar/sidebar.component';
+import { NotesComponent } from '@components/notes/notes.component';
+import { ArchieveComponent } from '@components/archieve/archieve.component';
+import { TrashComponent } from '@components/trash/trash.component';
+import { DashboardComponent } from '@components/dashboard/dashboard.component';
+import { ReminderComponent } from '@components/reminder/reminder.component';
+import { AddReminderComponent } from '@components/add-reminder/add-reminder.component';
+import { CollaboratorComponent } from '@components/collaborator/collaborator.component';
+import { ChangeColorComponent } from '@components/change-color/change-color.component';
+import { AddPhotoComponent } from '@components/add-photo/add-photo.component';
+import { AddArchiveComponent } from '@components/add-archive/add-archive.component';
+import { MoreComponent } from '@components/more/more.component';
+import { AddNoteComponent } from '@components/add-note/add-note.component';
+import { NoteCollectionComponent } from '@components/note-collection/note-collection.component';
+import { UpdateNotesComponent } from '@components/update-notes/update-notes.component';
+import { AddLabelComponent } from '@components/add-label/add-label.component';
+import { LabelComponent } from "@components/label/label.component";
+import { CropImageComponent } from '@components/crop-image/crop-image.component';
+import { PinComponent } from '@components/pin/pin.component';
+import { SlidePanelComponent } from '@components/slide-panel/slide-panel.component';
+import { CollaboratorPopupComponent } from '@components/collaborator-popup/collaborator-popup.component';
+import { SearchComponent } from '@components/search/search.component';
 
 
-import { HttpService } from './core/service/http/http.service';
-import { FilterPipe } from './core/pipes/filter.pipe';
-import { SearchComponent } from './components/search/search.component';
-import { FilterLabelPipe } from './core/pipes/filter-label.pipe';
-import { LoggerService } from './core/service/logger/logger.service';
-import { MessagingService } from "./core/service/messaging-service/messaging.service";
-
+import { HttpService } from '@service/http/http.service';
+import { AuthGuard } from '@service/Authguard/auth.guard';
+import { FilterPipe } from '@pipes/filter.pipe';
+import { FilterLabelPipe } from '@pipes/filter-label.pipe';
+import { LoggerService } from '@service/logger/logger.service';
+import { MessagingService } from "@service/messaging-service/messaging.service";
+import { ErrorHandlerService } from "@service/error-handler/error-handler.service";
 
 
 @NgModule({
@@ -114,7 +114,8 @@ import { MessagingService } from "./core/service/messaging-service/messaging.ser
     CropImageComponent,
     PinComponent,
     SlidePanelComponent,
-    CollaboratorPopupComponent
+    CollaboratorPopupComponent,
+    
 
 
   ],
@@ -162,6 +163,10 @@ import { MessagingService } from "./core/service/messaging-service/messaging.ser
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
       multi: true
+    },
+    {
+      provide: ErrorHandler,
+      useClass: ErrorHandlerService,
     }],
   bootstrap: [AppComponent],
   entryComponents: [AddLabelComponent, CropImageComponent, CollaboratorPopupComponent]
