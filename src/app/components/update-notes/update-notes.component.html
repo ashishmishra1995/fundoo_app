@@ -104,6 +104,14 @@
   
             </div>
           </div>
+          <div fxLayout="row wrap">
+            <div *ngFor="let item of data.collaborators">
+                <button mat-mini-fab (click)=openCollaborator(data)>
+                     {{item.firstName | slice:0:1}}
+                </button>
+ 
+            </div>
+         </div>
     
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <div fxLayout="row" fxLayoutAlign="space-between" >

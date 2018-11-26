@@ -1,3 +1,6 @@
+@import '../../../scss/mixins';
+@import '../../../scss/variables';
+
 .grid-card {
     width: 300px;
     min-height: 100px;
@@ -20,7 +23,7 @@
   }
   
   .chip {
-    background: grey;
+    background: $grey;
     opacity: 0.7;
     word-break: break-word;
   }
@@ -29,7 +32,7 @@
     width: 90%;
     word-break: break-word;
     opacity: 0.7;
-    background: grey;
+    background: $grey;
   }
   
   .labelChip {
@@ -45,5 +48,95 @@
     opacity: 0;
     &:hover {
       opacity: 1;
+    }
+  }
+  .collaboratorChip{
+    margin-left: 5px;
+    background: $grey;
+    opacity: 0.7;
+  }
+  @media only screen and (min-width: 870px) and (max-width: 929px){
+    .grid-card2{
+      width:270px !important
+    }
+  }
+  @media only screen and (min-width: 930px) and (max-width: 959px){
+    .grid-card2{
+      width:280px !important
+    }
+  }
+  @media only screen and (min-width: 967px) and (max-width: 1033px){
+    .grid-card2{
+      width:270px !important
+    }
+  }
+  @media only screen and (min-width: 1034px) and (max-width: 1069px){
+    .grid-card2{
+      width:280px !important
+    }
+  }
+  @media only screen and (min-width: 1070px) and (max-width: 1133px){
+    .grid-card2{
+      width:300px !important
+    }
+  }
+  @media only screen and (min-width: 1134px) and (max-width: 1183px){
+    .grid-card2{
+      width:315px !important
+    }
+  }
+  @media only screen and (min-width: 1184px) and (max-width: 1200px){
+    .grid-card2{
+      width:330px !important
+    }
+  }
+  @media only screen and (min-width: 1201px) and (max-width: 1206px){
+    .grid-card2{
+      width:342px !important
+    }
+  }
+  @media only screen and (min-width: 1280px) and (max-width: 1309px){
+    .grid-card{
+      width:270px !important
+    }
+  }
+  @media only screen and (min-width: 1310px) and (max-width: 1333px){
+    .grid-card{
+      width:260px !important
+    }
+  }
+  @media only screen and (min-width: 1334px) and (max-width: 1370px){
+    .grid-card{
+      width:270px !important
+    }
+  }
+  @media only screen and (min-width: 1500px) and (max-width: 1599px){
+    .grid-card{
+      width:320px !important
+    }
+  }
+  @media only screen and (min-width: 1600px) and (max-width: 1649px){
+    .grid-card{
+      width:330px !important
+    }
+  }
+  @media only screen and (min-width: 1650px) and (max-width: 1689px){
+    .grid-card{
+      width:340px !important
+    }
+  }
+  @media only screen and (min-width: 1690px) and (max-width: 1720px){
+    .grid-card{
+      width:355px !important
+    }
+  }
+  @media only screen and (min-width: 1721px) and (max-width: 1829px){
+    .grid-card{
+      width:290px !important
+    }
+  }
+  @media only screen and (min-width: 1830px) and (max-width: 2000px){
+    .grid-card{
+      width:310px !important
     }
   }

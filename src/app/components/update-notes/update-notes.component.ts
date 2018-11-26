@@ -8,6 +8,7 @@ import { takeUntil } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { LoggerService } from '@app/core/service/logger/logger.service';
 import { UserService } from '@app/core/service/user-service/user.service';
+import { CollaboratorPopupComponent } from '@app/components/collaborator-popup/collaborator-popup.component';
 
 export interface DialogData {
   id: string;
@@ -24,6 +25,7 @@ export class UpdateNotesComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   note = {};
   @Output() eventUpdate=new EventEmitter();
+  @Output() onCollaborator=new EventEmitter();
   @Input() noteDetails;
   public checklist=false;
   public modifiedCheckList;
@@ -38,7 +40,8 @@ export class UpdateNotesComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private httpService: HttpService,
     private NoteService:NoteService,
-    private userService:UserService) { }
+    private userService:UserService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.tempArray=[];
@@ -245,21 +248,33 @@ export class UpdateNotesComponent implements OnInit, OnDestroy {
       "email": userDetails.email,
       "userId": userDetails.userId
     }
-    this.collaborators.push(collaboratorBody);
-    this.requestBody.searchWord="";
-    
+
+    this.NoteService.addCollaborator(this.data['id'], collaboratorBody).subscribe(result => {
+      LoggerService.log("add Collaborator:", result);
+      this.collaborators.push(userDetails);
+      this.requestBody.searchWord="";
+    })
   }
   removeCollaborator(collaboratorId){
-    for(let i=0; i<this.collaborators.length; i++){
-      if(collaboratorId==this.collaborators[i].userId){
-        this.collaborators.splice(i,1);
-      }
-    }
+    LoggerService.log("c_id: ", collaboratorId);
+    this.NoteService.removeCollaborator(collaboratorId,this.data['id']).subscribe(result=>{
+      
+    })
 
   }
   closeCollaborator(){
     this.collab=!this.collab
     
+  }
+  openCollaborator(notes) : void{
+    const dialogRef = this.dialog.open(CollaboratorPopupComponent, {
+      width: '500px',
+      data: notes
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.onCollaborator.emit({})
+    });
   }
 
   ngOnDestroy() {
