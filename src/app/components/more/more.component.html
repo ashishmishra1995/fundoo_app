@@ -6,7 +6,7 @@
   <mat-menu #appMenu="matMenu" yPosition="below" [overlapTrigger]="false">
     <button (click)="delete(noteDetails.id)" mat-menu-item>Delete</button>
     <button mat-menu-item [matMenuTriggerFor]="labelMenu">Add Label</button>
-    <button (click)="checkbox()" mat-menu-item>Show Checkbox</button>
+    <button (click)="askQuestion()" mat-menu-item>Ask a question</button>
 
   </mat-menu>
   <mat-menu #labelMenu="matMenu">

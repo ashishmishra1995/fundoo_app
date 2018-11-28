@@ -7,8 +7,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
- 
-
+  let de: DebugElement;
+  let el: HTMLElement;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [LoginComponent],
@@ -19,8 +19,8 @@ describe('LoginComponent', () => {
       .compileComponents().then(()=>{
         fixture = TestBed.createComponent(LoginComponent);
         component = fixture.componentInstance;
-        this.de= fixture.debugElement.query(By.css('form'));
-        this.el=this.de.nativeElement;
+        de= fixture.debugElement.query(By.css('form'));
+        el=this.de.nativeElement;
       });
   }));
 
@@ -45,7 +45,7 @@ describe('LoginComponent', () => {
 
       expect(component.loginFormEmail.valid).toBeFalsy();
       expect(component.loginFormPassword.valid).toBeFalsy();
-  }))
+  }));
   
   it('form should be valid', async(()=>{
     component.loginFormEmail.controls['email'].setValue('aass@bbbb.com');
@@ -54,5 +54,17 @@ describe('LoginComponent', () => {
     
     expect(component.loginFormEmail.valid).toBeTruthy();
     expect(component.loginFormPassword.valid).toBeTruthy();
+  }));
+
+  it('should login', async(()=>{
+    component.login()
+  }))
+
+  it('should call the login method', async(()=>{
+    fixture.detectChanges();
+    spyOn(component,'login')
+    el=fixture.debugElement.query(By.css('button')).nativeElement;
+    el.click();
+    expect(component.login).toHaveBeenCalledTimes(1);
   }))
 });

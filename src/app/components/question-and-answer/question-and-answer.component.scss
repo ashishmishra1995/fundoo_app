@@ -1,0 +1,59 @@
+@import '../../../scss/mixins';
+@import '../../../scss/variables';
+
+.mainCard{
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.568);
+    }
+    .close_button{
+    float:right;
+    @include fontSize(18px);
+    
+    }
+    .title{
+    font-family: $font;
+    @include fontSize(25px);
+    font-weight:500;
+    }
+    .description{
+    font-family: $font;
+    @include fontSize(20px);
+    font-weight:300;
+    }
+    .profilebutton2{
+    width:50px; 
+    height:50px; 
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    outline:none;
+    
+    }
+    .questInput{
+        outline:none;
+        border: none;
+        width:100%;
+    }
+    .mainDiv{
+        margin-top: 50px;
+        margin-left: 50px
+    }
+    .question{
+        @include fontSize(25px);
+        font-family: $font;
+    }
+    .date{
+        color: $grey;
+        @include fontSize(15px);
+        margin-left: 10px
+    }
+    .userName{
+        font-family: $font;
+        @include fontSize(18px)
+    }
+    .icon{
+        @include fontSize(20px);
+        cursor: pointer;
+    }
+    .like{
+        margin-left: 10px;
+    }

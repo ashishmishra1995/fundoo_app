@@ -103,6 +103,7 @@ export class ChangeColorComponent implements OnInit, OnDestroy {
   setColor(id) {
     this.eventColor.emit(id);
     // var token = localStorage.getItem('token');
+    if(this.noteDetails!=undefined){
     this.body = {
       "color": id,
       "noteIdList": [this.noteDetails.id]
@@ -120,6 +121,7 @@ export class ChangeColorComponent implements OnInit, OnDestroy {
 
 
     });
+  }
   }
 
   ngOnDestroy() {

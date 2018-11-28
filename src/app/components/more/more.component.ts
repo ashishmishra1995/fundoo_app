@@ -7,6 +7,7 @@ import { DataServiceService } from '@service/data-service/data-service.service';
 import { NoteService } from "@service/note-service/note-service.service";
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-more',
@@ -35,7 +36,8 @@ export class MoreComponent implements OnInit, OnDestroy {
     public snackBar: MatSnackBar,
     public dialog: MatDialog,
     private data: DataServiceService,
-  private noteService: NoteService) { }
+    private noteService: NoteService,
+    private router: Router) { }
 
   ngOnInit() {
     var token=localStorage.getItem('token');
@@ -119,6 +121,10 @@ export class MoreComponent implements OnInit, OnDestroy {
     this.labBody.data=event.target.value;
     this.data.searchData(this.labBody.data);
   }
+  askQuestion(){
+    this.router.navigate(['/home/notes/' + this.noteDetails.id + '/QuestionAndAnswers'])
+  }
+
   ngOnDestroy() {
     this.destroy$.next(true);
     // Now let's also unsubscribe from the subject itself:

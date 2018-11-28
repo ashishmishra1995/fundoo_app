@@ -17,6 +17,7 @@ import { NavigationComponent } from "./components/navigation/navigation.componen
 import { UpdateNotesComponent } from "./components/update-notes/update-notes.component";
 import { SearchComponent } from './components/search/search.component';
 import { LabelComponent } from './components/label/label.component';
+import { QuestionAndAnswerComponent } from '@app/components/question-and-answer/question-and-answer.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo:'login' },
@@ -33,7 +34,8 @@ const routes: Routes = [
       { path: 'trash', component: TrashComponent },
       { path: 'reminder', component: ReminderComponent },
       { path: 'search', component: SearchComponent },
-      { path: 'label/:labelsList', component: LabelComponent }
+      { path: 'label/:labelsList', component: LabelComponent },
+      { path: 'notes/:noteId/QuestionAndAnswers', component: QuestionAndAnswerComponent }
     ]
   }
   

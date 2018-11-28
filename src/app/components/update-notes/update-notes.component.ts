@@ -210,7 +210,7 @@ export class UpdateNotesComponent implements OnInit, OnDestroy {
       this.labelname.splice(this.labelname.indexOf(event), 1)
     }
   }
-  public colorUpdate = '#ffffff'
+  public colorUpdate = this.data.color
   changeColor(event) {
     this.colorUpdate = event;
   }
@@ -218,16 +218,16 @@ export class UpdateNotesComponent implements OnInit, OnDestroy {
   collab = true;
   collaborator(noteDetail) {
     this.collab = !this.collab;
-    if(!this.collab){
-      const dialogRef = this.dialog.open(CollaboratorPopupComponent, {
-        width: '500px',
-        data: noteDetail
-      });
+    // if(!this.collab){
+      // const dialogRef = this.dialog.open(CollaboratorPopupComponent, {
+      //   width: '500px',
+      //   data: noteDetail
+      // });
   
-      dialogRef.afterClosed().subscribe(result => {
-        this.onCollaborator.emit({})
-      });
-    }
+      // dialogRef.afterClosed().subscribe(result => {
+      //   this.onCollaborator.emit({})
+      // });
+    // }
     
   }
   private image2 = localStorage.getItem('imageUrl');
@@ -286,16 +286,16 @@ export class UpdateNotesComponent implements OnInit, OnDestroy {
       this.onCollaborator.emit({})
     });
   }
-  // collabUser(noteDetail): void {
-  //   const dialogRef = this.dialog.open(CollaboratorPopupComponent, {
-  //     width: '500px',
-  //     data: noteDetail
-  //   });
+  collabUser(noteDetail): void {
+    const dialogRef = this.dialog.open(CollaboratorPopupComponent, {
+      width: '500px',
+      data: noteDetail
+    });
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     this.onCollaborator.emit({})
-  //   });
-  // }
+    dialogRef.afterClosed().subscribe(result => {
+      this.onCollaborator.emit({})
+    });
+  }
 
   ngOnDestroy() {
     this.destroy$.next(true);

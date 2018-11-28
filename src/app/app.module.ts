@@ -38,7 +38,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ChecklistModule } from "angular-checklist";
 import { ImageCropperModule } from "ngx-image-cropper";
-
+import { RatingModule } from "ngx-rating";
+import { BarRatingModule } from "ngx-bar-rating";
 
 
 import { HomeComponent } from '@components/home/home.component';
@@ -79,6 +80,7 @@ import { FilterLabelPipe } from '@pipes/filter-label.pipe';
 import { LoggerService } from '@service/logger/logger.service';
 import { MessagingService } from "@service/messaging-service/messaging.service";
 import { ErrorHandlerService } from "@service/error-handler/error-handler.service";
+import { QuestionAndAnswerComponent } from './components/question-and-answer/question-and-answer.component';
 
 
 @NgModule({
@@ -115,6 +117,7 @@ import { ErrorHandlerService } from "@service/error-handler/error-handler.servic
     PinComponent,
     SlidePanelComponent,
     CollaboratorPopupComponent,
+    QuestionAndAnswerComponent,
     
 
 
@@ -154,7 +157,9 @@ import { ErrorHandlerService } from "@service/error-handler/error-handler.servic
     MatChipsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ImageCropperModule
+    ImageCropperModule,
+    RatingModule,
+    BarRatingModule
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

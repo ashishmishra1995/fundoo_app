@@ -53,7 +53,7 @@
   </div>
   <!--collaborator card ends-->
 <div *ngIf="collab" class="note" fxLayout="row wrap" fxLayoutAlign="space-evenly start" >
-  <mat-card style="margin-top: 30px" [style.backgroundColor]="data.color">
+  <mat-card style="margin-top: 30px" [style.backgroundColor]="colorUpdate">
     <div contenteditable="true" class="fields" [innerHTML]="data.title" id="title" data-text="">
     </div>
         <div class="spacing3"></div>
@@ -64,7 +64,7 @@
     
                 <mat-checkbox fxFlex="10%" *ngIf="check.status=='open'&& !check.isDeleted" (click)=checkBox(check)></mat-checkbox>
                 <input class="word" style="border:none; background:transparent; word-break: break-all" [(ngModel)]=check.itemName fxFlex="80%" class="note" (keydown)=editing(check,$event)
-                [style.backgroundColor]="bgcolor" *ngIf="!check.isDeleted && check.status=='open' ">
+                [style.backgroundColor]="colorUpdate" *ngIf="!check.isDeleted && check.status=='open' ">
                 <mat-icon fxFlex="10%" class="clearIcon" (click)=removeList(check) *ngIf="!check.isDeleted && check.status=='open'">clear</mat-icon>
               </div>
           
@@ -72,14 +72,14 @@
                 <div fxLayout="row" *ngIf="checklist">
                   <mat-icon fxFlex="5%" *ngIf="!adding">add</mat-icon>
                   <mat-checkbox *ngIf="adding" [(ngModel)]=addCheck  color="primary"></mat-checkbox>
-                  <input class="word" style="border:none; background:transparent; word-break: break-all"  fxFlex="95%" class="note" placeholder="List Item" [style.backgroundColor]="bgcolor" [(ngModel)]=newList (keydown)=addList($event)/>
+                  <input class="word" style="border:none; background:transparent; word-break: break-all"  fxFlex="95%" class="note" placeholder="List Item" [style.backgroundColor]="colorUpdate" [(ngModel)]=newList (keydown)=addList($event)/>
                 </div>
                 <hr *ngIf="checklist">
                
                 <div class="note" *ngFor="let check of tempArray" fxLayout="row">
                   <mat-checkbox fxFlex="10%" checked=true *ngIf="check.status=='close'&& !check.isDeleted" (click)=checkBox(check)></mat-checkbox>
                   <input class="word" style="border:none; background:transparent; word-break: break-all" [(ngModel)]=check.itemName class="note" style="text-decoration: line-through;" fxFlex="80%" *ngIf="check.status=='close' && !check.isDeleted"
-                    (keydown)=editing(check,$event)>
+                    (keydown)=editing(check,$event) [style.backgroundColor]="colorUpdate">
                   <mat-icon fxFlex="10%" class="clearIcon" (click)=removeList(check) *ngIf="!check.isDeleted && check.status=='close'">clear</mat-icon>
                 </div>
                 <div *ngIf="data.reminder.length!=0">
@@ -116,11 +116,11 @@
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <div fxLayout="row" fxLayoutAlign="space-between" >
           <app-add-reminder></app-add-reminder>
-          <button mat-icon-button  (click)="collaborator(data)">
+          <button mat-icon-button  (click)="collabUser(data)">
               <mat-icon style="cursor:pointer" matTooltip="Collaborator" aria-label="list" class="icons">
                           person_add</mat-icon>
           </button>
-          <app-change-color (eventColor)=changeColor($event) [noteDetails]="data"></app-change-color>
+          <app-change-color (eventColor)="changeColor($event)" [noteDetails]="data"></app-change-color>
           <app-add-photo></app-add-photo>
           <app-add-archive ></app-add-archive>
           <app-more [noteDetails]="data" (addEvent)="labelEvent($event)"></app-more>

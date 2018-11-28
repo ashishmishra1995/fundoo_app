@@ -28,7 +28,8 @@ export class CollaboratorComponent implements OnInit {
   addCollaborator(): void {
     const dialogRef = this.dialog.open(CollaboratorPopupComponent, {
       width: '500px',
-      data: this.noteDetails
+      maxWidth: 'auto',
+      data: this.noteDetails 
     });
 
     dialogRef.afterClosed().subscribe(result => {
