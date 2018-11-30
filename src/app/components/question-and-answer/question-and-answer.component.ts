@@ -125,4 +125,30 @@ export class QuestionAndAnswerComponent implements OnInit {
 
     })
   }
+  private rate;
+  checkRating(rateArray){
+    this.rate=0;
+    if(rateArray.length==0){
+      return true;
+    }
+    for(let i=0; i<rateArray.length; i++){
+      if(rateArray[i].userId==localStorage.getItem('userId')){
+        this.rate=rateArray[i].rate;
+      }
+    }
+    return true;
+  }
+  private value;
+  private avgRate;
+  averageRating(rateArray){
+    this.value=0;
+    if(rateArray.length!=0){
+      for(let i=0; i<rateArray.length; i++){
+        this.value+=rateArray[i].rate
+      }
+      this.avgRate=this.value/rateArray.length;
+      return this.avgRate;
+    }
+    
+  }
 }

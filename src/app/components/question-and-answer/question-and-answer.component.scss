@@ -68,4 +68,17 @@
         @include fontSize(17px);
         font-family: $font;
     }
+    .averageRate{
+        margin-top:10px;
+    }
+    .barRating{
+        margin-left: 10px;
+    }
+    .mainStart{
+        height:auto;
+    }
+    .movingContainer{
+        overflow: auto;
+        height: 500px;
+    }
    
