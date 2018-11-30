@@ -39,6 +39,17 @@
         border: none;
         width:100%;
     }
+    .replyInput{
+        outline:none;
+        border: 1px;
+        width:600px;
+        background: rgba(128, 128, 128, 0.103);
+        height: fit-content;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
     .mainDiv{
         @include qNaOutlet;
     }
@@ -69,16 +80,25 @@
         font-family: $font;
     }
     .averageRate{
-        margin-top:10px;
+        margin-top:7px;
     }
     .barRating{
-        margin-left: 10px;
+        margin-left: 15px;
+        margin-top: -15px;
     }
     .mainStart{
         height:auto;
     }
     .movingContainer{
         overflow: auto;
-        height: 500px;
+        height: 550px;
     }
+    [contenteditable=true]:empty:not(:focus):before {
+        content: attr(placeholder);
+        display: block;
+        opacity: 0.5;
+      }
+      .replyDiv{
+          margin-top: 20px;
+      }
    

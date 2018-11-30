@@ -14,7 +14,7 @@
     <hr>
     <!--********** Question Details**********-->
     <div *ngIf="show==0">
-      <textarea class="questInput" placeholder="Enter your question here" [(ngModel)]="body.question"></textarea>
+      <div contenteditable="true" class="questInput" placeholder="Enter your question here" #quest></div>
       <div class="close_button"><button (click)="addQuestion()" mat-button>Done</button> </div>
     </div>
 
@@ -29,95 +29,126 @@
 <div class="movingContainer" *ngIf="show!=0">
   <div class="mainDiv">
     <div fxFlex="row">
-      <div fxFlex=5>
+      <div fxFlex.xs=20 fxFlex.sm=15 fxFlex.md=10 fxFlex.lg=5 fxFlex.xl=5 >
         <button [ngStyle]="{'background-image':'url(' +img+qA[0].user.imageUrl+ ')','background-size':'cover'}" mat-mini-fab></button>
       </div>
-      <div fxFlex=90 fxFlex="column">
-        <span class="userName">{{qA[0].user.firstName | titlecase}} {{qA[0].user.lastName | titlecase}}</span>
-        <span class="date">{{qA[0].modifiedDate | date:'medium'}}</span>
+      <div fxFlex="column" fxFlex.xs=70 fxFlex.sm=70 fxFlex.md=70 fxFlex.lg=80 fxFlex.xl=80>
+          <span class="userName">{{qA[0].user.firstName | titlecase}} {{qA[0].user.lastName | titlecase}}</span>
+          <span class="date">{{qA[0].modifiedDate | date:'medium'}}</span>
+          <div fxLayout="column">
+            <div class="reply" [innerHTML]="qA[0].message"></div>
+            
+          <!-- </div> -->
+          <div *ngIf="replyShow && qID==qA[0].id">
+            <div fxLayout="row">
+            <div contenteditable="true" class="replyInput" placeholder="Write a reply..." #reply></div>
+            <div class="reply_button"><button (click)="replying()" mat-button>Reply</button> </div>
+          </div>
+          </div>
+        </div>
         <div fxLayout="row">
-          <div class="question" [innerHTML]="qA[0].message"></div>
-          <span><mat-icon matTooltip="Reply" (click)="answer(qA[0].id)" class="icon">reply</mat-icon></span>
-          <span class="like"><mat-icon matTooltip="Like" class="icon" (click)="like(qA[0])">thumb_up_alt</mat-icon>{{qA[0].like.length}}
-            likes
-          </span>
-
-          <span class="barRating" *ngIf="checkRating(qA[0].rate)">
-            <bar-rating matTooltip="Rate" [(rate)]="rate" [max]="5" (rateChange)="rating(qA[0], $event)"></bar-rating>
-            </span>
-            <span class="averageRate">{{averageRating(qA[0].rate)}}</span>
-        </div>
-        <div *ngIf="replyShow && qID==qA[0].id">
-          <textarea class="questInput" placeholder="Write a reply..." [(ngModel)]="replyBody.reply"></textarea>
-          <div class="reply_button"><button (click)="reply()" mat-button>Reply</button> </div>
+          <div fxFlex=75></div>
+        <div fxFlex="25">
+            <div fxLayout="row">
+                <span><mat-icon matTooltip="Reply" (click)="answer(qA[0].id)" class="icon">reply</mat-icon></span>
+                <span class="like"><mat-icon matTooltip="Like" class="icon" (click)="like(qA[0])">thumb_up_alt</mat-icon>{{qA[0].like.length}}
+                  likes
+                </span>
+                
+                  <span class="barRating" *ngIf="checkRating(qA[0].rate)">
+                    <bar-rating matTooltip="Rate" [(rate)]="rate" [max]="5" (rateChange)="rating(qA[0], $event)"></bar-rating>
+                    </span>
+                  <span class="averageRate">{{averageRating(qA[0].rate)}}</span>
+                </div>
         </div>
       </div>
-      <div fxFlex=5>
-
-      </div>
+    </div>
+      
     </div>
   </div>
 
-  <div style="margin-left: 120px" *ngFor="let item of qA">
+  
+  <div style="margin-left: 120px" class="replyDiv" *ngFor="let item of qA">
     <div *ngIf="item.parentId==qA[0].id" fxFlex="row">
       <div>
-        <div fxFlex=5>
+        <div fxFlex.xs=20 fxFlex.sm=15 fxFlex.md=10 fxFlex.lg=5 fxFlex.xl=5>
           <button [ngStyle]="{'background-image':'url(' +img+item.user.imageUrl+ ')','background-size':'cover'}" mat-mini-fab></button>
         </div>
-        <div fxFlex="column" fxFlex=90>
+        <div fxFlex="column" fxFlex.xs=70 fxFlex.sm=70 fxFlex.md=70 fxFlex.lg=80 fxFlex.xl=80>
           <span class="userName">{{item.user.firstName | titlecase}} {{item.user.lastName | titlecase}}</span>
           <span class="date">{{item.modifiedDate | date:'medium'}}</span>
-          <div fxLayout="row">
+          <div fxLayout="column">
             <div class="reply" [innerHTML]="item.message"></div>
-            <span><mat-icon matTooltip="Reply" (click)="answer(item.id)" class="icon">reply</mat-icon></span>
-            <span class="like"><mat-icon matTooltip="Like" class="icon" (click)="like(item)">thumb_up_alt</mat-icon>{{item.like.length}}
-              likes
-            </span>
-            <span *ngIf="checkRating(item.rate)">
-                <bar-rating matTooltip="Rate" [(rate)]="rate" [max]="5" (rateChange)="rating(item, $event)"></bar-rating>
-                </span>
-                <span class="averageRate">{{averageRating(item.rate)}}</span>
-          </div>
+            
+          <!-- </div> -->
           <div *ngIf="replyShow && qID==item.id">
-            <textarea class="questInput" placeholder="Write a reply..." [(ngModel)]="replyBody.reply"></textarea>
-            <div class="reply_button"><button (click)="reply()" mat-button>Reply</button> </div>
+            <div fxLayout="row">
+            <div contenteditable="true" class="replyInput" placeholder="Write a reply..." #reply></div>
+            <div class="reply_button"><button (click)="replying()" mat-button>Reply</button> </div>
+          </div>
           </div>
         </div>
-        <div fxFlex=5>
-
+        <div fxLayout="row">
+          <div fxFlex=75 ></div>
+        <div>
+            <div fxLayout="row">
+                <span><mat-icon matTooltip="Reply" (click)="answer(item.id)" class="icon">reply</mat-icon></span>
+                <span class="like"><mat-icon matTooltip="Like" class="icon" (click)="like(item)">thumb_up_alt</mat-icon>{{item.like.length}}
+                  likes
+                </span>
+                
+                  <span class="barRating" *ngIf="checkRating(item.rate)">
+                    <bar-rating matTooltip="Rate" [(rate)]="rate" [max]="5" (rateChange)="rating(item, $event)"></bar-rating>
+                    </span>
+                  <span class="averageRate">{{averageRating(item.rate)}}</span>
+                </div>
         </div>
       </div>
+    </div>
+        
+      </div>
+    
 
 
-      <div style="margin-left: 70px">
+      <div style="margin-left: 70px" class="replyDiv">
         <div *ngFor="let item2 of qA">
           <div *ngIf="item2.parentId==item.id">
             <div fxFlex="row">
-              <div fxFlex=5>
+              <div fxFlex.xs=20 fxFlex.sm=15 fxFlex.md=10 fxFlex.lg=5 fxFlex.xl=5>
                 <button [ngStyle]="{'background-image':'url(' +img+item2.user.imageUrl+ ')','background-size':'cover'}" mat-mini-fab></button>
               </div>
-              <div fxFlex=90 fxFlex="column">
-                <span class="userName">{{item2.user.firstName | titlecase}} {{item2.user.lastName | titlecase}}</span>
-                <span class="date">{{item2.modifiedDate | date:'medium'}}</span>
-                <div fxLayout="row">
-                  <div class="reply" [innerHTML]="item2.message"></div>
-                  <span><mat-icon matTooltip="Reply" (click)="answer(item2.id)" class="icon">reply</mat-icon></span>
-                  <span class="like"><mat-icon matTooltip="Like" class="icon" (click)="like(item2)">thumb_up_alt</mat-icon>{{item2.like.length}}
-                    likes
-                  </span>
-                  <span *ngIf="checkRating(item2.rate)">
-                      <bar-rating matTooltip="Rate" [(rate)]="rate" [max]="5" (rateChange)="rating(item2, $event)"></bar-rating>
-                      </span>
-                      <span class="averageRate">{{averageRating(item2.rate)}}</span>
+              <div fxFlex="column" fxFlex.xs=70 fxFlex.sm=70 fxFlex.md=70 fxFlex.lg=80 fxFlex.xl=80>
+                  <span class="userName">{{item2.user.firstName | titlecase}} {{item2.user.lastName | titlecase}}</span>
+                  <span class="date">{{item2.modifiedDate | date:'medium'}}</span>
+                  <div fxLayout="column">
+                    <div class="reply" [innerHTML]="item2.message"></div>
+                    
+                  <!-- </div> -->
+                  <div *ngIf="replyShow && qID==item2.id">
+                    <div fxLayout="row">
+                    <div contenteditable="true" class="replyInput" placeholder="Write a reply..." #reply></div>
+                    <div class="reply_button"><button (click)="replying()" mat-button>Reply</button> </div>
+                  </div>
+                  </div>
                 </div>
-                <div *ngIf="replyShow && qID==item2.id">
-                  <textarea class="questInput" placeholder="Write a reply..." [(ngModel)]="replyBody.reply"></textarea>
-                  <div class="reply_button"><button (click)="reply()" mat-button>Reply</button> </div>
+                <div fxLayout="row" >
+                  <div fxFlex=75 ></div>
+                <div fxFlex="25">
+                    <div fxLayout="row">
+                        <span><mat-icon matTooltip="Reply" (click)="answer(item2.id)" class="icon">reply</mat-icon></span>
+                        <span class="like"><mat-icon matTooltip="Like" class="icon" (click)="like(item2)">thumb_up_alt</mat-icon>{{item2.like.length}}
+                          likes
+                        </span>
+                        
+                          <span class="barRating" *ngIf="checkRating(item2.rate)">
+                            <bar-rating matTooltip="Rate" [(rate)]="rate" [max]="5" (rateChange)="rating(item2, $event)"></bar-rating>
+                            </span>
+                          <span class="averageRate">{{averageRating(item2.rate)}}</span>
+                        </div>
                 </div>
               </div>
-              <div fxFlex=5>
-
-              </div>
+            </div>
+              
             </div>
           </div>
         </div>

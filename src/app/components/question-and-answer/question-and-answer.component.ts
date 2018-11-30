@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NoteService } from '@service/note-service/note-service.service';
 import { LoggerService } from '@service/logger/logger.service';
@@ -10,10 +10,13 @@ import { environment } from '@environments/environment';
   styleUrls: ['./question-and-answer.component.scss']
 })
 export class QuestionAndAnswerComponent implements OnInit {
-
+  
   constructor(private activatedRoute: ActivatedRoute,
       private noteService: NoteService,
       private router: Router) { }
+
+  @ViewChild('reply') private answerReply:ElementRef;
+  @ViewChild('quest') private questInput:ElementRef
 
   private noteId;
   private title;
@@ -72,7 +75,7 @@ export class QuestionAndAnswerComponent implements OnInit {
   addQuestion(){
     this.show=!this.show;
     let requestBody={
-      "message":this.body.question,
+      "message":this.questInput.nativeElement.innerHTML,
       "notesId": this.noteId
     }
     this.noteService.addQuestionAndAnswer(requestBody).subscribe(result=>{
@@ -115,11 +118,11 @@ export class QuestionAndAnswerComponent implements OnInit {
   private replyBody={
     "reply":""
   };
-  reply(){
+  
+  replying(){
     let replyRequest={
-      "message":this.replyBody.reply
+      "message":this.answerReply.nativeElement.innerHTML
     }
-
     this.noteService.replyQnA(this.qID, replyRequest).subscribe(response=>{
       LoggerService.log("reply response: ", response);
 
@@ -149,6 +152,6 @@ export class QuestionAndAnswerComponent implements OnInit {
       this.avgRate=this.value/rateArray.length;
       return this.avgRate;
     }
-    
   }
+  
 }
