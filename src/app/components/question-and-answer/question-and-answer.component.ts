@@ -31,6 +31,9 @@ export class QuestionAndAnswerComponent implements OnInit {
   private replyShow= false;
   private data;
   private likeCount;
+  private questions;
+  // private qNa=[];
+  private qA;
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -42,15 +45,25 @@ export class QuestionAndAnswerComponent implements OnInit {
       this.title= response['data']['data'][0].title;
       this.description= response['data']['data'][0].description;
       this.show= response['data']['data'][0].questionAndAnswerNotes.length;
+      this.qA= response['data']['data'][0].questionAndAnswerNotes;
+      LoggerService.log("qa: ", this.qA);
       if(this.show!=0){
         this.question= response['data']['data'][0].questionAndAnswerNotes[0].message;
       }
+      this.questions= response['data']['data'][0].questionAndAnswerNotes[0];
+      // if(this.questions['rate'].length!=0){
+      //   this.rateBody.rate= this.questions.rate[0].rate;
+      // }
       this.owner= response['data']['data'][0].user;
-      this.img= environment.apiUrl+this.owner.imageUrl;
+      this.img= environment.apiUrl;
       this.firstName= this.owner.firstName;
       this.lastName= this.owner.lastName;
       this.date=response['data']['data'][0].modifiedDate;
-      this.data= response['data']['data'][0].questionAndAnswerNotes[0].id;
+      // this.data= response['data']['data'][0].questionAndAnswerNotes[0].id;
+      // for(let i=1; i<this.qA.length; i++){
+      //   this.qNa.push(this.qA[i])
+      // }
+  
     })
   }
   close(){
@@ -66,18 +79,38 @@ export class QuestionAndAnswerComponent implements OnInit {
       LoggerService.log("QnA added: ", result);
     })
   }
-  answer(){
-    this.replyShow=!this.replyShow;
-  }
-  like(){
+  
+  like(data){
     let requestBody={
       "like":true
     }
-    this.noteService.likeQnA(this.data,requestBody).subscribe(response=>{
+    this.noteService.likeQnA(data.id,requestBody).subscribe(response=>{
       LoggerService.log("like: ", response);
       this.likeCount=response['data']['details'].count;
 
     })
+  }
+  
+  private rateBody={
+    "rate":"" 
+  }
+  rating(data,event){
+    LoggerService.log("in");
+    let reqBody={
+      "rate": event
+    }
+    LoggerService.log("rating count: ", reqBody.rate);
+
+    this.noteService.ratingQnA(data.id, reqBody).subscribe(result=>{
+      LoggerService.log("rate: ", result);
+    })
+  }
+
+  private qID;
+  answer(id){
+    this.replyShow=!this.replyShow;
+    this.qID=id;
+
   }
   private replyBody={
     "reply":""
@@ -86,24 +119,10 @@ export class QuestionAndAnswerComponent implements OnInit {
     let replyRequest={
       "message":this.replyBody.reply
     }
-    this.noteService.replyQnA(this.data, replyRequest).subscribe(response=>{
+
+    this.noteService.replyQnA(this.qID, replyRequest).subscribe(response=>{
       LoggerService.log("reply response: ", response);
 
     })
   }
-  private rateBody={
-    "rate":""
-  }
-  
-  rate(){
-    let reqBody={
-      "rate": this.rateBody.rate
-    }
-    LoggerService.log("rating count: ", reqBody.rate);
-
-    this.noteService.ratingQnA(this.data, reqBody).subscribe(result=>{
-      LoggerService.log("rate: ", result);
-    })
-  }
-
 }

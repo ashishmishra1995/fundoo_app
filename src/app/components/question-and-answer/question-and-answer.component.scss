@@ -9,6 +9,12 @@
     @include fontSize(18px);
     
     }
+    .reply_button{
+        float:right;
+        @include fontSize(18px);
+        background: $yellow;
+        
+        }
     .title{
     font-family: $font;
     @include fontSize(25px);
@@ -34,26 +40,32 @@
         width:100%;
     }
     .mainDiv{
-        margin-top: 50px;
-        margin-left: 50px
+        @include qNaOutlet;
     }
     .question{
-        @include fontSize(25px);
+        @include fontSize(20px);
         font-family: $font;
     }
     .date{
         color: $grey;
-        @include fontSize(15px);
+        @include fontSize(12px);
+        font-family: $font;
         margin-left: 10px
     }
     .userName{
         font-family: $font;
-        @include fontSize(18px)
+        @include fontSize(20px);
+        color: $yellow;
     }
     .icon{
-        @include fontSize(20px);
+        @include fontSize(22px);
         cursor: pointer;
     }
     .like{
         margin-left: 10px;
     }
+    .reply{
+        @include fontSize(17px);
+        font-family: $font;
+    }
+   
