@@ -9,12 +9,12 @@
     @include fontSize(18px);
     
     }
-    .reply_button{
+    .replyButton{
         float:right;
         @include fontSize(18px);
         background: $yellow;
-        
-        }
+        font-family: $font;
+    }
     .title{
     font-family: $font;
     @include fontSize(25px);
@@ -80,11 +80,10 @@
         font-family: $font;
     }
     .averageRate{
-        margin-top:7px;
+        margin-top:3px;
     }
     .barRating{
-        margin-left: 15px;
-        margin-top: -15px;
+        margin-top: -20px;
     }
     .mainStart{
         height:auto;

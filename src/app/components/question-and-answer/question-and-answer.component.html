@@ -42,23 +42,31 @@
           <div *ngIf="replyShow && qID==qA[0].id">
             <div fxLayout="row">
             <div contenteditable="true" class="replyInput" placeholder="Write a reply..." #reply></div>
-            <div class="reply_button"><button (click)="replying()" mat-button>Reply</button> </div>
+            <div ><button class="replyButton" (click)="replying()" mat-button>Reply</button> </div>
+
           </div>
+
           </div>
         </div>
         <div fxLayout="row">
-          <div fxFlex=75></div>
-        <div fxFlex="25">
+          <div fxFlex.xl=75 fxFlex.lg=70 fxFlex.md=50 fxFlex.sm=45 fxFlex.xs=35></div>
+        <div fxFlex.xl="25" fxFlex.lg=30 fxFlex.md=50 fxFlex.sm=55 fxFlex.xs=65>
             <div fxLayout="row">
-                <span><mat-icon matTooltip="Reply" (click)="answer(qA[0].id)" class="icon">reply</mat-icon></span>
-                <span class="like"><mat-icon matTooltip="Like" class="icon" (click)="like(qA[0])">thumb_up_alt</mat-icon>{{qA[0].like.length}}
-                  likes
-                </span>
-                
-                  <span class="barRating" *ngIf="checkRating(qA[0].rate)">
+                <div fxFlex.xl=10 fxFlex.lg=10 fxFlex.md=10 fxFlex.sm=10 fxFlex.xs=10>
+                  <mat-icon matTooltip="Reply" (click)="answer(qA[0].id)" class="icon">reply</mat-icon>
+                </div>
+                <div fxFlex.xl=5 fxFlex.lg=5 fxFlex.md=5 fxFlex.sm=5 fxFlex.xs=5></div>
+                <div fxFlex.xl=20 fxFlex.lg=20 fxFlex.md=25 fxFlex.sm=30 fxFlex.xs=50>
+                  <mat-icon matTooltip="Like" class="icon" (click)="like(qA[0])">thumb_up_alt</mat-icon>
+                  {{qA[0].like.length}}
+                </div>
+                <div fxFlex.xl=5 fxFlex.lg=5></div>
+                  <div fxFlex.xl=40 fxFlex.lg=40 fxFlex.md=40 fxFlex.sm=40 fxFlex.xs=40 class="barRating" *ngIf="checkRating(qA[0].rate)">
                     <bar-rating matTooltip="Rate" [(rate)]="rate" [max]="5" (rateChange)="rating(qA[0], $event)"></bar-rating>
-                    </span>
-                  <span class="averageRate">{{averageRating(qA[0].rate)}}</span>
+                  </div>
+                  <!-- <div fxFlex.md=10></div> -->
+                  <div fxFlex.xl=0 fxFlex.lg=0 fxFlex.md=0 fxFlex.sm=15 fxFlex.xs=15></div>
+                  <div fxFlex=10 class="averageRate">{{averageRating(qA[0].rate)}}</div>
                 </div>
         </div>
       </div>
@@ -84,26 +92,32 @@
           <div *ngIf="replyShow && qID==item.id">
             <div fxLayout="row">
             <div contenteditable="true" class="replyInput" placeholder="Write a reply..." #reply></div>
-            <div class="reply_button"><button (click)="replying()" mat-button>Reply</button> </div>
+            <div><button class="replyButton" (click)="replying()" mat-button>Reply</button> </div>
           </div>
           </div>
         </div>
         <div fxLayout="row">
-          <div fxFlex=75 ></div>
-        <div>
-            <div fxLayout="row">
-                <span><mat-icon matTooltip="Reply" (click)="answer(item.id)" class="icon">reply</mat-icon></span>
-                <span class="like"><mat-icon matTooltip="Like" class="icon" (click)="like(item)">thumb_up_alt</mat-icon>{{item.like.length}}
-                  likes
-                </span>
-                
-                  <span class="barRating" *ngIf="checkRating(item.rate)">
-                    <bar-rating matTooltip="Rate" [(rate)]="rate" [max]="5" (rateChange)="rating(item, $event)"></bar-rating>
-                    </span>
-                  <span class="averageRate">{{averageRating(item.rate)}}</span>
-                </div>
+            <div fxFlex.xl=75 fxFlex.lg=70 fxFlex.md=50 fxFlex.sm=45 fxFlex.xs=25></div>
+          <div fxFlex.xl="25" fxFlex.lg=30 fxFlex.md=50 fxFlex.sm=55 fxFlex.xs=75>
+              <div fxLayout="row">
+                  <div fxFlex.xl=10 fxFlex.lg=10 fxFlex.md=10 fxFlex.sm=10 fxFlex.xs=10>
+                    <mat-icon matTooltip="Reply" (click)="answer(item.id)" class="icon">reply</mat-icon>
+                  </div>
+                  <div fxFlex.xl=5 fxFlex.lg=5 fxFlex.md=5 fxFlex.sm=5 fxFlex.xs=5></div>
+                  <div fxFlex.xl=20 fxFlex.lg=20 fxFlex.md=25 fxFlex.sm=30 fxFlex.xs=50>
+                    <mat-icon matTooltip="Like" class="icon" (click)="like(item)">thumb_up_alt</mat-icon>
+                    {{item.like.length}}
+                  </div>
+                  <div fxFlex.xl=5 fxFlex.lg=5></div>
+                    <div fxFlex.xl=40 fxFlex.lg=40 fxFlex.md=40 fxFlex.sm=40 fxFlex.xs=40 class="barRating" *ngIf="checkRating(qA[0].rate)">
+                      <bar-rating matTooltip="Rate" [(rate)]="rate" [max]="5" (rateChange)="rating(item, $event)"></bar-rating>
+                    </div>
+                    <!-- <div fxFlex.md=10></div> -->
+                    <div fxFlex.xl=0 fxFlex.lg=0 fxFlex.md=0 fxFlex.sm=15 fxFlex.xs=15></div>
+                    <div fxFlex=10 class="averageRate">{{averageRating(item.rate)}}</div>
+                  </div>
+          </div>
         </div>
-      </div>
     </div>
         
       </div>
@@ -127,26 +141,32 @@
                   <div *ngIf="replyShow && qID==item2.id">
                     <div fxLayout="row">
                     <div contenteditable="true" class="replyInput" placeholder="Write a reply..." #reply></div>
-                    <div class="reply_button"><button (click)="replying()" mat-button>Reply</button> </div>
+                    <div><button class="replyButton" (click)="replying()" mat-button>Reply</button> </div>
                   </div>
                   </div>
                 </div>
-                <div fxLayout="row" >
-                  <div fxFlex=75 ></div>
-                <div fxFlex="25">
-                    <div fxLayout="row">
-                        <span><mat-icon matTooltip="Reply" (click)="answer(item2.id)" class="icon">reply</mat-icon></span>
-                        <span class="like"><mat-icon matTooltip="Like" class="icon" (click)="like(item2)">thumb_up_alt</mat-icon>{{item2.like.length}}
-                          likes
-                        </span>
-                        
-                          <span class="barRating" *ngIf="checkRating(item2.rate)">
-                            <bar-rating matTooltip="Rate" [(rate)]="rate" [max]="5" (rateChange)="rating(item2, $event)"></bar-rating>
-                            </span>
-                          <span class="averageRate">{{averageRating(item2.rate)}}</span>
-                        </div>
+                <div fxLayout="row">
+                    <div fxFlex.xl=75 fxFlex.lg=70 fxFlex.md=50 fxFlex.sm=45 fxFlex.xs=5></div>
+                  <div fxFlex.xl="25" fxFlex.lg=30 fxFlex.md=50 fxFlex.sm=55 fxFlex.xs=95>
+                      <div fxLayout="row">
+                          <div fxFlex.xl=10 fxFlex.lg=10 fxFlex.md=10 fxFlex.sm=10 fxFlex.xs=10>
+                            <mat-icon matTooltip="Reply" (click)="answer(item2.id)" class="icon">reply</mat-icon>
+                          </div>
+                          <div fxFlex.xl=5 fxFlex.lg=5 fxFlex.md=5 fxFlex.sm=5 fxFlex.xs=5></div>
+                          <div fxFlex.xl=20 fxFlex.lg=20 fxFlex.md=25 fxFlex.sm=30 fxFlex.xs=50>
+                            <mat-icon matTooltip="Like" class="icon" (click)="like(item2)">thumb_up_alt</mat-icon>
+                            {{item2.like.length}}
+                          </div>
+                          <div fxFlex.xl=5 fxFlex.lg=5></div>
+                            <div fxFlex.xl=40 fxFlex.lg=40 fxFlex.md=40 fxFlex.sm=40 fxFlex.xs=40 class="barRating" *ngIf="checkRating(item2.rate)">
+                              <bar-rating matTooltip="Rate" [(rate)]="rate" [max]="5" (rateChange)="rating(item2, $event)"></bar-rating>
+                            </div>
+                            <!-- <div fxFlex.md=10></div> -->
+                            <div fxFlex.xl=0 fxFlex.lg=0 fxFlex.md=0 fxFlex.sm=15 fxFlex.xs=15></div>
+                            <div fxFlex=10 class="averageRate">{{averageRating(item2.rate)}}</div>
+                          </div>
+                  </div>
                 </div>
-              </div>
             </div>
               
             </div>
