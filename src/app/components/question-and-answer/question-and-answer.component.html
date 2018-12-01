@@ -2,12 +2,12 @@
 <div class="mainStart">
 <div class="mainCard">
   <mat-card>
-    <div (click)="close()" class="close_button"><button mat-button>Close</button> </div>
+    <div matTooltip="Go back to notes" (click)="close()" class="close_button"><button mat-button>Close</button> </div>
     <!--********** card Duplicate***********-->
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <div class="card_detail">
-        <div class="title">{{title}} </div>
-        <div class="description">{{description}}</div>
+        <div matTooltip="Note Title" class="title">{{title}} </div>
+        <div matTooltip="Note Description" class="description">{{description}}</div>
       </div>
     </div>
     <!--********** card Duplicate***********-->
@@ -32,9 +32,11 @@
       <div fxFlex.xs=20 fxFlex.sm=15 fxFlex.md=10 fxFlex.lg=5 fxFlex.xl=5 >
         <button [ngStyle]="{'background-image':'url(' +img+qA[0].user.imageUrl+ ')','background-size':'cover'}" mat-mini-fab></button>
       </div>
-      <div fxFlex="column" fxFlex.xs=70 fxFlex.sm=70 fxFlex.md=70 fxFlex.lg=80 fxFlex.xl=80>
-          <span class="userName">{{qA[0].user.firstName | titlecase}} {{qA[0].user.lastName | titlecase}}</span>
-          <span class="date">{{qA[0].modifiedDate | date:'medium'}}</span>
+      <div fxLayout="column" fxFlex.xs=70 fxFlex.sm=70 fxFlex.md=70 fxFlex.lg=80 fxFlex.xl=80>
+        <div fxLayout="row">
+          <div class="userName">{{qA[0].user.firstName | titlecase}} {{qA[0].user.lastName | titlecase}}</div>
+          <div class="date">{{qA[0].modifiedDate | date:'medium'}}</div>
+        </div>
           <div fxLayout="column">
             <div class="reply" [innerHTML]="qA[0].message"></div>
             
@@ -49,24 +51,27 @@
           </div>
         </div>
         <div fxLayout="row">
-          <div fxFlex.xl=75 fxFlex.lg=70 fxFlex.md=50 fxFlex.sm=45 fxFlex.xs=35></div>
-        <div fxFlex.xl="25" fxFlex.lg=30 fxFlex.md=50 fxFlex.sm=55 fxFlex.xs=65>
+          <div fxFlex.xl=75 fxFlex.lg=60 fxFlex.md=40 fxFlex.sm=25 fxFlex.xs=5></div>
+        <div fxFlex.xl="25" fxFlex.lg=40 fxFlex.md=60 fxFlex.sm=75 fxFlex.xs=95>
             <div fxLayout="row">
                 <div fxFlex.xl=10 fxFlex.lg=10 fxFlex.md=10 fxFlex.sm=10 fxFlex.xs=10>
                   <mat-icon matTooltip="Reply" (click)="answer(qA[0].id)" class="icon">reply</mat-icon>
                 </div>
                 <div fxFlex.xl=5 fxFlex.lg=5 fxFlex.md=5 fxFlex.sm=5 fxFlex.xs=5></div>
                 <div fxFlex.xl=20 fxFlex.lg=20 fxFlex.md=25 fxFlex.sm=30 fxFlex.xs=50>
-                  <mat-icon matTooltip="Like" class="icon" (click)="like(qA[0])">thumb_up_alt</mat-icon>
+                  <img src="../../../assets/outline-like.svg" class="likeOutline" *ngIf="!likeCheck(qA[0].like)" matTooltip="Like" (click)="like(qA[0])">
+                  <mat-icon *ngIf="likeCheck(qA[0].like)" matTooltip="Like" class="icon" (click)="like(qA[0])">thumb_up_alt</mat-icon>
                   {{qA[0].like.length}}
                 </div>
                 <div fxFlex.xl=5 fxFlex.lg=5></div>
-                  <div fxFlex.xl=40 fxFlex.lg=40 fxFlex.md=40 fxFlex.sm=40 fxFlex.xs=40 class="barRating" *ngIf="checkRating(qA[0].rate)">
+                  <div fxFlex.xl=35 fxFlex.lg=35 fxFlex.md=40 fxFlex.sm=40 fxFlex.xs=40 class="barRating" *ngIf="checkRating(qA[0].rate)">
                     <bar-rating matTooltip="Rate" [(rate)]="rate" [max]="5" (rateChange)="rating(qA[0], $event)"></bar-rating>
                   </div>
-                  <!-- <div fxFlex.md=10></div> -->
-                  <div fxFlex.xl=0 fxFlex.lg=0 fxFlex.md=0 fxFlex.sm=15 fxFlex.xs=15></div>
-                  <div fxFlex=10 class="averageRate">{{averageRating(qA[0].rate)}}</div>
+                  
+                  <!-- <div fxFlex.xl=0 fxFlex.lg=0 fxFlex.md=0 fxFlex.sm=5 fxFlex.xs=5></div> -->
+                  <div fxFlex=10 matTooltip="Average Rating" class="averageRate">{{averageRating(qA[0].rate)}}</div>
+                  <mat-icon matTooltip="View {{viewReplies(qA[0])}} replies" class="downIcon" *ngIf="open==true" (click)="open = !open">keyboard_arrow_down</mat-icon>
+                  <mat-icon matTooltip="Hide {{viewReplies(qA[0])}} replies" class="downIcon" *ngIf="open==false" (click)="open = !open">keyboard_arrow_up</mat-icon>
                 </div>
         </div>
       </div>
@@ -77,7 +82,7 @@
 
   
   <div style="margin-left: 120px" class="replyDiv" *ngFor="let item of qA">
-    <div *ngIf="item.parentId==qA[0].id" fxFlex="row">
+    <div *ngIf="item.parentId==qA[0].id && open==false" fxFlex="row">
       <div>
         <div fxFlex.xs=20 fxFlex.sm=15 fxFlex.md=10 fxFlex.lg=5 fxFlex.xl=5>
           <button [ngStyle]="{'background-image':'url(' +img+item.user.imageUrl+ ')','background-size':'cover'}" mat-mini-fab></button>
@@ -97,24 +102,27 @@
           </div>
         </div>
         <div fxLayout="row">
-            <div fxFlex.xl=75 fxFlex.lg=70 fxFlex.md=50 fxFlex.sm=45 fxFlex.xs=25></div>
-          <div fxFlex.xl="25" fxFlex.lg=30 fxFlex.md=50 fxFlex.sm=55 fxFlex.xs=75>
+            <div fxFlex.xl=75 fxFlex.lg=60 fxFlex.md=30 fxFlex.sm=15 fxFlex.xs=0></div>
+          <div fxFlex.xl="25" fxFlex.lg=40 fxFlex.md=70 fxFlex.sm=85 fxFlex.xs=100>
               <div fxLayout="row">
                   <div fxFlex.xl=10 fxFlex.lg=10 fxFlex.md=10 fxFlex.sm=10 fxFlex.xs=10>
                     <mat-icon matTooltip="Reply" (click)="answer(item.id)" class="icon">reply</mat-icon>
                   </div>
                   <div fxFlex.xl=5 fxFlex.lg=5 fxFlex.md=5 fxFlex.sm=5 fxFlex.xs=5></div>
                   <div fxFlex.xl=20 fxFlex.lg=20 fxFlex.md=25 fxFlex.sm=30 fxFlex.xs=50>
-                    <mat-icon matTooltip="Like" class="icon" (click)="like(item)">thumb_up_alt</mat-icon>
+                    <img src="../../../assets/outline-like.svg" class="likeOutline" *ngIf="!likeCheck(item.like)" matTooltip="Like" (click)="like(item)">
+                    <mat-icon *ngIf="likeCheck(item.like)" class="icon" (click)="like(item)">thumb_up_alt</mat-icon>
                     {{item.like.length}}
                   </div>
                   <div fxFlex.xl=5 fxFlex.lg=5></div>
-                    <div fxFlex.xl=40 fxFlex.lg=40 fxFlex.md=40 fxFlex.sm=40 fxFlex.xs=40 class="barRating" *ngIf="checkRating(qA[0].rate)">
+                    <div fxFlex.xl=30 fxFlex.lg=30 fxFlex.md=40 fxFlex.sm=40 fxFlex.xs=40 class="barRating" *ngIf="checkRating(item.rate)">
                       <bar-rating matTooltip="Rate" [(rate)]="rate" [max]="5" (rateChange)="rating(item, $event)"></bar-rating>
                     </div>
                     <!-- <div fxFlex.md=10></div> -->
-                    <div fxFlex.xl=0 fxFlex.lg=0 fxFlex.md=0 fxFlex.sm=15 fxFlex.xs=15></div>
+                    <div fxFlex.xl=0 fxFlex.lg=0 fxFlex.md=0 fxFlex.sm=0 fxFlex.xs=0></div>
                     <div fxFlex=10 class="averageRate">{{averageRating(item.rate)}}</div>
+                    <mat-icon matTooltip=" View {{viewReplies(item)}} replies" class="downIcon" *ngIf="down==true" (click)="replyDown(item.id)">keyboard_arrow_down</mat-icon>
+                    <mat-icon matTooltip=" Hide {{viewReplies(item)}} replies" class="downIcon" *ngIf="down==false" (click)="replyDown(item.id)">keyboard_arrow_up</mat-icon>
                   </div>
           </div>
         </div>
@@ -126,7 +134,7 @@
 
       <div style="margin-left: 70px" class="replyDiv">
         <div *ngFor="let item2 of qA">
-          <div *ngIf="item2.parentId==item.id">
+          <div *ngIf="item2.parentId==item.id && down==false &&  rID==item.id">
             <div fxFlex="row">
               <div fxFlex.xs=20 fxFlex.sm=15 fxFlex.md=10 fxFlex.lg=5 fxFlex.xl=5>
                 <button [ngStyle]="{'background-image':'url(' +img+item2.user.imageUrl+ ')','background-size':'cover'}" mat-mini-fab></button>
@@ -146,19 +154,17 @@
                   </div>
                 </div>
                 <div fxLayout="row">
-                    <div fxFlex.xl=75 fxFlex.lg=70 fxFlex.md=50 fxFlex.sm=45 fxFlex.xs=5></div>
-                  <div fxFlex.xl="25" fxFlex.lg=30 fxFlex.md=50 fxFlex.sm=55 fxFlex.xs=95>
+                    <div fxFlex.xl=75 fxFlex.lg=60 fxFlex.md=30 fxFlex.sm=25 fxFlex.xs=5></div>
+                  <div fxFlex.xl="25" fxFlex.lg=40 fxFlex.md=70 fxFlex.sm=75 fxFlex.xs=95>
                       <div fxLayout="row">
-                          <div fxFlex.xl=10 fxFlex.lg=10 fxFlex.md=10 fxFlex.sm=10 fxFlex.xs=10>
-                            <mat-icon matTooltip="Reply" (click)="answer(item2.id)" class="icon">reply</mat-icon>
-                          </div>
                           <div fxFlex.xl=5 fxFlex.lg=5 fxFlex.md=5 fxFlex.sm=5 fxFlex.xs=5></div>
                           <div fxFlex.xl=20 fxFlex.lg=20 fxFlex.md=25 fxFlex.sm=30 fxFlex.xs=50>
-                            <mat-icon matTooltip="Like" class="icon" (click)="like(item2)">thumb_up_alt</mat-icon>
+                            <img src="../../../assets/outline-like.svg" class="likeOutline" *ngIf="!likeCheck(item2.like)" matTooltip="Like" (click)="like(item2)">
+                            <mat-icon *ngIf="likeCheck(item2.like)" matTooltip="Like" class="icon" (click)="like(item2)">thumb_up_alt</mat-icon>
                             {{item2.like.length}}
                           </div>
                           <div fxFlex.xl=5 fxFlex.lg=5></div>
-                            <div fxFlex.xl=40 fxFlex.lg=40 fxFlex.md=40 fxFlex.sm=40 fxFlex.xs=40 class="barRating" *ngIf="checkRating(item2.rate)">
+                            <div fxFlex.xl=30 fxFlex.lg=30 fxFlex.md=40 fxFlex.sm=40 fxFlex.xs=40 class="barRating" *ngIf="checkRating(item2.rate)">
                               <bar-rating matTooltip="Rate" [(rate)]="rate" [max]="5" (rateChange)="rating(item2, $event)"></bar-rating>
                             </div>
                             <!-- <div fxFlex.md=10></div> -->

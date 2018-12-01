@@ -150,8 +150,35 @@ export class QuestionAndAnswerComponent implements OnInit {
         this.value+=rateArray[i].rate
       }
       this.avgRate=this.value/rateArray.length;
-      return this.avgRate;
+      return this.avgRate.toFixed(1);
     }
   }
-  
+  private likes;
+  likeCheck(likeArray){
+    
+    for(let i=0; i<likeArray.length; i++){
+      if(likeArray[i].userId==localStorage.getItem('userId')){
+        this.likes=likeArray[i].like;
+        return true;
+      }
+    }
+    return false;
+  }
+  private open=true;
+  private down=true;
+  private rID;
+  private replyCount;
+  replyDown(replyId){
+    this.down=!this.down;
+    this.rID=replyId;
+  }
+  viewReplies(questAns){
+    this.replyCount=0;
+    for(let i=0; i<this.qA.length; i++){
+      if(questAns.id==this.qA[i].parentId){
+        this.replyCount++
+      }
+    }
+    return this.replyCount;
+  }
 }

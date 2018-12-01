@@ -61,7 +61,8 @@
         color: $grey;
         @include fontSize(12px);
         font-family: $font;
-        margin-left: 10px
+        margin-left: 10px;
+        margin-top: 7px;
     }
     .userName{
         font-family: $font;
@@ -70,6 +71,11 @@
     }
     .icon{
         @include fontSize(22px);
+        cursor: pointer;
+    }
+    .likeOutline{
+        height:20px;
+        width:20px;
         cursor: pointer;
     }
     .like{
@@ -99,5 +105,11 @@
       }
       .replyDiv{
           margin-top: 20px;
+      }
+      .downIcon{
+          cursor: pointer;
+      }
+      .replyCounts{
+          @include fontSize(10px)
       }
    
