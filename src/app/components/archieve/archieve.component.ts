@@ -33,6 +33,7 @@ export class ArchieveComponent implements OnInit {
       this.toggle=message;
     })
   }
+  private load=true;
   getNotes(){
     var token=localStorage.getItem('token');
     this.records=this.httpService.httpGetNote('notes/getArchiveNotesList',token)
@@ -44,7 +45,7 @@ export class ArchieveComponent implements OnInit {
         }
       }
     // this.notes=result['data']['data'].reverse();
-          
+       this.load=false;   
       
     },error=>{
     });

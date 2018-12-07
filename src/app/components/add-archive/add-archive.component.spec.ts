@@ -1,38 +1,49 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Injectable, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { By } from '@angular/platform-browser';
 
-import { AddArchiveComponent } from './add-archive.component';
-import { HttpService } from '../../core/service/http/http.service';
+import {Component, Directive} from '@angular/core';
+import {AddArchiveComponent} from './add-archive.component';
+import {HttpService} from '@service/http/http.service';
+import {MatSnackBar} from '@angular/material';
+import {NoteService} from '@service/note-service/note-service.service';
 
 describe('AddArchiveComponent', () => {
-  let component: AddArchiveComponent;
-  let fixture: ComponentFixture<AddArchiveComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ AddArchiveComponent ],
-      providers:[ { provide: HttpService, useClass: HttpService } ]
-    })
-    .compileComponents().then(()=>{
-      fixture=TestBed.createComponent(AddArchiveComponent);
-      component=fixture.componentInstance
-    });
-  }));
+  let fixture;
+  let component;
 
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        AddArchiveComponent
+      ],
+      providers: [
+        HttpService,
+        MatSnackBar,
+        NoteService,
+      ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+    }).compileComponents();
     fixture = TestBed.createComponent(AddArchiveComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    component = fixture.debugElement.componentInstance;
   });
-  afterEach(() => {
-    fixture.destroy();
-});
 
-  it('should create', () => {
+  it('should create a component', async () => {
     expect(component).toBeTruthy();
   });
-  it('should be archived', async(()=>{
-    expect(component.body.isArchived).toEqual(true)
-    expect(component.body.noteIdList).toContain([])
-  }));
-  
+
+
+  it('should run #ngOnInit()', async () => {
+    expect(component.ngOnInit()).toBeTruthy();
+  });
+  let id;
+  it('should run #archive()', async () => {
+    expect(component.archive(id)).toBeTruthy();
+  });
+
+  it('should run #ngOnDestroy()', async () => {
+    expect(component.ngOnDestroy()).toBeTruthy();
+  });
+
 });

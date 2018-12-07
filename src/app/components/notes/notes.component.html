@@ -14,11 +14,12 @@
         </div>
         <div fxFlex="0"> </div>
     </div>
+    <div *ngIf="load" class="loader">Loading...</div>
 
     <!-- <app-note-collection [notesArray]="pinArray" [length]='pinArray.length'
     [string]="'Pinned'" (addEntry)="addNewEntry($event)"></app-note-collection> -->
     
-    <app-note-collection [notesArray]="notes" [length]='pinArray.length'
+    <app-note-collection *ngIf="!load" [notesArray]="notes" [length]='pinArray.length'
     [string]="'Others'" (addEntry)="addNewEntry($event)"></app-note-collection>
 
      

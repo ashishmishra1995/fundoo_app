@@ -3,7 +3,7 @@ import { HttpService } from '@service/http/http.service';
 import { Note } from "@model/note";
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { LoggerService } from '@app/core/service/logger/logger.service';
+import { LoggerService } from '@service/logger/logger.service';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -35,6 +35,7 @@ export class NotesComponent implements OnInit, OnDestroy {
       // this.getPinnedNotes();
     //}
   }
+  private load=true;
   getNotes(){
     
     var token=localStorage.getItem('token');
@@ -51,7 +52,7 @@ export class NotesComponent implements OnInit, OnDestroy {
         }
       }
       LoggerService.log("notes: ",this.notes)
-    
+      this.load=false
       
     },error=>{
 

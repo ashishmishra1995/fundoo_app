@@ -20,7 +20,7 @@
 
     <div *ngIf="show!=0">
       <div class="title"> Question Asked</div>
-      <div class="description">{{question}}</div>
+      <div class="description" [innerHTML]="question">{{question}}</div>
     </div>
   </mat-card>
 </div>
@@ -42,11 +42,12 @@
             
           <!-- </div> -->
           <div *ngIf="replyShow && qID==qA[0].id">
-            <div fxLayout="row">
-            <div contenteditable="true" class="replyInput" placeholder="Write a reply..." #reply></div>
+            <!-- <div fxLayout="row"> -->
+            <!-- <div contenteditable="true" class="replyInput" placeholder="Write a reply..." #reply></div> -->
+            <div [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
             <div ><button class="replyButton" (click)="replying()" mat-button>Reply</button> </div>
 
-          </div>
+          <!-- </div> -->
 
           </div>
         </div>
@@ -70,8 +71,14 @@
                   
                   <!-- <div fxFlex.xl=0 fxFlex.lg=0 fxFlex.md=0 fxFlex.sm=5 fxFlex.xs=5></div> -->
                   <div fxFlex=10 matTooltip="Average Rating" class="averageRate">{{averageRating(qA[0].rate)}}</div>
-                  <mat-icon matTooltip="View {{viewReplies(qA[0])}} replies" class="downIcon" *ngIf="open==true" (click)="open = !open">keyboard_arrow_down</mat-icon>
-                  <mat-icon matTooltip="Hide {{viewReplies(qA[0])}} replies" class="downIcon" *ngIf="open==false" (click)="open = !open">keyboard_arrow_up</mat-icon>
+                  <div fxLayout="row">
+                    <mat-icon matTooltip="View {{viewReplies(qA[0])}} replies" class="downIcon" *ngIf="open==true" (click)="open = !open">keyboard_arrow_down</mat-icon>
+                    <!-- <div class="replyCounts" *ngIf="open==true">View {{viewReplies(qA[0])}} replies</div> -->
+                  </div>
+                  <div fxLayout="row">
+                    <mat-icon matTooltip="Hide {{viewReplies(qA[0])}} replies" class="downIcon" *ngIf="open==false" (click)="open = !open">keyboard_arrow_up</mat-icon>
+                    <!-- <div class="replyCounts" *ngIf="open==false">Hide {{viewReplies(qA[0])}} replies</div> -->
+                  </div>
                 </div>
         </div>
       </div>
@@ -82,7 +89,7 @@
 
   
   <div style="margin-left: 120px" class="replyDiv" *ngFor="let item of qA">
-    <div *ngIf="item.parentId==qA[0].id && open==false" fxFlex="row">
+    <div *ngIf="item.parentId==qA[0].id && open==false && item.isApproved==true" fxFlex="row">
       <div>
         <div fxFlex.xs=20 fxFlex.sm=15 fxFlex.md=10 fxFlex.lg=5 fxFlex.xl=5>
           <button [ngStyle]="{'background-image':'url(' +img+item.user.imageUrl+ ')','background-size':'cover'}" mat-mini-fab></button>
@@ -91,14 +98,15 @@
           <span class="userName">{{item.user.firstName | titlecase}} {{item.user.lastName | titlecase}}</span>
           <span class="date">{{item.modifiedDate | date:'medium'}}</span>
           <div fxLayout="column">
+            
             <div class="reply" [innerHTML]="item.message"></div>
             
           <!-- </div> -->
           <div *ngIf="replyShow && qID==item.id">
-            <div fxLayout="row">
-            <div contenteditable="true" class="replyInput" placeholder="Write a reply..." #reply></div>
+            <!-- <div fxLayout="row"> -->
+              <div [froalaEditor] [(froalaModel)]="editorContent"></div>
             <div><button class="replyButton" (click)="replying()" mat-button>Reply</button> </div>
-          </div>
+          <!-- </div> -->
           </div>
         </div>
         <div fxLayout="row">
@@ -121,8 +129,14 @@
                     <!-- <div fxFlex.md=10></div> -->
                     <div fxFlex.xl=0 fxFlex.lg=0 fxFlex.md=0 fxFlex.sm=0 fxFlex.xs=0></div>
                     <div fxFlex=10 class="averageRate">{{averageRating(item.rate)}}</div>
-                    <mat-icon matTooltip=" View {{viewReplies(item)}} replies" class="downIcon" *ngIf="down==true" (click)="replyDown(item.id)">keyboard_arrow_down</mat-icon>
-                    <mat-icon matTooltip=" Hide {{viewReplies(item)}} replies" class="downIcon" *ngIf="down==false" (click)="replyDown(item.id)">keyboard_arrow_up</mat-icon>
+                    <div fxLayout="row">
+                      <mat-icon matTooltip="View {{viewReplies(item)}} replies" class="downIcon" *ngIf="down==true" (click)="replyDown(item.id)">keyboard_arrow_down</mat-icon>
+                      <div class="replyCounts" *ngIf="down==true">View {{viewReplies(item)}} replies</div>
+                    </div>
+                    <div fxLayout="row">
+                      <mat-icon matTooltip="Hide {{viewReplies(item)}} replies" class="downIcon" *ngIf="down==false" (click)="replyDown(item.id)">keyboard_arrow_up</mat-icon>
+                      <div class="replyCounts" *ngIf="down==false">Hide {{viewReplies(item)}} replies</div>
+                    </div>
                   </div>
           </div>
         </div>
@@ -134,7 +148,7 @@
 
       <div style="margin-left: 70px" class="replyDiv">
         <div *ngFor="let item2 of qA">
-          <div *ngIf="item2.parentId==item.id && down==false &&  rID==item.id">
+          <div *ngIf="item2.parentId==item.id && down==false &&  rID==item.id && item2.isApproved==true">
             <div fxFlex="row">
               <div fxFlex.xs=20 fxFlex.sm=15 fxFlex.md=10 fxFlex.lg=5 fxFlex.xl=5>
                 <button [ngStyle]="{'background-image':'url(' +img+item2.user.imageUrl+ ')','background-size':'cover'}" mat-mini-fab></button>

@@ -1,4 +1,4 @@
-<div class="note" fxLayout="row wrap" fxLayoutAlign="space-evenly start">
+<div *ngIf="!load" class="note" fxLayout="row wrap" fxLayoutAlign="space-evenly start">
     <mat-card style="margin-top: 30px; border-radius: 10px" *ngFor="let notes of notes" 
                 [style.background]="notes.color">
         <div [ngClass]="{
@@ -22,4 +22,5 @@
         </div>
     </mat-card>
 </div>
-<!-- <app-note-collection [notesArray]="notes"></app-note-collection> -->
+
+<div  *ngIf="load" class="loader">Loading...</div>

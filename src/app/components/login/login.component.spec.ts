@@ -66,5 +66,17 @@ describe('LoginComponent', () => {
     el=fixture.debugElement.query(By.css('button')).nativeElement;
     el.click();
     expect(component.login).toHaveBeenCalledTimes(1);
-  }))
+  }));
+  it('canLogin returns false when the user is not authenticated', () => {
+    localStorage.setItem('token', '12345'); 
+    expect(component.login()).toBeFalsy();
+  });
+  
+  it('should expect some variables', ()=>{
+      expect(component.hide).toEqual(true);
+      expect(component.show).toEqual(true);
+
+  })
+  
+
 });

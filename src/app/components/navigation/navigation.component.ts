@@ -101,6 +101,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
       if (this.router.url == "/home/trash") {
       this.logoName = "trash"
       }
+      if (this.router.url == "/home/notes/:noteId/QuestionAndAnswers") {
+        this.logoName = "fundoo QnA" 
+      }
   }
  public logoName;
 

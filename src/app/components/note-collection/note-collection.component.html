@@ -122,12 +122,12 @@
              </app-add-archive>
              <app-more [noteDetails]="notes" (eventDelete)=nextDelete($event)></app-more>
            </div>
-   
-         </div><hr>
+         </div>
        <!-- </div> -->
-         <!-- <div>{{notes.questionAndAnswerNotes[0].message}}
-
-         </div> -->
+         <div *ngIf="notes.questionAndAnswerNotes.length>0">
+                <hr><div><b>Question Asked:</b></div>
+             <div [innerHTML]="notes.questionAndAnswerNotes[0].message"></div>
+         </div>
      </mat-card>
    
    </div>

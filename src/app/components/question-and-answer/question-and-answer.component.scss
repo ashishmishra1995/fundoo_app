@@ -3,6 +3,8 @@
 
 .mainCard{
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.568);
+    // height:250px;
+    // overflow: auto
     }
     .close_button{
     float:right;
@@ -42,13 +44,13 @@
     .replyInput{
         outline:none;
         border: 1px;
-        width:600px;
-        background: rgba(128, 128, 128, 0.103);
+        width:100%;
+        background: rgba(128, 128, 128, 0.041);
         height: fit-content;
-        border-bottom-left-radius: 15px;
-        border-bottom-right-radius: 15px;
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
     }
     .mainDiv{
         @include qNaOutlet;
@@ -110,6 +112,9 @@
           cursor: pointer;
       }
       .replyCounts{
-          @include fontSize(10px)
+          @include fontSize(10px);
+          margin-top: 5px;
       }
    
+
+      

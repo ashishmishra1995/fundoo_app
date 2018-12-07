@@ -1,3 +1,4 @@
 <div style="margin-top:20px">
-    <app-note-collection [notesArray]="reminder"></app-note-collection>
+    <app-note-collection *ngIf="!load" [notesArray]="reminder"></app-note-collection>
 </div>
+<div *ngIf="load" class="loader">Loading...</div>

@@ -32,6 +32,7 @@ export class ReminderComponent implements OnInit, OnDestroy {
   public reminder = [];
   public val1;
   public val2;
+  private load=true;
   getReminder() {
 
     var token = localStorage.getItem('token');
@@ -41,7 +42,7 @@ export class ReminderComponent implements OnInit, OnDestroy {
     
       this.reminder = result['data'].data;
       this.reminder.sort(this.sortFunc)
-      
+      this.load=false;
       
     }, error => {
      

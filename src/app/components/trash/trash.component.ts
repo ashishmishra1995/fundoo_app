@@ -33,6 +33,7 @@ export class TrashComponent implements OnInit, OnDestroy {
       this.toggle=message;
     })
   }
+  private load=true;
   getDelNotes() {
     var token = localStorage.getItem('token');
     this.records = this.httpService.httpGetNote('notes/getTrashNotesList', token)
@@ -43,7 +44,7 @@ export class TrashComponent implements OnInit, OnDestroy {
           this.notes.push(result['data']['data'][i])
         }
       }
-
+      this.load=false;
     }, error => {
    
     });

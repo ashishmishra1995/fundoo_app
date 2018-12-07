@@ -40,6 +40,7 @@ import { ChecklistModule } from "angular-checklist";
 import { ImageCropperModule } from "ngx-image-cropper";
 import { RatingModule } from "ngx-rating";
 import { BarRatingModule } from "ngx-bar-rating";
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 
 import { HomeComponent } from '@components/home/home.component';
@@ -159,7 +160,9 @@ import { QuestionAndAnswerComponent } from './components/question-and-answer/que
     MatNativeDateModule,
     ImageCropperModule,
     RatingModule,
-    BarRatingModule
+    BarRatingModule,
+    FroalaEditorModule.forRoot(), 
+    FroalaViewModule.forRoot()
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

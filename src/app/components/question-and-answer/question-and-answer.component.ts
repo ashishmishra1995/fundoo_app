@@ -35,8 +35,8 @@ export class QuestionAndAnswerComponent implements OnInit {
   private data;
   private likeCount;
   private questions;
-  // private qNa=[];
   private qA;
+  private editorContent;
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -54,19 +54,43 @@ export class QuestionAndAnswerComponent implements OnInit {
         this.question= response['data']['data'][0].questionAndAnswerNotes[0].message;
       }
       this.questions= response['data']['data'][0].questionAndAnswerNotes[0];
-      // if(this.questions['rate'].length!=0){
-      //   this.rateBody.rate= this.questions.rate[0].rate;
-      // }
       this.owner= response['data']['data'][0].user;
       this.img= environment.apiUrl;
       this.firstName= this.owner.firstName;
       this.lastName= this.owner.lastName;
       this.date=response['data']['data'][0].modifiedDate;
-      // this.data= response['data']['data'][0].questionAndAnswerNotes[0].id;
-      // for(let i=1; i<this.qA.length; i++){
-      //   this.qNa.push(this.qA[i])
-      // }
-  
+    
+    })
+  }
+  public options: Object = {
+    charCounterCount: true,
+    toolbarButtons: ['undo', 'redo' , '|', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent', 'clearFormatting'],
+    toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+  };
+  getNoteDetails(){
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.noteId = params['noteId'];
+    });
+    this.noteService.getNoteDetails(this.noteId).subscribe(response=>{
+      LoggerService.log("noteId: ", this.noteId);
+      LoggerService.log("noteDetails: ", response);
+      this.title= response['data']['data'][0].title;
+      this.description= response['data']['data'][0].description;
+      this.show= response['data']['data'][0].questionAndAnswerNotes.length;
+      this.qA= response['data']['data'][0].questionAndAnswerNotes;
+      LoggerService.log("qa: ", this.qA);
+      if(this.show!=0){
+        this.question= response['data']['data'][0].questionAndAnswerNotes[0].message;
+      }
+      this.questions= response['data']['data'][0].questionAndAnswerNotes[0];
+      this.owner= response['data']['data'][0].user;
+      this.img= environment.apiUrl;
+      this.firstName= this.owner.firstName;
+      this.lastName= this.owner.lastName;
+      this.date=response['data']['data'][0].modifiedDate;
+    
     })
   }
   close(){
@@ -79,6 +103,7 @@ export class QuestionAndAnswerComponent implements OnInit {
       "notesId": this.noteId
     }
     this.noteService.addQuestionAndAnswer(requestBody).subscribe(result=>{
+      this.getNoteDetails();
       LoggerService.log("QnA added: ", result);
     })
   }
@@ -88,6 +113,7 @@ export class QuestionAndAnswerComponent implements OnInit {
       "like":true
     }
     this.noteService.likeQnA(data.id,requestBody).subscribe(response=>{
+      this.getNoteDetails();
       LoggerService.log("like: ", response);
       this.likeCount=response['data']['details'].count;
 
@@ -105,6 +131,7 @@ export class QuestionAndAnswerComponent implements OnInit {
     LoggerService.log("rating count: ", reqBody.rate);
 
     this.noteService.ratingQnA(data.id, reqBody).subscribe(result=>{
+      this.getNoteDetails();
       LoggerService.log("rate: ", result);
     })
   }
@@ -121,11 +148,13 @@ export class QuestionAndAnswerComponent implements OnInit {
   
   replying(){
     let replyRequest={
-      "message":this.answerReply.nativeElement.innerHTML
+      "message":this.editorContent
     }
     this.noteService.replyQnA(this.qID, replyRequest).subscribe(response=>{
+      this.getNoteDetails();
       LoggerService.log("reply response: ", response);
-
+      this.replyShow=!this.replyShow;
+      this.editorContent="";
     })
   }
   private rate;
